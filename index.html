@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NFR AI Assets — Accenture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --purple:       #A100FF;
+  --purple-600:   #8A15E0;
+  --violet-deep:  #3D0066;
+  --violet-black: #160029;
+  --ink:          #1A1330;
+  --pink:         #FF50C8;
+  --surface:      #F6F3FB;
+  --surface-2:    #EEE8F7;
+  --line:         #E3DAF0;
+  --white:        #FFFFFF;
+  --muted:        #726A85;
+  --muted-2:      #9A93AC;
+  --shadow-sm: 0 1px 3px rgba(22,0,41,.06), 0 4px 14px rgba(22,0,41,.05);
+  --shadow-md: 0 6px 30px rgba(61,0,102,.12);
+  --shadow-lg: 0 20px 60px rgba(61,0,102,.24);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--surface);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+h1,h2,h3 { font-family: 'Space Grotesk', Inter, sans-serif; letter-spacing: -.02em; }
+
+/* ── HERO ───────────────────────────────────────────────── */
+.hero {
+  background: radial-gradient(130% 130% at 75% -15%, #5A0C93 0%, var(--violet-black) 58%);
+  padding: 80px 56px 88px;
+  position: relative; overflow: hidden;
+}
+.hero-bg-chev {
+  position: absolute; right: -80px; top: 50%;
+  transform: translateY(-50%); opacity: .07; pointer-events: none;
+}
+.hero-bg-chev svg { width: 680px; height: 680px; }
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--pink);
+  margin-bottom: 22px; display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { content: ''; width: 18px; height: 2px; background: var(--pink); display: block; flex-shrink: 0; }
+.hero h1 {
+  font-size: clamp(38px, 5vw, 60px); font-weight: 700;
+  line-height: 1.05; color: #fff; max-width: 18ch; margin-bottom: 20px;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(90deg, #C77BFF, #FF50C8);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  font-size: 17px; color: rgba(255,255,255,.62);
+  max-width: 54ch; line-height: 1.6; margin-bottom: 40px;
+}
+.hero-stats { display: flex; gap: 44px; flex-wrap: wrap; }
+.hero-stat { border-left: 2px solid var(--purple); padding-left: 16px; }
+.hero-stat b {
+  display: block; font-family: 'Space Grotesk', sans-serif;
+  font-size: 30px; font-weight: 700; color: #fff; line-height: 1;
+}
+.hero-stat span { font-size: 12px; color: var(--muted-2); margin-top: 3px; display: block; }
+
+/* ── MAIN GRID ──────────────────────────────────────────── */
+.main { max-width: 1200px; margin: 0 auto; padding: 60px 40px 100px; }
+
+.grid-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--purple);
+  display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+}
+.grid-eyebrow::before { content: ''; width: 16px; height: 2px; background: var(--purple); display: block; flex-shrink: 0; }
+.grid-title { font-size: 30px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+.grid-lead {
+  font-size: 15px; color: var(--muted); line-height: 1.6;
+  max-width: 68ch; margin-bottom: 44px;
+}
+
+/* ── ASSET CARDS ────────────────────────────────────────── */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+@media (max-width: 980px)  { .cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px)  { .cards { grid-template-columns: 1fr; } }
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  transition: transform .22s ease, box-shadow .22s ease;
+  position: relative;
+}
+.card:hover:not(.coming-soon) {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+.card.coming-soon { opacity: .62; }
+
+/* top accent stripe */
+.card-stripe {
+  height: 4px;
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+}
+.card-stripe.green  { background: linear-gradient(90deg, #22C58B, #0EA5E9); }
+.card-stripe.teal   { background: linear-gradient(90deg, #0891B2, #8A15E0); }
+.card-stripe.amber  { background: linear-gradient(90deg, #F5B301, #FF7A3D); }
+
+.card-body { padding: 28px 28px 20px; flex: 1; display: flex; flex-direction: column; }
+
+/* icon */
+.card-icon {
+  width: 50px; height: 50px; border-radius: 14px;
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px; flex-shrink: 0;
+}
+.card-icon svg { width: 26px; height: 26px; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+/* tags */
+.card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 20px;
+  background: var(--surface-2); color: var(--purple-600);
+  border: 1px solid var(--line);
+}
+.tag.locked { background: rgba(245,179,1,.12); color: #9A6500; border-color: rgba(245,179,1,.3); }
+.tag.preview { background: rgba(255,80,200,.10); color: #B0177F; border-color: rgba(255,80,200,.25); }
+
+.card-title { font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 10px; line-height: 1.2; }
+.card-desc { font-size: 13.5px; color: var(--muted); line-height: 1.6; flex: 1; }
+
+/* meta row */
+.card-meta {
+  margin-top: 22px; padding-top: 16px;
+  border-top: 1px solid var(--line);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.author { display: flex; align-items: center; gap: 9px; flex: 1; min-width: 0; }
+.author-av {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700; color: #fff;
+}
+.av-tz { background: linear-gradient(135deg, var(--violet-deep), var(--purple)); }
+.av-jj { background: linear-gradient(135deg, #0891B2, #7C3AED); }
+.author-info { min-width: 0; }
+.author-name { font-size: 12.5px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.author-role { font-size: 11px; color: var(--muted); }
+
+.card-badges { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
+.badge-v {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
+  padding: 3px 8px; border-radius: 6px;
+  background: var(--surface-2); color: var(--purple-600);
+  border: 1px solid var(--line); white-space: nowrap;
+}
+.badge-time {
+  display: flex; align-items: center; gap: 4px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted);
+  white-space: nowrap;
+}
+.badge-time svg { width: 11px; height: 11px; stroke: var(--muted); fill: none; flex-shrink: 0; }
+
+/* CTA button */
+.card-footer { padding: 0 28px 24px; }
+.open-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 12px 0; border-radius: 11px;
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+  cursor: pointer; text-decoration: none; border: none;
+  background: linear-gradient(135deg, var(--violet-deep), var(--purple));
+  color: #fff;
+  transition: filter .15s, transform .15s;
+}
+.open-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.open-btn svg { width: 15px; height: 15px; stroke: #fff; fill: none; stroke-width: 2.2; stroke-linecap: round; }
+.open-btn.disabled {
+  background: var(--surface-2); color: var(--muted-2);
+  cursor: default; pointer-events: none; border: 1px solid var(--line); filter: none; transform: none;
+}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+footer {
+  text-align: center; padding: 28px 24px 40px;
+  border-top: 1px solid var(--line);
+  font-size: 12px; color: var(--muted-2); line-height: 1.7;
+}
+footer .chev-ic { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+footer .chev-ic svg { width: 14px; height: 14px; vertical-align: middle; }
+footer a { color: var(--purple-600); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- ════ HERO ════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-bg-chev">
+    <svg viewBox="0 0 100 100" fill="none">
+      <path d="M20 12 L60 50 L20 88 M45 12 L85 50 L45 88" stroke="#fff" stroke-width="7"/>
+    </svg>
+  </div>
+  <div class="hero-eyebrow">Accenture &middot; NFR Practice</div>
+  <h1>NFR <em>AI Assets</em></h1>
+  <p class="hero-sub">A curated collection of AI-powered tools and blueprints for Non-Financial Risk management &mdash; built by the Accenture NFR practice to accelerate client engagements.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><b>4</b><span>assets published</span></div>
+    <div class="hero-stat"><b>2</b><span>contributors</span></div>
+    <div class="hero-stat"><b>L1&ndash;L5</b><span>maturity coverage</span></div>
+  </div>
+</header>
+
+<!-- ════ CARD GRID ═══════════════════════════════════════ -->
+<main class="main">
+  <div class="grid-eyebrow">Published assets</div>
+  <h2 class="grid-title">Browse the collection</h2>
+  <p class="grid-lead">Each asset is independently deployable and follows the same Accenture NFR design language and taxonomy. Click any card to open the asset.</p>
+
+  <div class="cards">
+
+    <!-- ── ICS Cockpit ─────────────────────────────────── -->
+    <div class="card">
+      <div class="card-stripe"></div>
+      <div class="card-body">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" stroke="var(--purple-600)" stroke-width="1.7">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+            <path d="M14 17.5h7M17.5 14v7"/>
+          </svg>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Implementation Guide</span>
+          <span class="tag">Financial Services</span>
+        </div>
+        <div class="card-title">ICS Cockpit</div>
+        <div class="card-desc">End-to-end AI implementation blueprint for an Internal Control System dashboard. Five maturity levels (L1&ndash;L5), full Azure stack, animated data flow, ROI model, and 28-week delivery roadmap.</div>
+        <div class="card-meta">
+          <div class="author">
+            <div class="author-av av-tz">TZ</div>
+            <div class="author-info">
+              <div class="author-name">Thomas Zijlstra</div>
+              <div class="author-role">Accenture</div>
+            </div>
+          </div>
+          <div class="card-badges">
+            <span class="badge-v">v1.4</span>
+            <span class="badge-time">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+              <span data-ts="2026-07-21T16:09:59Z">21 Jul 2026</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="open-btn" href="https://tzijlstra-acn.github.io/AIDataProcessing/" target="_blank" rel="noopener">
+          Open asset
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── AI Cost Simulator ───────────────────────────── -->
+    <div class="card">
+      <div class="card-stripe green"></div>
+      <div class="card-body">
+        <div class="card-icon" style="background:rgba(34,197,139,.1);">
+          <svg viewBox="0 0 24 24" stroke="#1A7A52" stroke-width="1.7">
+            <path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/>
+          </svg>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Cost Estimation</span>
+          <span class="tag">Azure OpenAI</span>
+        </div>
+        <div class="card-title">AI Cost Simulator</div>
+        <div class="card-desc">Interactive cost estimation and scenario modelling for Azure OpenAI deployments. Configure model selection, usage patterns and workload mix to calculate total cost of ownership.</div>
+        <div class="card-meta">
+          <div class="author">
+            <div class="author-av av-tz">TZ</div>
+            <div class="author-info">
+              <div class="author-name">Thomas Zijlstra</div>
+              <div class="author-role">Accenture</div>
+            </div>
+          </div>
+          <div class="card-badges">
+            <span class="badge-v">v1.0</span>
+            <span class="badge-time">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+              <span data-ts="2026-07-03T07:10:05Z">3 Jul 2026</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="open-btn" href="https://tzijlstra-acn.github.io/AICostSimulator/" target="_blank" rel="noopener" style="background:linear-gradient(135deg,#1A7A52,#22C58B);">
+          Open asset
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── NFR Architecture ────────────────────────────── -->
+    <div class="card">
+      <div class="card-stripe teal"></div>
+      <div class="card-body">
+        <div class="card-icon" style="background:rgba(8,145,178,.1);">
+          <svg viewBox="0 0 24 24" stroke="#0891B2" stroke-width="1.7">
+            <rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/>
+            <rect x="9" y="15" width="6" height="6" rx="1"/>
+            <path d="M6 9v3a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/>
+          </svg>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Architecture</span>
+          <span class="tag locked">&#128274; Password protected</span>
+        </div>
+        <div class="card-title">NFR Architecture</div>
+        <div class="card-desc">Comprehensive architectural reference for Non-Financial Risk management &mdash; regulatory framework mapping, risk taxonomy, DORA compliance architecture, and technology stack guidance.</div>
+        <div class="card-meta">
+          <div class="author">
+            <div class="author-av av-jj">JJ</div>
+            <div class="author-info">
+              <div class="author-name">Janik Jugl</div>
+              <div class="author-role">Accenture</div>
+            </div>
+          </div>
+          <div class="card-badges">
+            <span class="badge-v">v1.0</span>
+            <span class="badge-time">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+              <span data-ts="2026-06-15T00:00:00Z">15 Jun 2026</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="open-btn" href="https://janikjugl.github.io/NFR-Architecture/" target="_blank" rel="noopener" style="background:linear-gradient(135deg,#0891B2,#7C3AED);" title="Password: Studio2026">
+          Open &mdash; pw: Studio2026
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── NFR Agent Platform (preview) ───────────────── -->
+    <div class="card coming-soon">
+      <div class="card-stripe amber"></div>
+      <div class="card-body">
+        <div class="card-icon" style="background:rgba(245,179,1,.1);">
+          <svg viewBox="0 0 24 24" stroke="#9A6500" stroke-width="1.7">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
+          </svg>
+        </div>
+        <div class="card-tags">
+          <span class="tag preview">Preview</span>
+          <span class="tag">Agent Platform</span>
+          <span class="tag">Concept</span>
+        </div>
+        <div class="card-title">NFR Agent Platform</div>
+        <div class="card-desc">Agentic AI platform for Non-Financial Risk &mdash; from fragmented manual processes to continuous board-level steering. Orchestrator + specialised execution agents for RCSA, TPRM, IT-risk and BCM, with human-in-the-loop approval.</div>
+        <div class="card-meta">
+          <div class="author">
+            <div class="author-av av-tz">TZ</div>
+            <div class="author-info">
+              <div class="author-name">Thomas Zijlstra</div>
+              <div class="author-role">Accenture</div>
+            </div>
+          </div>
+          <div class="card-badges">
+            <span class="badge-v" style="color:var(--muted);">Preview</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="open-btn disabled" aria-disabled="true">
+          Coming soon
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /cards -->
+</main>
+
+<!-- ════ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <div class="chev-ic">
+    <svg viewBox="0 0 100 100" fill="none">
+      <path d="M20 12 L60 50 L20 88 L34 88 L74 50 L34 12 Z" fill="var(--purple)"/>
+    </svg>
+    Accenture NFR Practice
+  </div>
+  <br>
+  NFR AI Assets &middot; <a href="https://github.com/tzijlstra-acn/NFRAIAssets" target="_blank" rel="noopener">github.com/tzijlstra-acn/NFRAIAssets</a>
+</footer>
+
+<script>
+// Relative timestamps
+(function () {
+  var now = Date.now();
+  document.querySelectorAll('[data-ts]').forEach(function (el) {
+    var d = new Date(el.dataset.ts).getTime();
+    var diff = Math.round((now - d) / 86400000);
+    if (diff <= 0)       el.textContent = 'today';
+    else if (diff === 1) el.textContent = 'yesterday';
+    else if (diff < 7)   el.textContent = diff + ' days ago';
+    else if (diff < 30)  el.textContent = Math.floor(diff / 7) + (Math.floor(diff/7) === 1 ? ' week ago' : ' weeks ago');
+    else {
+      el.textContent = new Date(el.dataset.ts)
+        .toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+  });
+}());
+</script>
+</body>
+</html>
