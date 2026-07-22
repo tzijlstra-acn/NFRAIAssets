@@ -49,11 +49,11 @@ h1,h2,h3 { font-family: 'Space Grotesk', Inter, sans-serif; letter-spacing: -.02
 .hero-eyebrow::before { content: ''; width: 18px; height: 2px; background: var(--pink); display: block; flex-shrink: 0; }
 .hero h1 { font-size: clamp(42px, 5.5vw, 66px); font-weight: 700; line-height: 1.03; color: #fff; max-width: 16ch; margin-bottom: 22px; position: relative; }
 .hero h1 em { font-style: normal; background: linear-gradient(90deg, #C77BFF 10%, #FF50C8 90%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-.hero-sub { font-size: 17px; color: rgba(255,255,255,.58); max-width: 52ch; line-height: 1.65; margin-bottom: 48px; position: relative; }
+.hero-sub { font-size: 17px; color: rgba(255,255,255,.68); max-width: 52ch; line-height: 1.65; margin-bottom: 48px; position: relative; }
 .hero-stats { display: flex; gap: 40px; flex-wrap: wrap; position: relative; }
 .hero-stat { border-left: 2px solid rgba(161,0,255,.6); padding-left: 18px; }
 .hero-stat b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: #fff; line-height: 1; }
-.hero-stat span { font-size: 12px; color: rgba(255,255,255,.38); margin-top: 4px; display: block; letter-spacing: .02em; }
+.hero-stat span { font-size: 12px; color: rgba(255,255,255,.54); margin-top: 4px; display: block; letter-spacing: .02em; }
 
 /* ── MAIN ── */
 .main { max-width: 1240px; margin: 0 auto; padding: 64px 48px 110px; }
@@ -75,6 +75,13 @@ h1,h2,h3 { font-family: 'Space Grotesk', Inter, sans-serif; letter-spacing: -.02
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 @media (max-width: 1040px) { .cards { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px)  { .cards { grid-template-columns: 1fr; } }
+@media (max-width: 680px) {
+  .hero { padding: 60px 22px 64px; }
+  .main { padding: 44px 22px 84px; }
+  .hero-stats { gap: 26px; }
+  .card-footer { padding: 0 22px 22px; }
+  .card-body { padding: 24px 22px 16px; }
+}
 
 .card {
   background: var(--white); border: 1px solid var(--line); border-radius: 22px;
@@ -83,10 +90,11 @@ h1,h2,h3 { font-family: 'Space Grotesk', Inter, sans-serif; letter-spacing: -.02
   transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
 }
 .card:hover:not(.coming-soon) { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(161,0,255,.2); }
-.card.coming-soon { opacity: .72; }
+.card.coming-soon { border-style: dashed; border-color: rgba(245,179,1,.5); background: linear-gradient(180deg, #fff 0%, #FFFCF3 100%); box-shadow: none; }
+.card.coming-soon .card-title { color: var(--muted); }
 
 .card-stripe       { height: 4px; flex-shrink: 0; background: linear-gradient(90deg, var(--purple), var(--pink)); }
-.card-stripe.green { background: linear-gradient(90deg, #22C58B, #0EA5E9); }
+.card-stripe.green { background: linear-gradient(90deg, #1A7A52, #22C58B); }
 .card-stripe.teal  { background: linear-gradient(90deg, #0891B2, #8A15E0); }
 .card-stripe.amber { background: linear-gradient(90deg, #F5B301, #FF7A3D); }
 
@@ -121,7 +129,8 @@ h1,h2,h3 { font-family: 'Space Grotesk', Inter, sans-serif; letter-spacing: -.02
   z-index: 10;
   color: #fff;
 }
-.card:hover:not(.coming-soon) .card-peek { transform: translateY(0); }
+.card:hover:not(.coming-soon) .card-peek,
+.card:focus-within:not(.coming-soon) .card-peek { transform: translateY(0); }
 
 /* peek background matches card accent */
 .card-peek.peek-purple { background: linear-gradient(160deg, #3D0066 0%, #1A003A 100%); }
@@ -192,25 +201,25 @@ footer a:hover { text-decoration: underline; }
 <body>
 
 <header class="hero">
-  <div class="hero-bg-chev"><svg viewBox="0 0 100 100" fill="none"><path d="M20 12 L60 50 L20 88 M45 12 L85 50 L45 88" stroke="#fff" stroke-width="7"/></svg></div>
+  <div class="hero-bg-chev" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none"><path d="M20 12 L60 50 L20 88 M45 12 L85 50 L45 88" stroke="#fff" stroke-width="7"/></svg></div>
   <div class="hero-eyebrow">Accenture &middot; NFR Practice</div>
   <h1>NFR <em>AI Assets</em></h1>
   <p class="hero-sub">A curated collection of AI-powered tools and blueprints for Non-Financial Risk management &mdash; built by the Accenture NFR practice to accelerate client engagements.</p>
   <div class="hero-stats">
-    <div class="hero-stat"><b>4</b><span>assets published</span></div>
-    <div class="hero-stat"><b>6</b><span>experts</span></div>
+    <div class="hero-stat"><b>3</b><span>live assets</span></div>
+    <div class="hero-stat"><b>6</b><span>practice experts</span></div>
     <div class="hero-stat"><b>L1&ndash;L5</b><span>maturity coverage</span></div>
   </div>
 </header>
 
 <main class="main">
-  <div class="grid-eyebrow">Published assets</div>
+  <div class="grid-eyebrow">The collection</div>
   <h2 class="grid-title">Browse the collection</h2>
   <p class="grid-lead">Hover any card to preview what it covers. Click to open the asset &mdash; each is independently deployable and follows the Accenture NFR design language.</p>
 
   <div class="pw-banner">
-    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-    All assets are access-code protected. For access, contact the author of the respective asset.
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Every asset is protected by an access code. To request one, email the asset&rsquo;s author &mdash; listed on each card below.
   </div>
 
   <div class="cards">
@@ -220,7 +229,7 @@ footer a:hover { text-decoration: underline; }
       <div class="card-stripe"></div>
       <div class="card-body">
         <div class="card-icon">
-          <svg viewBox="0 0 24 24" stroke="var(--purple-600)" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/></svg>
+          <svg viewBox="0 0 24 24" stroke="var(--purple-600)" stroke-width="1.7" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/></svg>
         </div>
         <div class="card-tags">
           <span class="tag live">&#9679; Live</span>
@@ -230,7 +239,7 @@ footer a:hover { text-decoration: underline; }
         <div class="card-title">ICS Implementation Blueprint</div>
         <div class="card-desc">Understand the full journey from manual control monitoring to AI-driven ICS &mdash; with a business case, phased roadmap, and team blueprint calibrated to your maturity level.</div>
         <div class="card-hint">
-          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           Hover to preview
         </div>
         <div class="card-meta">
@@ -247,6 +256,10 @@ footer a:hover { text-decoration: underline; }
                 <div class="expert-name">Oliver Moine</div>
               </div>
               <div class="expert">
+                <a class="expert-av av-jj" href="mailto:janik.jugl@accenture.com" title="Email Janik Jugl">JJ<img src="assets/janik-jugl.jpg" alt="Janik Jugl" onerror="this.style.display='none'"></a>
+                <div class="expert-name">Janik Jugl</div>
+              </div>
+              <div class="expert">
                 <a class="expert-av av-nj" href="mailto:nicola.jenni@accenture.com" title="Email Nicola Jenni">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Nicola Jenni</div>
               </div>
@@ -254,7 +267,7 @@ footer a:hover { text-decoration: underline; }
           </div>
           <div class="meta-badges-row">
             <span class="badge-v">v1.4</span>
-            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-07-21T16:09:59Z"></span></span>
+            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-07-21T16:09:59Z"></span></span>
           </div>
         </div>
 
@@ -307,7 +320,7 @@ footer a:hover { text-decoration: underline; }
         </div>
       </div>
       <div class="card-footer">
-        <a class="open-btn" href="https://tzijlstra-acn.github.io/AIDataProcessing/" target="_blank" rel="noopener">Open asset<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="open-btn" href="https://tzijlstra-acn.github.io/AIDataProcessing/" target="_blank" rel="noopener" aria-label="Open ICS Implementation Blueprint (opens in a new tab)">Open asset<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
 
@@ -315,8 +328,8 @@ footer a:hover { text-decoration: underline; }
     <div class="card">
       <div class="card-stripe green"></div>
       <div class="card-body">
-        <div class="card-icon" style="background:rgba(34,197,139,.1);">
-          <svg viewBox="0 0 24 24" stroke="#1A7A52" stroke-width="1.7"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+        <div class="card-icon" style="background:rgba(26,122,82,.12);">
+          <svg viewBox="0 0 24 24" stroke="#1A7A52" stroke-width="1.7" aria-hidden="true" focusable="false"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
         </div>
         <div class="card-tags">
           <span class="tag live">&#9679; Live</span>
@@ -326,7 +339,7 @@ footer a:hover { text-decoration: underline; }
         <div class="card-title">AI Cost Simulator</div>
         <div class="card-desc">Build a credible AI business case in minutes. Model deployment costs, compare scenarios, and walk into a client conversation with a defensible TCO across model selection and workload mix.</div>
         <div class="card-hint">
-          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           Hover to preview
         </div>
         <div class="card-meta">
@@ -343,6 +356,10 @@ footer a:hover { text-decoration: underline; }
                 <div class="expert-name">Oliver Moine</div>
               </div>
               <div class="expert">
+                <a class="expert-av av-jj" href="mailto:janik.jugl@accenture.com" title="Email Janik Jugl">JJ<img src="assets/janik-jugl.jpg" alt="Janik Jugl" onerror="this.style.display='none'"></a>
+                <div class="expert-name">Janik Jugl</div>
+              </div>
+              <div class="expert">
                 <a class="expert-av av-nj" href="mailto:nicola.jenni@accenture.com" title="Email Nicola Jenni">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Nicola Jenni</div>
               </div>
@@ -350,7 +367,7 @@ footer a:hover { text-decoration: underline; }
           </div>
           <div class="meta-badges-row">
             <span class="badge-v">v1.0</span>
-            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-07-03T07:10:05Z"></span></span>
+            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-07-03T07:10:05Z"></span></span>
           </div>
         </div>
 
@@ -393,7 +410,7 @@ footer a:hover { text-decoration: underline; }
         </div>
       </div>
       <div class="card-footer">
-        <a class="open-btn" href="https://tzijlstra-acn.github.io/AICostSimulator/" target="_blank" rel="noopener" style="background:linear-gradient(135deg,#1A7A52,#22C58B);">Open asset<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="open-btn" href="https://tzijlstra-acn.github.io/AICostSimulator/" target="_blank" rel="noopener" aria-label="Open AI Cost Simulator (opens in a new tab)" style="background:linear-gradient(135deg,#14603F,#1A7A52);">Open asset<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
 
@@ -402,7 +419,7 @@ footer a:hover { text-decoration: underline; }
       <div class="card-stripe teal"></div>
       <div class="card-body">
         <div class="card-icon" style="background:rgba(8,145,178,.1);">
-          <svg viewBox="0 0 24 24" stroke="#0891B2" stroke-width="1.7"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M6 9v3a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/></svg>
+          <svg viewBox="0 0 24 24" stroke="#0891B2" stroke-width="1.7" aria-hidden="true" focusable="false"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M6 9v3a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/></svg>
         </div>
         <div class="card-tags">
           <span class="tag live">&#9679; Live</span>
@@ -412,7 +429,7 @@ footer a:hover { text-decoration: underline; }
         <div class="card-title">NFR Architecture</div>
         <div class="card-desc">Accelerate architecture decisions for NFR modernisation. Navigate DORA, Basel IV and SREP with a ready-made reference architecture &mdash; from risk taxonomy to technology stack and vendor evaluation.</div>
         <div class="card-hint">
-          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           Hover to preview
         </div>
         <div class="card-meta">
@@ -440,7 +457,7 @@ footer a:hover { text-decoration: underline; }
           </div>
           <div class="meta-badges-row">
             <span class="badge-v">v1.0</span>
-            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-06-15T00:00:00Z"></span></span>
+            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-06-15T00:00:00Z"></span></span>
           </div>
         </div>
 
@@ -489,7 +506,7 @@ footer a:hover { text-decoration: underline; }
         </div>
       </div>
       <div class="card-footer">
-        <a class="open-btn" href="https://janikjugl.github.io/NFR-Architecture/" target="_blank" rel="noopener" style="background:linear-gradient(135deg,#0891B2,#7C3AED);">Open asset<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="open-btn" href="https://janikjugl.github.io/NFR-Architecture/" target="_blank" rel="noopener" aria-label="Open NFR Architecture (opens in a new tab)" style="background:linear-gradient(135deg,#0891B2,#7C3AED);">Open asset<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
 
@@ -498,10 +515,10 @@ footer a:hover { text-decoration: underline; }
       <div class="card-stripe amber"></div>
       <div class="card-body">
         <div class="card-icon" style="background:rgba(245,179,1,.1);">
-          <svg viewBox="0 0 24 24" stroke="#9A6500" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+          <svg viewBox="0 0 24 24" stroke="#9A6500" stroke-width="1.7" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
         </div>
         <div class="card-tags">
-          <span class="tag preview">Preview</span>
+          <span class="tag preview">Coming soon</span>
           <span class="tag">Agentic AI</span>
         </div>
         <div class="card-title">NFR Dashboard</div>
@@ -527,7 +544,7 @@ footer a:hover { text-decoration: underline; }
         </div>
       </div>
       <div class="card-footer">
-        <button class="open-btn disabled" aria-disabled="true">Coming soon<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></button>
+        <button class="open-btn disabled" aria-disabled="true" disabled>Coming soon<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></button>
       </div>
     </div>
 
@@ -535,8 +552,9 @@ footer a:hover { text-decoration: underline; }
 </main>
 
 <footer>
-  <div class="chev-ic"><svg viewBox="0 0 100 100" fill="none"><path d="M20 12 L60 50 L20 88 L34 88 L74 50 L34 12 Z" fill="var(--purple)"/></svg> Accenture NFR Practice</div><br>
-  NFR AI Assets &middot; <a href="https://github.com/tzijlstra-acn/NFRAIAssets" target="_blank" rel="noopener">github.com/tzijlstra-acn/NFRAIAssets</a>
+  <div class="chev-ic"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true" focusable="false"><path d="M20 12 L60 50 L20 88 L34 88 L74 50 L34 12 Z" fill="var(--purple)"/></svg> Accenture NFR Practice</div><br>
+  NFR AI Assets &middot; <a href="https://github.com/tzijlstra-acn/NFRAIAssets" target="_blank" rel="noopener">github.com/tzijlstra-acn/NFRAIAssets</a><br>
+  Internal enablement tool for Accenture use &middot; &copy; 2026 Accenture
 </footer>
 
 <script>
