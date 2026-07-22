@@ -9,550 +9,694 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --purple:       #A100FF;
-  --purple-600:   #8A15E0;
-  --violet-deep:  #3D0066;
-  --violet-black: #160029;
-  --ink:          #1A1330;
-  --pink:         #FF50C8;
-  --surface:      #F6F3FB;
-  --surface-2:    #EEE8F7;
-  --line:         #E3DAF0;
-  --white:        #FFFFFF;
-  --muted:        #726A85;
-  --muted-2:      #9A93AC;
-  --shadow-sm: 0 2px 6px rgba(22,0,41,.06), 0 6px 20px rgba(22,0,41,.06);
-  --shadow-md: 0 8px 36px rgba(61,0,102,.14);
-  --shadow-lg: 0 20px 60px rgba(61,0,102,.22);
+  --purple:      #A100FF;
+  --purple-600:  #8A15E0;
+  --violet-deep: #3D0066;
+  --violet-dark: #160029;
+  --ink:         #1A1330;
+  --pink:        #FF50C8;
+  --surface:     #F5F2FA;
+  --surface-2:   #EDE8F6;
+  --line:        #E2D9EF;
+  --white:       #FFFFFF;
+  --muted:       #726A85;
+  --muted-2:     #9A93AC;
+  --shadow-sm:   0 1px 4px rgba(22,0,41,.05), 0 4px 18px rgba(22,0,41,.07);
+  --shadow-lg:   0 16px 56px rgba(61,0,102,.20), 0 4px 16px rgba(61,0,102,.10);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { font-family: 'Inter', system-ui, sans-serif; background: var(--surface); color: var(--ink); -webkit-font-smoothing: antialiased; min-height: 100vh; }
-h1,h2,h3 { font-family: 'Space Grotesk', Inter, sans-serif; letter-spacing: -.02em; }
+h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
+
+/* ── PEEK ANIMATIONS (triggered when card is hovered) ── */
+@keyframes pkPulse { 0%,100% { opacity: .5 } 50% { opacity: 1 } }
+@keyframes pkFlow  { to { stroke-dashoffset: -8 } }
+.card:hover:not(.coming-soon) .pk-p { animation: pkPulse 2s ease-in-out infinite; }
+.card:hover:not(.coming-soon) .pk-f { animation: pkFlow .9s linear infinite; }
 
 /* ── HERO ── */
 .hero {
-  background: radial-gradient(140% 140% at 72% -10%, #600FA0 0%, #2A0050 45%, var(--violet-black) 70%);
-  padding: 90px 64px 96px; position: relative; overflow: hidden;
+  background: radial-gradient(140% 150% at 68% -12%, #5C0F9A 0%, #240048 48%, var(--violet-dark) 72%);
+  padding: 88px 64px 96px; position: relative; overflow: hidden;
 }
-/* subtle dot grid */
 .hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255,255,255,.055) 1px, transparent 1px);
   background-size: 28px 28px;
-  pointer-events: none;
 }
-.hero-bg-chev { position: absolute; right: -60px; top: 50%; transform: translateY(-50%); opacity: .08; pointer-events: none; }
-.hero-bg-chev svg { width: 700px; height: 700px; }
-.hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--pink); margin-bottom: 24px; display: flex; align-items: center; gap: 10px; position: relative; }
-.hero-eyebrow::before { content: ''; width: 18px; height: 2px; background: var(--pink); display: block; flex-shrink: 0; }
-.hero h1 { font-size: clamp(42px, 5.5vw, 66px); font-weight: 700; line-height: 1.03; color: #fff; max-width: 16ch; margin-bottom: 22px; position: relative; }
-.hero h1 em { font-style: normal; background: linear-gradient(90deg, #C77BFF 10%, #FF50C8 90%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-.hero-sub { font-size: 17px; color: rgba(255,255,255,.68); max-width: 52ch; line-height: 1.65; margin-bottom: 48px; position: relative; }
-.hero-stats { display: flex; gap: 40px; flex-wrap: wrap; position: relative; }
-.hero-stat { border-left: 2px solid rgba(161,0,255,.6); padding-left: 18px; }
-.hero-stat b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: #fff; line-height: 1; }
-.hero-stat span { font-size: 12px; color: rgba(255,255,255,.54); margin-top: 4px; display: block; letter-spacing: .02em; }
+.hero-chev { position: absolute; right: -80px; top: 50%; transform: translateY(-50%); opacity: .07; pointer-events: none; }
+.hero-chev svg { width: 720px; height: 720px; }
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--pink);
+  margin-bottom: 22px; display: flex; align-items: center; gap: 10px; position: relative;
+}
+.hero-eyebrow::before { content: ''; width: 20px; height: 2px; background: var(--pink); flex-shrink: 0; }
+.hero h1 {
+  font-size: clamp(40px, 5.5vw, 64px); font-weight: 700; line-height: 1.04;
+  color: #fff; max-width: 15ch; margin-bottom: 20px; position: relative;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(90deg, #CC88FF 5%, #FF50C8 90%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-sub { font-size: 16px; color: rgba(255,255,255,.65); max-width: 50ch; line-height: 1.7; margin-bottom: 48px; position: relative; }
+.hero-stats { display: flex; gap: 36px; flex-wrap: wrap; position: relative; }
+.hero-stat { border-left: 2px solid rgba(161,0,255,.55); padding-left: 18px; }
+.hero-stat b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; color: #fff; line-height: 1; }
+.hero-stat span { font-size: 11px; color: rgba(255,255,255,.5); margin-top: 5px; display: block; letter-spacing: .04em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
 
 /* ── MAIN ── */
-.main { max-width: 1240px; margin: 0 auto; padding: 64px 48px 110px; }
-.grid-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--purple-600); display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.grid-eyebrow::before { content: ''; width: 16px; height: 2px; background: var(--purple-600); display: block; flex-shrink: 0; }
-.grid-title { font-size: 32px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
-.grid-lead { font-size: 15px; color: var(--muted); line-height: 1.65; max-width: 66ch; margin-bottom: 20px; }
+.main { max-width: 1240px; margin: 0 auto; padding: 60px 48px 100px; }
+.section-head { margin-bottom: 14px; }
+.section-head h2 { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+.section-head p { font-size: 14px; color: var(--muted); line-height: 1.65; max-width: 60ch; }
 
 /* ── PW BANNER ── */
 .pw-banner {
-  display: flex; align-items: center; gap: 14px;
-  background: rgba(161,0,255,.05); border: 1px solid rgba(161,0,255,.16);
-  border-radius: 14px; padding: 15px 22px; margin-bottom: 40px;
-  font-size: 13.5px; color: var(--muted); line-height: 1.55;
+  display: flex; align-items: flex-start; gap: 12px;
+  background: rgba(161,0,255,.045); border: 1px solid rgba(161,0,255,.14);
+  border-radius: 12px; padding: 14px 20px; margin-bottom: 36px;
+  font-size: 13px; color: var(--muted); line-height: 1.6;
 }
-.pw-banner svg { width: 17px; height: 17px; flex-shrink: 0; stroke: var(--purple-600); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.pw-banner svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; stroke: var(--purple-600); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-/* ── CARDS ── */
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+/* ── CARD GRID ── */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: start; }
 @media (max-width: 1040px) { .cards { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px)  { .cards { grid-template-columns: 1fr; } }
 @media (max-width: 680px) {
-  .hero { padding: 60px 22px 64px; }
-  .main { padding: 44px 22px 84px; }
-  .hero-stats { gap: 26px; }
-  .card-footer { padding: 0 22px 22px; }
-  .card-body { padding: 24px 22px 16px; }
+  .hero { padding: 56px 22px 60px; }
+  .main { padding: 40px 20px 80px; }
+  .hero-stats { gap: 24px; }
 }
 
+/* ── CARD ── */
 .card {
-  background: var(--white); border: 1px solid var(--line); border-radius: 22px;
+  background: var(--white); border: 1px solid var(--line); border-radius: 20px;
   box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
-  overflow: hidden; position: relative;
-  transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  overflow: hidden; /* needed for stripe radius clipping only */
 }
-.card:hover:not(.coming-soon) { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(161,0,255,.2); }
-.card.coming-soon { border-style: dashed; border-color: rgba(245,179,1,.5); background: linear-gradient(180deg, #fff 0%, #FFFCF3 100%); box-shadow: none; }
+.card:hover:not(.coming-soon) {
+  transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: rgba(161,0,255,.18);
+}
+/* coming-soon card */
+.card.coming-soon { border-style: dashed; border-color: rgba(245,179,1,.45); background: #FFFDF5; box-shadow: none; }
 .card.coming-soon .card-title { color: var(--muted); }
 
-.card-stripe       { height: 4px; flex-shrink: 0; background: linear-gradient(90deg, var(--purple), var(--pink)); }
-.card-stripe.green { background: linear-gradient(90deg, #1A7A52, #22C58B); }
-.card-stripe.teal  { background: linear-gradient(90deg, #0891B2, #8A15E0); }
-.card-stripe.amber { background: linear-gradient(90deg, #F5B301, #FF7A3D); }
+/* colour stripes */
+.card-stripe        { height: 4px; flex-shrink: 0; background: linear-gradient(90deg, var(--purple), var(--pink)); }
+.card-stripe.green  { background: linear-gradient(90deg, #1A7A52, #2DBF82); }
+.card-stripe.teal   { background: linear-gradient(90deg, #0891B2, #7C3AED); }
+.card-stripe.amber  { background: linear-gradient(90deg, #E0A000, #FF8A3D); }
 
-/* card-body houses both normal content and the hover peek */
-.card-body { padding: 28px 28px 18px; flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+/*
+ * .card-upper  — the hoverable peek zone. overflow:hidden clips the sliding peek panel.
+ *                Experts + CTA sit BELOW this, always visible and always interactive.
+ */
+.card-upper {
+  flex: 1; position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  min-height: 244px; /* guarantees peek panel has enough room */
+}
+.card-body {
+  padding: 24px 24px 16px; flex: 1; display: flex; flex-direction: column;
+}
 
-.card-icon { width: 50px; height: 50px; border-radius: 14px; background: var(--surface-2); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; flex-shrink: 0; transition: transform .2s; }
-.card:hover:not(.coming-soon) .card-icon { transform: scale(1.05); }
-.card-icon svg { width: 26px; height: 26px; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+/* icon */
+.card-icon {
+  width: 46px; height: 46px; border-radius: 12px; background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px; flex-shrink: 0;
+  transition: transform .2s ease;
+}
+.card:hover:not(.coming-soon) .card-icon { transform: scale(1.06); }
+.card-icon svg { width: 24px; height: 24px; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-.card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-.tag { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; background: var(--surface-2); color: var(--muted); border: 1px solid var(--line); }
-.tag.locked  { background: rgba(245,179,1,.1); color: #9A6500; border-color: rgba(245,179,1,.28); }
-.tag.preview { background: rgba(255,80,200,.08); color: #B0177F; border-color: rgba(255,80,200,.22); }
-.tag.live    { background: rgba(34,197,139,.1); color: #15764F; border-color: rgba(34,197,139,.28); }
+/* tags */
+.card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px;
+  border-radius: 20px; background: var(--surface-2); color: var(--muted); border: 1px solid var(--line);
+}
+.tag.live    { background: rgba(26,122,82,.08);   color: #15724A; border-color: rgba(26,122,82,.2); }
+.tag.locked  { background: rgba(224,160,0,.09);   color: #8A6000; border-color: rgba(224,160,0,.25); }
+.tag.preview { background: rgba(255,80,200,.07);  color: #A01070; border-color: rgba(255,80,200,.2); }
 
-.card-title { font-size: 19px; font-weight: 700; color: var(--ink); margin-bottom: 9px; line-height: 1.2; }
+/* title + desc */
+.card-title { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 8px; line-height: 1.25; }
 .card-desc  { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; }
 
-/* hover hint */
-.card-hint { margin-top: 12px; font-size: 10.5px; color: var(--muted-2); display: flex; align-items: center; gap: 5px; transition: opacity .2s; }
-.card-hint svg { width: 11px; height: 11px; stroke: var(--muted-2); fill: none; stroke-width: 2; stroke-linecap: round; }
-.card:hover:not(.coming-soon) .card-hint { opacity: 0; }
-
-/* ── PEEK OVERLAY ── */
+/* ── PEEK OVERLAY ── lives in .card-upper, never covers .card-meta or .card-footer ── */
 .card-peek {
   position: absolute; inset: 0;
-  padding: 22px 24px 20px;
-  display: flex; flex-direction: column; gap: 0;
-  transform: translateY(102%);
-  transition: transform .32s cubic-bezier(.22,.68,0,1.15);
-  z-index: 10;
-  color: #fff;
+  display: flex; flex-direction: column; padding: 18px 20px 16px;
+  transform: translateY(103%);
+  transition: transform .3s cubic-bezier(.22,.68,0,1.12);
+  z-index: 10; color: #fff;
 }
 .card:hover:not(.coming-soon) .card-peek,
 .card:focus-within:not(.coming-soon) .card-peek { transform: translateY(0); }
 
-/* peek background matches card accent */
-.card-peek.peek-purple { background: linear-gradient(160deg, #3D0066 0%, #1A003A 100%); }
-.card-peek.peek-green  { background: linear-gradient(160deg, #0A3D28 0%, #061F14 100%); }
-.card-peek.peek-teal   { background: linear-gradient(160deg, #0A3044 0%, #061828 100%); }
-
-.peek-thumb {
-  width: 100%; border-radius: 10px; overflow: hidden;
-  margin-bottom: 16px; flex-shrink: 0;
-  border: 1px solid rgba(255,255,255,.08);
+/* peek backgrounds — radial spotlight glow at bottom for depth */
+.card-peek.peek-purple {
+  background:
+    radial-gradient(ellipse 90% 55% at 50% 108%, rgba(161,0,255,.35) 0%, transparent 70%),
+    linear-gradient(168deg, #2E0055 0%, #160029 100%);
 }
+.card-peek.peek-green {
+  background:
+    radial-gradient(ellipse 90% 55% at 50% 108%, rgba(26,122,82,.4) 0%, transparent 70%),
+    linear-gradient(168deg, #0A3828 0%, #051910 100%);
+}
+.card-peek.peek-teal {
+  background:
+    radial-gradient(ellipse 90% 55% at 50% 108%, rgba(8,145,178,.35) 0%, transparent 70%),
+    linear-gradient(168deg, #082A3C 0%, #041420 100%);
+}
+
+/* peek thumbnail */
+.peek-thumb {
+  width: 100%; border-radius: 8px; overflow: hidden; flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,.1);
+  margin-bottom: 13px;
+  /* thumbnail pops in with a slight scale when peek appears */
+  transform: scale(.97);
+  transition: transform .38s cubic-bezier(.22,.68,0,1.15) .04s;
+}
+.card:hover:not(.coming-soon) .peek-thumb { transform: scale(1); }
 .peek-thumb svg { display: block; width: 100%; }
 
-.peek-label {
-  font-family: 'JetBrains Mono', monospace; font-size: 8.5px; font-weight: 700;
-  letter-spacing: .18em; text-transform: uppercase; opacity: .5; margin-bottom: 10px;
+/* peek bullets */
+.peek-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.peek-list li {
+  display: flex; gap: 8px; align-items: flex-start;
+  font-size: 12px; color: rgba(255,255,255,.8); line-height: 1.45;
 }
-.peek-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.peek-list li { display: flex; gap: 9px; align-items: flex-start; font-size: 12.5px; color: rgba(255,255,255,.82); line-height: 1.45; }
-.peek-list li svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.peek-list li svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 1px; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.peek-list li strong { color: #fff; font-weight: 600; }
 
-/* ── EXPERT PANEL ── */
-.card-meta { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; }
-.experts-label { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 9px; }
-.experts-row { display: flex; gap: 12px; flex-wrap: wrap; }
-.expert { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 52px; }
+/* ── EXPERT PANEL — always visible, sits BELOW .card-upper ── */
+.card-meta {
+  padding: 14px 24px 16px; border-top: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 12px; flex-shrink: 0;
+  background: var(--white); /* explicit bg so it's never obscured */
+}
+.card.coming-soon .card-meta { background: #FFFDF5; }
+.experts-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 8px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 8px;
+}
+.experts-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.expert { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 48px; }
 .expert-av {
-  width: 42px; height: 42px; border-radius: 50%;
+  width: 40px; height: 40px; border-radius: 50%;
   overflow: hidden; position: relative; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700; color: #fff;
-  border: 2.5px solid transparent; text-decoration: none;
-  transition: transform .18s ease, box-shadow .18s ease;
+  font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700; color: #fff;
+  border: 2px solid transparent; text-decoration: none;
+  transition: transform .16s ease, box-shadow .16s ease;
 }
-a.expert-av:hover { transform: scale(1.12); box-shadow: 0 5px 16px rgba(22,0,41,.22); }
-.expert-av img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; z-index: 1; }
-.expert.is-author .expert-av { border-color: var(--purple); box-shadow: 0 0 0 2px rgba(161,0,255,.16); }
-.expert-name  { font-size: 8.5px; font-weight: 600; color: var(--muted); text-align: center; line-height: 1.25; }
+a.expert-av:hover { transform: scale(1.14); box-shadow: 0 4px 14px rgba(22,0,41,.24); }
+.expert-av img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; z-index: 1; border-radius: 50%; }
+.expert.is-author .expert-av { border-color: var(--purple); box-shadow: 0 0 0 2px rgba(161,0,255,.15); }
+.expert-name  { font-size: 8px; font-weight: 600; color: var(--muted); text-align: center; line-height: 1.3; }
 .expert.is-author .expert-name { color: var(--purple-600); }
-.expert-badge { font-family: 'JetBrains Mono', monospace; font-size: 7px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--purple); }
+.expert-badge { font-family: 'JetBrains Mono', monospace; font-size: 7px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--purple); }
+/* avatar gradients */
 .av-tz { background: linear-gradient(135deg, #3D0066, #A100FF); }
 .av-jj { background: linear-gradient(135deg, #0891B2, #7C3AED); }
 .av-om { background: linear-gradient(135deg, #0F766E, #0EA5E9); }
-.av-mp { background: linear-gradient(135deg, #9A3412, #F5B301); }
+.av-mp { background: linear-gradient(135deg, #9A3412, #E8A800); }
 .av-td { background: linear-gradient(135deg, #4338CA, #7C3AED); }
 .av-nj { background: linear-gradient(135deg, #9D174D, #F472B6); }
 
-.meta-badges-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.badge-v { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: var(--surface-2); color: var(--purple-600); border: 1px solid var(--line); white-space: nowrap; }
-.badge-time { display: flex; align-items: center; gap: 4px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--muted); white-space: nowrap; }
-.badge-time svg { width: 10px; height: 10px; stroke: var(--muted); fill: none; flex-shrink: 0; }
+/* version + date badges */
+.meta-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.badge-v {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+  padding: 2px 7px; border-radius: 5px;
+  background: var(--surface-2); color: var(--purple-600); border: 1px solid var(--line);
+}
+.badge-time {
+  display: flex; align-items: center; gap: 4px;
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted);
+}
+.badge-time svg { width: 9px; height: 9px; stroke: var(--muted); fill: none; flex-shrink: 0; stroke-width: 2; stroke-linecap: round; }
 
-/* ── CTA ── */
-.card-footer { padding: 0 28px 24px; flex-shrink: 0; }
-.open-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px 0; border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; border: none; background: linear-gradient(135deg, var(--violet-deep), var(--purple)); color: #fff; transition: filter .15s, transform .15s; }
-.open-btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
-.open-btn svg { width: 15px; height: 15px; stroke: #fff; fill: none; stroke-width: 2.2; stroke-linecap: round; }
+/* ── CTA BUTTON ── */
+.card-footer { padding: 0 24px 20px; flex-shrink: 0; }
+.open-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 11px 0; border-radius: 10px;
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; text-decoration: none; border: none;
+  background: linear-gradient(135deg, var(--violet-deep), var(--purple));
+  color: #fff; transition: filter .14s, transform .14s;
+}
+.open-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.open-btn svg { width: 14px; height: 14px; stroke: #fff; fill: none; stroke-width: 2.2; stroke-linecap: round; }
 .open-btn.disabled { background: var(--surface-2); color: var(--muted-2); cursor: default; pointer-events: none; border: 1px solid var(--line); }
 
 /* ── FOOTER ── */
-footer { text-align: center; padding: 28px 24px 44px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted-2); line-height: 1.7; }
-footer .chev-ic { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 6px; }
-footer .chev-ic svg { width: 14px; height: 14px; }
+footer {
+  text-align: center; padding: 24px 24px 40px;
+  border-top: 1px solid var(--line); font-size: 12px; color: var(--muted-2); line-height: 1.8;
+}
+footer .chev-ic { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+footer .chev-ic svg { width: 13px; height: 13px; }
 footer a { color: var(--purple-600); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
 
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
 <header class="hero">
-  <div class="hero-bg-chev" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none"><path d="M20 12 L60 50 L20 88 M45 12 L85 50 L45 88" stroke="#fff" stroke-width="7"/></svg></div>
+  <div class="hero-chev" aria-hidden="true">
+    <svg viewBox="0 0 100 100" fill="none"><path d="M18 10 L58 50 L18 90 M40 10 L80 50 L40 90" stroke="#fff" stroke-width="7"/></svg>
+  </div>
   <div class="hero-eyebrow">Accenture &middot; NFR Practice</div>
   <h1>NFR <em>AI Assets</em></h1>
-  <p class="hero-sub">A curated collection of AI-powered tools and blueprints for Non-Financial Risk management &mdash; built by the Accenture NFR practice to accelerate client engagements.</p>
+  <p class="hero-sub">AI-powered tools and blueprints for Non-Financial Risk management — built by the Accenture NFR practice to accelerate client engagements.</p>
   <div class="hero-stats">
     <div class="hero-stat"><b>3</b><span>live assets</span></div>
     <div class="hero-stat"><b>6</b><span>practice experts</span></div>
     <div class="hero-stat"><b>L1&ndash;L5</b><span>maturity coverage</span></div>
+    <div class="hero-stat"><b>DORA</b><span>Basel IV &middot; EU AI Act</span></div>
   </div>
 </header>
 
+<!-- ═══════════════════════════ MAIN ═══════════════════════════ -->
 <main class="main">
-  <div class="grid-eyebrow">The collection</div>
-  <h2 class="grid-title">Browse the collection</h2>
-  <p class="grid-lead">Hover any card to preview what it covers. Click to open the asset &mdash; each is independently deployable and follows the Accenture NFR design language.</p>
+
+  <div class="section-head">
+    <h2>Browse the collection</h2>
+    <p>Hover a card to preview what&rsquo;s inside. Click to open &mdash; every asset follows the Accenture NFR design language.</p>
+  </div>
 
   <div class="pw-banner">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-    Every asset is protected by an access code. To request one, email the asset&rsquo;s author &mdash; listed on each card below.
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    Every asset is access-code protected. To request access, email the author listed on the card — contact details are always one click away on their avatar.
   </div>
 
   <div class="cards">
 
-    <!-- ── ICS Implementation Blueprint ── -->
+    <!-- ══════════ ICS IMPLEMENTATION BLUEPRINT ══════════ -->
     <div class="card">
       <div class="card-stripe"></div>
-      <div class="card-body">
-        <div class="card-icon">
-          <svg viewBox="0 0 24 24" stroke="var(--purple-600)" stroke-width="1.7" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/></svg>
-        </div>
-        <div class="card-tags">
-          <span class="tag live">&#9679; Live</span>
-          <span class="tag">GRC &amp; ICS</span>
-          <span class="tag locked">&#128274; Protected</span>
-        </div>
-        <div class="card-title">ICS Implementation Blueprint</div>
-        <div class="card-desc">Understand the full journey from manual control monitoring to AI-driven ICS &mdash; with a business case, phased roadmap, and team blueprint calibrated to your maturity level.</div>
-        <div class="card-hint">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          Hover to preview
-        </div>
-        <div class="card-meta">
-          <div>
-            <div class="experts-label">Experts</div>
-            <div class="experts-row">
-              <div class="expert is-author">
-                <a class="expert-av av-tz" href="mailto:thomas.zijlstra@accenture.com" title="Email Thomas Zijlstra">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></a>
-                <div class="expert-name">Thomas Zijlstra</div>
-                <div class="expert-badge">Author</div>
-              </div>
-              <div class="expert">
-                <a class="expert-av av-om" href="mailto:oliver.moine@accenture.com" title="Email Oliver Moine">OM<img src="assets/oliver-moine.jpg" alt="Oliver Moine" onerror="this.style.display='none'"></a>
-                <div class="expert-name">Oliver Moine</div>
-              </div>
-              <div class="expert">
-                <a class="expert-av av-jj" href="mailto:janik.jugl@accenture.com" title="Email Janik Jugl">JJ<img src="assets/janik-jugl.jpg" alt="Janik Jugl" onerror="this.style.display='none'"></a>
-                <div class="expert-name">Janik Jugl</div>
-              </div>
-              <div class="expert">
-                <a class="expert-av av-nj" href="mailto:nicola.jenni@accenture.com" title="Email Nicola Jenni">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></a>
-                <div class="expert-name">Nicola Jenni</div>
-              </div>
-            </div>
+
+      <!-- upper zone: peek lives here, never covers experts -->
+      <div class="card-upper">
+        <div class="card-body">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke="var(--purple-600)" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/></svg>
           </div>
-          <div class="meta-badges-row">
-            <span class="badge-v">v1.4</span>
-            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-07-21T16:09:59Z"></span></span>
+          <div class="card-tags">
+            <span class="tag live">&#9679;&nbsp;Live</span>
+            <span class="tag">GRC &amp; ICS</span>
+            <span class="tag locked">&#128274;&nbsp;Protected</span>
           </div>
+          <div class="card-title">ICS Implementation Blueprint</div>
+          <div class="card-desc">Understand the full journey from manual control monitoring to AI-driven ICS — with a business case, phased roadmap, and team blueprint calibrated to your maturity level.</div>
         </div>
 
-        <!-- PEEK -->
-        <div class="card-peek peek-purple">
+        <!-- ── PEEK PANEL ── -->
+        <div class="card-peek peek-purple" aria-hidden="true">
+          <!-- SVG thumbnail: maturity bar · KPI tiles · data-flow pipeline -->
           <div class="peek-thumb">
-            <svg viewBox="0 0 280 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- maturity bar -->
-              <rect width="280" height="120" fill="#1A003A"/>
-              <rect x="12" y="10" width="256" height="16" rx="8" fill="rgba(161,0,255,.15)"/>
-              <rect x="12" y="10" width="98" height="16" rx="8" fill="rgba(161,0,255,.45)"/>
-              <rect x="16" y="13" width="32" height="10" rx="5" fill="rgba(255,80,200,.7)"/>
-              <rect x="52" y="13" width="32" height="10" rx="5" fill="rgba(255,255,255,.12)"/>
-              <rect x="88" y="13" width="32" height="10" rx="5" fill="rgba(255,255,255,.12)"/>
-              <rect x="124" y="13" width="32" height="10" rx="5" fill="rgba(255,255,255,.12)"/>
-              <!-- stat row -->
-              <rect x="12" y="34" width="58" height="36" rx="6" fill="rgba(161,0,255,.12)"/>
-              <rect x="78" y="34" width="58" height="36" rx="6" fill="rgba(161,0,255,.12)"/>
-              <rect x="144" y="34" width="58" height="36" rx="6" fill="rgba(161,0,255,.12)"/>
-              <rect x="210" y="34" width="58" height="36" rx="6" fill="rgba(161,0,255,.12)"/>
-              <rect x="20" y="39" width="28" height="4" rx="2" fill="rgba(255,80,200,.5)"/>
-              <rect x="20" y="47" width="38" height="8" rx="2" fill="rgba(255,255,255,.35)"/>
-              <rect x="86" y="39" width="28" height="4" rx="2" fill="rgba(255,80,200,.5)"/>
-              <rect x="86" y="47" width="32" height="8" rx="2" fill="rgba(255,255,255,.35)"/>
-              <rect x="152" y="39" width="28" height="4" rx="2" fill="rgba(255,80,200,.5)"/>
-              <rect x="152" y="47" width="36" height="8" rx="2" fill="rgba(255,255,255,.35)"/>
-              <rect x="218" y="39" width="28" height="4" rx="2" fill="rgba(255,80,200,.5)"/>
-              <rect x="218" y="47" width="30" height="8" rx="2" fill="rgba(255,255,255,.35)"/>
-              <!-- data flow -->
-              <rect x="12" y="78" width="256" height="34" rx="6" fill="rgba(255,255,255,.04)"/>
-              <circle cx="36" cy="95" r="8" fill="rgba(161,0,255,.5)"/>
-              <line x1="44" y1="95" x2="68" y2="95" stroke="rgba(161,0,255,.4)" stroke-width="1.5" stroke-dasharray="3 2"/>
-              <circle cx="76" cy="95" r="8" fill="rgba(161,0,255,.6)"/>
-              <line x1="84" y1="95" x2="108" y2="95" stroke="rgba(161,0,255,.4)" stroke-width="1.5" stroke-dasharray="3 2"/>
-              <circle cx="116" cy="95" r="8" fill="rgba(161,0,255,.75)"/>
-              <line x1="124" y1="95" x2="148" y2="95" stroke="rgba(161,0,255,.4)" stroke-width="1.5" stroke-dasharray="3 2"/>
-              <circle cx="156" cy="95" r="8" fill="rgba(161,0,255,.9)"/>
-              <line x1="164" y1="95" x2="188" y2="95" stroke="rgba(255,80,200,.5)" stroke-width="1.5" stroke-dasharray="3 2"/>
-              <circle cx="196" cy="95" r="8" fill="rgba(255,80,200,.8)"/>
-              <rect x="212" y="88" width="44" height="14" rx="4" fill="rgba(255,80,200,.2)"/>
+            <svg viewBox="0 0 280 148" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="280" height="148" fill="#160029"/>
+              <!-- maturity chips -->
+              <rect x="10" y="10" width="30" height="14" rx="7" fill="rgba(255,255,255,.1)"/>
+              <rect x="44" y="10" width="30" height="14" rx="7" fill="rgba(255,255,255,.1)"/>
+              <rect x="78" y="8"  width="38" height="18" rx="9" fill="#A100FF" class="pk-p"/>
+              <rect x="120" y="10" width="30" height="14" rx="7" fill="rgba(255,255,255,.1)"/>
+              <rect x="154" y="10" width="30" height="14" rx="7" fill="rgba(255,255,255,.1)"/>
+              <!-- chip text stubs -->
+              <rect x="17" y="15" width="16" height="4" rx="2" fill="rgba(255,255,255,.3)"/>
+              <rect x="51" y="15" width="16" height="4" rx="2" fill="rgba(255,255,255,.3)"/>
+              <rect x="87" y="14" width="20" height="5" rx="2" fill="rgba(255,255,255,.8)" class="pk-p"/>
+              <rect x="127" y="15" width="16" height="4" rx="2" fill="rgba(255,255,255,.3)"/>
+              <rect x="161" y="15" width="16" height="4" rx="2" fill="rgba(255,255,255,.3)"/>
+              <!-- KPI tiles row -->
+              <rect x="10" y="34"  width="56" height="38" rx="7" fill="rgba(161,0,255,.14)"/>
+              <rect x="72" y="34"  width="56" height="38" rx="7" fill="rgba(161,0,255,.14)"/>
+              <rect x="134" y="34" width="56" height="38" rx="7" fill="rgba(161,0,255,.14)"/>
+              <rect x="196" y="34" width="74" height="38" rx="7" fill="rgba(161,0,255,.14)"/>
+              <!-- KPI labels -->
+              <rect x="17" y="40"  width="26" height="4" rx="2" fill="rgba(255,80,200,.6)"/>
+              <rect x="17" y="48"  width="36" height="9" rx="3" fill="rgba(255,255,255,.45)"/>
+              <rect x="79" y="40"  width="26" height="4" rx="2" fill="rgba(255,80,200,.6)"/>
+              <rect x="79" y="48"  width="30" height="9" rx="3" fill="rgba(255,255,255,.45)"/>
+              <rect x="141" y="40" width="26" height="4" rx="2" fill="rgba(255,80,200,.6)"/>
+              <rect x="141" y="48" width="32" height="9" rx="3" fill="rgba(255,255,255,.45)"/>
+              <rect x="203" y="40" width="34" height="4" rx="2" fill="rgba(255,80,200,.6)"/>
+              <rect x="203" y="48" width="50" height="9" rx="3" fill="rgba(255,255,255,.45)"/>
+              <!-- Workstream bar chart -->
+              <rect x="10" y="82" width="260" height="28" rx="6" fill="rgba(255,255,255,.04)"/>
+              <rect x="16" y="87" width="16" height="16" rx="3" fill="rgba(161,0,255,.4)"/>
+              <rect x="38" y="90" width="50" height="5"  rx="2" fill="rgba(255,255,255,.2)"/>
+              <rect x="38" y="97" width="80" height="4"  rx="2" fill="rgba(161,0,255,.5)"/>
+              <rect x="130" y="87" width="16" height="16" rx="3" fill="rgba(161,0,255,.4)"/>
+              <rect x="152" y="90" width="40" height="5"  rx="2" fill="rgba(255,255,255,.2)"/>
+              <rect x="152" y="97" width="60" height="4"  rx="2" fill="rgba(161,0,255,.4)"/>
+              <rect x="220" y="87" width="44" height="5"  rx="2" fill="rgba(255,80,200,.45)"/>
+              <!-- Data-flow pipeline with animated connectors -->
+              <rect x="10" y="120" width="260" height="22" rx="6" fill="rgba(255,255,255,.03)"/>
+              <circle cx="30"  cy="131" r="7" fill="rgba(161,0,255,.45)"/>
+              <line   x1="37"  y1="131" x2="60"  y2="131" stroke="rgba(161,0,255,.6)" stroke-width="1.5" stroke-dasharray="4 3" class="pk-f"/>
+              <circle cx="68"  cy="131" r="7" fill="rgba(161,0,255,.6)"/>
+              <line   x1="75"  y1="131" x2="98"  y2="131" stroke="rgba(161,0,255,.6)" stroke-width="1.5" stroke-dasharray="4 3" class="pk-f"/>
+              <circle cx="106" cy="131" r="7" fill="rgba(161,0,255,.75)"/>
+              <line   x1="113" y1="131" x2="136" y2="131" stroke="rgba(161,0,255,.6)" stroke-width="1.5" stroke-dasharray="4 3" class="pk-f"/>
+              <circle cx="144" cy="131" r="7" fill="rgba(161,0,255,.9)"/>
+              <line   x1="151" y1="131" x2="174" y2="131" stroke="rgba(255,80,200,.6)" stroke-width="1.5" stroke-dasharray="4 3" class="pk-f"/>
+              <circle cx="182" cy="131" r="7" fill="rgba(255,80,200,.8)"/>
+              <!-- ICS dashboard endpoint -->
+              <rect x="196" y="123" width="68" height="16" rx="5" fill="rgba(255,80,200,.22)"/>
+              <rect x="202" y="128" width="40" height="4"  rx="2" fill="rgba(255,80,200,.7)" class="pk-p"/>
             </svg>
           </div>
-          <div class="peek-label">What you can achieve</div>
           <ul class="peek-list">
-            <li><svg viewBox="0 0 14 14" stroke="rgba(161,0,255,.9)"><polyline points="2,7 5,10 12,3"/></svg>Select maturity level L1–L5 and watch scope, cost and team reconfigure</li>
-            <li><svg viewBox="0 0 14 14" stroke="rgba(161,0,255,.9)"><polyline points="2,7 5,10 12,3"/></svg>Build a validated business case with a live ROI model</li>
-            <li><svg viewBox="0 0 14 14" stroke="rgba(161,0,255,.9)"><polyline points="2,7 5,10 12,3"/></svg>Walk away with a 28-week delivery plan and full team blueprint</li>
-            <li><svg viewBox="0 0 14 14" stroke="rgba(161,0,255,.9)"><polyline points="2,7 5,10 12,3"/></svg>Visualise how data flows from source to AI-driven dashboard</li>
+            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Select</strong> maturity L1–L5 — scope, team &amp; cost reconfigure live</span></li>
+            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Build</strong> a validated business case with a live ROI and avoided-finding model</span></li>
+            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Leave</strong> with a 28-week delivery plan, team blueprint, and data-flow architecture</span></li>
           </ul>
+        </div>
+      </div><!-- /.card-upper -->
+
+      <!-- experts — always visible, never obscured by the peek -->
+      <div class="card-meta">
+        <div>
+          <div class="experts-label">Experts</div>
+          <div class="experts-row">
+            <div class="expert is-author">
+              <a class="expert-av av-tz" href="mailto:thomas.zijlstra@accenture.com" title="Email Thomas Zijlstra">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Thomas Zijlstra</div>
+              <div class="expert-badge">Author</div>
+            </div>
+            <div class="expert">
+              <a class="expert-av av-om" href="mailto:oliver.moine@accenture.com" title="Email Oliver Moine">OM<img src="assets/oliver-moine.jpg" alt="Oliver Moine" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Oliver Moine</div>
+            </div>
+            <div class="expert">
+              <a class="expert-av av-jj" href="mailto:janik.jugl@accenture.com" title="Email Janik Jugl">JJ<img src="assets/janik-jugl.jpg" alt="Janik Jugl" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Janik Jugl</div>
+            </div>
+            <div class="expert">
+              <a class="expert-av av-nj" href="mailto:nicola.jenni@accenture.com" title="Email Nicola Jenni">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Nicola Jenni</div>
+            </div>
+          </div>
+        </div>
+        <div class="meta-badges">
+          <span class="badge-v">v1.5</span>
+          <span class="badge-time">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            <span data-ts="2026-07-22T10:00:00Z"></span>
+          </span>
         </div>
       </div>
       <div class="card-footer">
-        <a class="open-btn" href="https://tzijlstra-acn.github.io/AIDataProcessing/" target="_blank" rel="noopener" aria-label="Open ICS Implementation Blueprint (opens in a new tab)">Open asset<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="open-btn" href="https://tzijlstra-acn.github.io/AIDataProcessing/" target="_blank" rel="noopener" aria-label="Open ICS Implementation Blueprint (opens in new tab)">
+          Open asset<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
     </div>
 
-    <!-- ── AI Cost Simulator ── -->
+    <!-- ══════════ AI COST SIMULATOR ══════════ -->
     <div class="card">
       <div class="card-stripe green"></div>
-      <div class="card-body">
-        <div class="card-icon" style="background:rgba(26,122,82,.12);">
-          <svg viewBox="0 0 24 24" stroke="#1A7A52" stroke-width="1.7" aria-hidden="true" focusable="false"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
-        </div>
-        <div class="card-tags">
-          <span class="tag live">&#9679; Live</span>
-          <span class="tag">Cost Modelling</span>
-          <span class="tag locked">&#128274; Protected</span>
-        </div>
-        <div class="card-title">AI Cost Simulator</div>
-        <div class="card-desc">Build a credible AI business case in minutes. Model deployment costs, compare scenarios, and walk into a client conversation with a defensible TCO across model selection and workload mix.</div>
-        <div class="card-hint">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          Hover to preview
-        </div>
-        <div class="card-meta">
-          <div>
-            <div class="experts-label">Experts</div>
-            <div class="experts-row">
-              <div class="expert is-author">
-                <a class="expert-av av-tz" href="mailto:thomas.zijlstra@accenture.com" title="Email Thomas Zijlstra">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></a>
-                <div class="expert-name">Thomas Zijlstra</div>
-                <div class="expert-badge">Author</div>
-              </div>
-              <div class="expert">
-                <a class="expert-av av-om" href="mailto:oliver.moine@accenture.com" title="Email Oliver Moine">OM<img src="assets/oliver-moine.jpg" alt="Oliver Moine" onerror="this.style.display='none'"></a>
-                <div class="expert-name">Oliver Moine</div>
-              </div>
-              <div class="expert">
-                <a class="expert-av av-jj" href="mailto:janik.jugl@accenture.com" title="Email Janik Jugl">JJ<img src="assets/janik-jugl.jpg" alt="Janik Jugl" onerror="this.style.display='none'"></a>
-                <div class="expert-name">Janik Jugl</div>
-              </div>
-              <div class="expert">
-                <a class="expert-av av-nj" href="mailto:nicola.jenni@accenture.com" title="Email Nicola Jenni">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></a>
-                <div class="expert-name">Nicola Jenni</div>
-              </div>
-            </div>
+
+      <div class="card-upper">
+        <div class="card-body">
+          <div class="card-icon" style="background:rgba(26,122,82,.1);" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke="#1A7A52" stroke-width="1.7"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
           </div>
-          <div class="meta-badges-row">
-            <span class="badge-v">v1.0</span>
-            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-07-03T07:10:05Z"></span></span>
+          <div class="card-tags">
+            <span class="tag live">&#9679;&nbsp;Live</span>
+            <span class="tag">Cost Modelling</span>
+            <span class="tag locked">&#128274;&nbsp;Protected</span>
           </div>
+          <div class="card-title">AI Cost Simulator</div>
+          <div class="card-desc">Build a credible AI business case in minutes. Model deployment costs, compare scenarios, and walk into a client conversation with a defensible TCO across model selection and workload mix.</div>
         </div>
 
-        <!-- PEEK -->
-        <div class="card-peek peek-green">
+        <!-- ── PEEK PANEL ── -->
+        <div class="card-peek peek-green" aria-hidden="true">
+          <!-- SVG thumbnail: industry tabs · model cost rows · total bar -->
           <div class="peek-thumb">
-            <svg viewBox="0 0 280 120" fill="none">
-              <rect width="280" height="120" fill="#061F14"/>
-              <!-- scenario tabs -->
-              <rect x="12" y="10" width="60" height="18" rx="5" fill="rgba(34,197,139,.35)"/>
-              <rect x="76" y="10" width="60" height="18" rx="5" fill="rgba(255,255,255,.07)"/>
-              <rect x="140" y="10" width="60" height="18" rx="5" fill="rgba(255,255,255,.07)"/>
-              <rect x="18" y="15" width="36" height="5" rx="2" fill="rgba(255,255,255,.5)"/>
-              <rect x="82" y="15" width="36" height="5" rx="2" fill="rgba(255,255,255,.2)"/>
-              <!-- model rows -->
-              <rect x="12" y="36" width="256" height="14" rx="4" fill="rgba(34,197,139,.08)"/>
-              <rect x="12" y="54" width="256" height="14" rx="4" fill="rgba(255,255,255,.04)"/>
-              <rect x="12" y="72" width="256" height="14" rx="4" fill="rgba(255,255,255,.04)"/>
-              <!-- bar fills -->
-              <rect x="90" y="38" width="120" height="10" rx="3" fill="rgba(34,197,139,.4)"/>
-              <rect x="90" y="56" width="80" height="10" rx="3" fill="rgba(34,197,139,.25)"/>
-              <rect x="90" y="74" width="100" height="10" rx="3" fill="rgba(34,197,139,.3)"/>
-              <!-- labels -->
-              <rect x="16" y="39" width="50" height="7" rx="2" fill="rgba(255,255,255,.3)"/>
-              <rect x="16" y="57" width="50" height="7" rx="2" fill="rgba(255,255,255,.2)"/>
-              <rect x="16" y="75" width="50" height="7" rx="2" fill="rgba(255,255,255,.2)"/>
-              <!-- total -->
-              <rect x="12" y="96" width="256" height="16" rx="5" fill="rgba(34,197,139,.15)"/>
-              <rect x="20" y="100" width="60" height="6" rx="2" fill="rgba(255,255,255,.3)"/>
-              <rect x="196" y="100" width="60" height="6" rx="2" fill="rgba(34,197,139,.8)"/>
+            <svg viewBox="0 0 280 148" fill="none">
+              <rect width="280" height="148" fill="#051910"/>
+              <!-- industry tabs -->
+              <rect x="10" y="10" width="58" height="16" rx="8" fill="rgba(26,122,82,.6)"/>
+              <rect x="72" y="10" width="58" height="16" rx="8" fill="rgba(255,255,255,.07)"/>
+              <rect x="134" y="10" width="58" height="16" rx="8" fill="rgba(255,255,255,.07)"/>
+              <rect x="196" y="10" width="58" height="16" rx="8" fill="rgba(255,255,255,.07)"/>
+              <rect x="17" y="15" width="34" height="5" rx="2" fill="rgba(255,255,255,.7)"/>
+              <rect x="79" y="15" width="34" height="5" rx="2" fill="rgba(255,255,255,.25)"/>
+              <rect x="141" y="15" width="34" height="5" rx="2" fill="rgba(255,255,255,.25)"/>
+              <rect x="203" y="15" width="34" height="5" rx="2" fill="rgba(255,255,255,.25)"/>
+              <!-- model row 1 (active — highlighted) -->
+              <rect x="10" y="34" width="260" height="24" rx="5" fill="rgba(26,122,82,.15)"/>
+              <rect x="16" y="41" width="52" height="5"  rx="2" fill="rgba(255,255,255,.55)"/>
+              <rect x="90" y="39" width="132" height="9" rx="4" fill="rgba(26,122,82,.6)" class="pk-p"/>
+              <rect x="228" y="41" width="36" height="5" rx="2" fill="rgba(45,191,130,.8)"/>
+              <!-- model row 2 -->
+              <rect x="10" y="64" width="260" height="24" rx="5" fill="rgba(255,255,255,.04)"/>
+              <rect x="16" y="71" width="52" height="5"  rx="2" fill="rgba(255,255,255,.3)"/>
+              <rect x="90" y="69" width="92"  height="9" rx="4" fill="rgba(26,122,82,.35)"/>
+              <rect x="228" y="71" width="36" height="5" rx="2" fill="rgba(45,191,130,.5)"/>
+              <!-- model row 3 -->
+              <rect x="10" y="94" width="260" height="24" rx="5" fill="rgba(255,255,255,.04)"/>
+              <rect x="16" y="101" width="52" height="5" rx="2" fill="rgba(255,255,255,.3)"/>
+              <rect x="90" y="99" width="76"  height="9" rx="4" fill="rgba(26,122,82,.28)"/>
+              <rect x="228" y="101" width="36" height="5" rx="2" fill="rgba(45,191,130,.45)"/>
+              <!-- Total cost bar -->
+              <rect x="10" y="126" width="260" height="18" rx="6" fill="rgba(26,122,82,.25)"/>
+              <rect x="16" y="132" width="50" height="5"  rx="2" fill="rgba(255,255,255,.4)"/>
+              <rect x="170" y="130" width="94" height="9" rx="3" fill="rgba(45,191,130,.7)" class="pk-p"/>
             </svg>
           </div>
-          <div class="peek-label">What you can achieve</div>
           <ul class="peek-list">
-            <li><svg viewBox="0 0 14 14" stroke="rgba(34,197,139,.9)"><polyline points="2,7 5,10 12,3"/></svg>Model AI deployment cost across any major LLM provider</li>
-            <li><svg viewBox="0 0 14 14" stroke="rgba(34,197,139,.9)"><polyline points="2,7 5,10 12,3"/></svg>Compare scenarios side-by-side and stress-test assumptions</li>
-            <li><svg viewBox="0 0 14 14" stroke="rgba(34,197,139,.9)"><polyline points="2,7 5,10 12,3"/></svg>Generate a defensible monthly and annual TCO for any engagement</li>
-            <li><svg viewBox="0 0 14 14" stroke="rgba(34,197,139,.9)"><polyline points="2,7 5,10 12,3"/></svg>Adjust model mix, usage and infrastructure to match client reality</li>
+            <li><svg viewBox="0 0 14 14" stroke="#2DBF82"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Model</strong> total AI cost across any LLM provider — Banking, Insurance, Health, Telecom</span></li>
+            <li><svg viewBox="0 0 14 14" stroke="#2DBF82"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Compare</strong> scenarios and generate a defensible annual and monthly TCO</span></li>
+            <li><svg viewBox="0 0 14 14" stroke="#2DBF82"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Include</strong> risk-reduction value and avoided supervisory findings in the ROI</span></li>
           </ul>
+        </div>
+      </div><!-- /.card-upper -->
+
+      <div class="card-meta">
+        <div>
+          <div class="experts-label">Experts</div>
+          <div class="experts-row">
+            <div class="expert is-author">
+              <a class="expert-av av-tz" href="mailto:thomas.zijlstra@accenture.com" title="Email Thomas Zijlstra">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Thomas Zijlstra</div>
+              <div class="expert-badge">Author</div>
+            </div>
+            <div class="expert">
+              <a class="expert-av av-om" href="mailto:oliver.moine@accenture.com" title="Email Oliver Moine">OM<img src="assets/oliver-moine.jpg" alt="Oliver Moine" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Oliver Moine</div>
+            </div>
+            <div class="expert">
+              <a class="expert-av av-jj" href="mailto:janik.jugl@accenture.com" title="Email Janik Jugl">JJ<img src="assets/janik-jugl.jpg" alt="Janik Jugl" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Janik Jugl</div>
+            </div>
+            <div class="expert">
+              <a class="expert-av av-nj" href="mailto:nicola.jenni@accenture.com" title="Email Nicola Jenni">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Nicola Jenni</div>
+            </div>
+          </div>
+        </div>
+        <div class="meta-badges">
+          <span class="badge-v">v2.0</span>
+          <span class="badge-time">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            <span data-ts="2026-07-22T10:00:00Z"></span>
+          </span>
         </div>
       </div>
       <div class="card-footer">
-        <a class="open-btn" href="https://tzijlstra-acn.github.io/AICostSimulator/" target="_blank" rel="noopener" aria-label="Open AI Cost Simulator (opens in a new tab)" style="background:linear-gradient(135deg,#14603F,#1A7A52);">Open asset<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="open-btn" href="https://tzijlstra-acn.github.io/AICostSimulator/" target="_blank" rel="noopener"
+           aria-label="Open AI Cost Simulator (opens in new tab)"
+           style="background:linear-gradient(135deg,#14603F,#1A7A52);">
+          Open asset<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
     </div>
 
-    <!-- ── NFR Architecture ── -->
+    <!-- ══════════ NFR ARCHITECTURE ══════════ -->
     <div class="card">
       <div class="card-stripe teal"></div>
-      <div class="card-body">
-        <div class="card-icon" style="background:rgba(8,145,178,.1);">
-          <svg viewBox="0 0 24 24" stroke="#0891B2" stroke-width="1.7" aria-hidden="true" focusable="false"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M6 9v3a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/></svg>
-        </div>
-        <div class="card-tags">
-          <span class="tag live">&#9679; Live</span>
-          <span class="tag">Architecture</span>
-          <span class="tag locked">&#128274; Protected</span>
-        </div>
-        <div class="card-title">NFR Architecture</div>
-        <div class="card-desc">Accelerate architecture decisions for NFR modernisation. Navigate DORA, Basel IV and SREP with a ready-made reference architecture &mdash; from risk taxonomy to technology stack and vendor evaluation.</div>
-        <div class="card-hint">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          Hover to preview
-        </div>
-        <div class="card-meta">
-          <div>
-            <div class="experts-label">Experts</div>
-            <div class="experts-row">
-              <div class="expert is-author">
-                <a class="expert-av av-jj" href="mailto:janik.jugl@accenture.com" title="Email Janik Jugl">JJ<img src="assets/janik-jugl.jpg" alt="Janik Jugl" onerror="this.style.display='none'"></a>
-                <div class="expert-name">Janik Jugl</div>
-                <div class="expert-badge">Author</div>
-              </div>
-              <div class="expert">
-                <a class="expert-av av-tz" href="mailto:thomas.zijlstra@accenture.com" title="Email Thomas Zijlstra">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></a>
-                <div class="expert-name">Thomas Zijlstra</div>
-              </div>
-              <div class="expert">
-                <a class="expert-av av-om" href="mailto:oliver.moine@accenture.com" title="Email Oliver Moine">OM<img src="assets/oliver-moine.jpg" alt="Oliver Moine" onerror="this.style.display='none'"></a>
-                <div class="expert-name">Oliver Moine</div>
-              </div>
-              <div class="expert">
-                <a class="expert-av av-nj" href="mailto:nicola.jenni@accenture.com" title="Email Nicola Jenni">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></a>
-                <div class="expert-name">Nicola Jenni</div>
-              </div>
-            </div>
+
+      <div class="card-upper">
+        <div class="card-body">
+          <div class="card-icon" style="background:rgba(8,145,178,.09);" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke="#0891B2" stroke-width="1.7"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M6 9v3a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/></svg>
           </div>
-          <div class="meta-badges-row">
-            <span class="badge-v">v1.0</span>
-            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-06-15T00:00:00Z"></span></span>
+          <div class="card-tags">
+            <span class="tag live">&#9679;&nbsp;Live</span>
+            <span class="tag">Architecture</span>
+            <span class="tag locked">&#128274;&nbsp;Protected</span>
           </div>
+          <div class="card-title">NFR Architecture</div>
+          <div class="card-desc">Accelerate architecture decisions for NFR modernisation. Navigate DORA, Basel IV and SREP with a ready-made reference architecture — from risk taxonomy to technology stack and vendor evaluation.</div>
         </div>
 
-        <!-- PEEK -->
-        <div class="card-peek peek-teal">
+        <!-- ── PEEK PANEL ── -->
+        <div class="card-peek peek-teal" aria-hidden="true">
+          <!-- SVG thumbnail: domain boxes · platform node · tech layers -->
           <div class="peek-thumb">
-            <svg viewBox="0 0 280 120" fill="none">
-              <rect width="280" height="120" fill="#061828"/>
-              <!-- top layer nodes -->
-              <rect x="20" y="12" width="52" height="22" rx="5" fill="rgba(8,145,178,.35)"/>
-              <rect x="86" y="12" width="52" height="22" rx="5" fill="rgba(8,145,178,.35)"/>
-              <rect x="152" y="12" width="52" height="22" rx="5" fill="rgba(8,145,178,.35)"/>
-              <rect x="218" y="12" width="48" height="22" rx="5" fill="rgba(8,145,178,.35)"/>
-              <!-- connector lines to middle -->
-              <line x1="46" y1="34" x2="46" y2="54" stroke="rgba(8,145,178,.3)" stroke-width="1.5"/>
-              <line x1="112" y1="34" x2="112" y2="54" stroke="rgba(8,145,178,.3)" stroke-width="1.5"/>
-              <line x1="178" y1="34" x2="178" y2="54" stroke="rgba(8,145,178,.3)" stroke-width="1.5"/>
-              <line x1="242" y1="34" x2="242" y2="54" stroke="rgba(8,145,178,.3)" stroke-width="1.5"/>
-              <!-- horizontal connector -->
-              <line x1="46" y1="54" x2="242" y2="54" stroke="rgba(8,145,178,.25)" stroke-width="1.5"/>
-              <!-- middle central node -->
-              <rect x="94" y="58" width="92" height="24" rx="6" fill="rgba(8,145,178,.5)"/>
-              <rect x="102" y="63" width="50" height="5" rx="2" fill="rgba(255,255,255,.5)"/>
-              <rect x="102" y="71" width="34" height="4" rx="2" fill="rgba(255,255,255,.25)"/>
-              <!-- bottom layer -->
-              <line x1="140" y1="82" x2="60" y2="98" stroke="rgba(8,145,178,.25)" stroke-width="1.5"/>
-              <line x1="140" y1="82" x2="140" y2="98" stroke="rgba(8,145,178,.25)" stroke-width="1.5"/>
-              <line x1="140" y1="82" x2="220" y2="98" stroke="rgba(8,145,178,.25)" stroke-width="1.5"/>
-              <rect x="32" y="96" width="56" height="16" rx="4" fill="rgba(8,145,178,.2)"/>
-              <rect x="112" y="96" width="56" height="16" rx="4" fill="rgba(8,145,178,.2)"/>
-              <rect x="192" y="96" width="56" height="16" rx="4" fill="rgba(8,145,178,.2)"/>
-              <!-- labels -->
-              <rect x="26" y="16" width="34" height="5" rx="2" fill="rgba(255,255,255,.3)"/>
-              <rect x="92" y="16" width="34" height="5" rx="2" fill="rgba(255,255,255,.3)"/>
-              <rect x="158" y="16" width="34" height="5" rx="2" fill="rgba(255,255,255,.3)"/>
-              <rect x="222" y="16" width="34" height="5" rx="2" fill="rgba(255,255,255,.3)"/>
+            <svg viewBox="0 0 280 148" fill="none">
+              <rect width="280" height="148" fill="#041420"/>
+              <!-- domain boxes (top layer) -->
+              <rect x="10"  y="10" width="57" height="22" rx="5" fill="rgba(8,145,178,.3)"/>
+              <rect x="73"  y="10" width="57" height="22" rx="5" fill="rgba(8,145,178,.3)"/>
+              <rect x="136" y="10" width="57" height="22" rx="5" fill="rgba(8,145,178,.3)"/>
+              <rect x="199" y="10" width="71" height="22" rx="5" fill="rgba(8,145,178,.3)"/>
+              <!-- domain labels -->
+              <rect x="16"  y="17" width="36" height="5" rx="2" fill="rgba(255,255,255,.45)"/>
+              <rect x="79"  y="17" width="36" height="5" rx="2" fill="rgba(255,255,255,.45)"/>
+              <rect x="142" y="17" width="36" height="5" rx="2" fill="rgba(255,255,255,.45)"/>
+              <rect x="205" y="17" width="46" height="5" rx="2" fill="rgba(255,255,255,.45)"/>
+              <!-- vertical connectors (animated) -->
+              <line x1="38"  y1="32" x2="38"  y2="54" stroke="rgba(8,145,178,.5)" stroke-width="1.5" stroke-dasharray="4 3" class="pk-f"/>
+              <line x1="101" y1="32" x2="101" y2="54" stroke="rgba(8,145,178,.5)" stroke-width="1.5" stroke-dasharray="4 3" class="pk-f"/>
+              <line x1="164" y1="32" x2="164" y2="54" stroke="rgba(8,145,178,.5)" stroke-width="1.5" stroke-dasharray="4 3" class="pk-f"/>
+              <line x1="234" y1="32" x2="234" y2="54" stroke="rgba(8,145,178,.5)" stroke-width="1.5" stroke-dasharray="4 3" class="pk-f"/>
+              <!-- horizontal spine connecting all -->
+              <line x1="38" y1="54" x2="234" y2="54" stroke="rgba(8,145,178,.35)" stroke-width="1.5"/>
+              <!-- central platform node (highlighted, pulsing) -->
+              <rect x="56" y="58" width="168" height="30" rx="8" fill="rgba(8,145,178,.55)" class="pk-p"/>
+              <rect x="68" y="65" width="70"  height="5"  rx="2" fill="rgba(255,255,255,.8)"/>
+              <rect x="68" y="74" width="48"  height="4"  rx="2" fill="rgba(255,255,255,.4)"/>
+              <circle cx="190" cy="73" r="5" fill="rgba(8,145,178,.9)"/>
+              <circle cx="205" cy="73" r="5" fill="rgba(8,145,178,.6)"/>
+              <!-- vertical connectors down from platform -->
+              <line x1="96"  y1="88" x2="66"  y2="110" stroke="rgba(8,145,178,.35)" stroke-width="1.5" stroke-dasharray="4 3" class="pk-f"/>
+              <line x1="140" y1="88" x2="140" y2="110" stroke="rgba(8,145,178,.35)" stroke-width="1.5" stroke-dasharray="4 3" class="pk-f"/>
+              <line x1="184" y1="88" x2="214" y2="110" stroke="rgba(8,145,178,.35)" stroke-width="1.5" stroke-dasharray="4 3" class="pk-f"/>
+              <!-- tech layer boxes -->
+              <rect x="10"  y="110" width="98"  height="18" rx="5" fill="rgba(8,145,178,.18)"/>
+              <rect x="114" y="110" width="52"  height="18" rx="5" fill="rgba(8,145,178,.18)"/>
+              <rect x="172" y="110" width="98"  height="18" rx="5" fill="rgba(8,145,178,.18)"/>
+              <rect x="16"  y="116" width="56"  height="5"  rx="2" fill="rgba(255,255,255,.35)"/>
+              <rect x="120" y="116" width="30"  height="5"  rx="2" fill="rgba(255,255,255,.35)"/>
+              <rect x="178" y="116" width="56"  height="5"  rx="2" fill="rgba(255,255,255,.35)"/>
+              <!-- regulatory chips at bottom -->
+              <rect x="10"  y="134" width="44" height="10" rx="5" fill="rgba(8,145,178,.25)"/>
+              <rect x="59"  y="134" width="50" height="10" rx="5" fill="rgba(8,145,178,.25)"/>
+              <rect x="115" y="134" width="54" height="10" rx="5" fill="rgba(8,145,178,.25)"/>
+              <rect x="14"  y="137" width="30" height="4" rx="2" fill="rgba(255,255,255,.5)"/>
+              <rect x="63"  y="137" width="36" height="4" rx="2" fill="rgba(255,255,255,.5)"/>
+              <rect x="119" y="137" width="40" height="4" rx="2" fill="rgba(255,255,255,.5)"/>
             </svg>
           </div>
-          <div class="peek-label">What you can achieve</div>
           <ul class="peek-list">
-            <li><svg viewBox="0 0 14 14" stroke="rgba(8,145,178,.9)"><polyline points="2,7 5,10 12,3"/></svg>Navigate DORA Art.&nbsp;17–30 and Basel IV with a mapped reference architecture</li>
-            <li><svg viewBox="0 0 14 14" stroke="rgba(8,145,178,.9)"><polyline points="2,7 5,10 12,3"/></svg>Evaluate vendor options across risk, data and AI platform layers</li>
-            <li><svg viewBox="0 0 14 14" stroke="rgba(8,145,178,.9)"><polyline points="2,7 5,10 12,3"/></svg>Align technology stack to a structured NFR risk taxonomy</li>
-            <li><svg viewBox="0 0 14 14" stroke="rgba(8,145,178,.9)"><polyline points="2,7 5,10 12,3"/></svg>Accelerate proposals with a ready-made enterprise NFR blueprint</li>
+            <li><svg viewBox="0 0 14 14" stroke="#38BCD4"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Navigate</strong> DORA Art.&nbsp;17–30, Basel IV and EU AI Act with article-level mapping</span></li>
+            <li><svg viewBox="0 0 14 14" stroke="#38BCD4"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Evaluate</strong> vendors across data, integration and AI platform layers</span></li>
+            <li><svg viewBox="0 0 14 14" stroke="#38BCD4"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Accelerate</strong> proposals with a ready-made enterprise NFR reference architecture</span></li>
           </ul>
         </div>
-      </div>
-      <div class="card-footer">
-        <a class="open-btn" href="https://janikjugl.github.io/NFR-Architecture/" target="_blank" rel="noopener" aria-label="Open NFR Architecture (opens in a new tab)" style="background:linear-gradient(135deg,#0891B2,#7C3AED);">Open asset<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </div>
-    </div>
+      </div><!-- /.card-upper -->
 
-    <!-- ── NFR Dashboard (coming soon) ── -->
-    <div class="card coming-soon">
-      <div class="card-stripe amber"></div>
-      <div class="card-body">
-        <div class="card-icon" style="background:rgba(245,179,1,.1);">
-          <svg viewBox="0 0 24 24" stroke="#9A6500" stroke-width="1.7" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
-        </div>
-        <div class="card-tags">
-          <span class="tag preview">Coming soon</span>
-          <span class="tag">Agentic AI</span>
-        </div>
-        <div class="card-title">NFR Dashboard</div>
-        <div class="card-desc">See what continuous, AI-driven NFR management looks like in practice. Orchestrated agents run RCSA, TPRM, IT-risk and BCM autonomously &mdash; surfacing board-level insights without manual aggregation.</div>
-        <div class="card-meta">
-          <div>
-            <div class="experts-label">Experts</div>
-            <div class="experts-row">
-              <div class="expert is-author">
-                <a class="expert-av av-mp" href="mailto:marek.polak@accenture.com" title="Email Marek Polak">MP<img src="assets/marek-polak.jpg" alt="Marek Polak" onerror="this.style.display='none'"></a>
-                <div class="expert-name">Marek Polak</div>
-                <div class="expert-badge">Author</div>
-              </div>
-              <div class="expert">
-                <a class="expert-av av-td" href="mailto:tobias.drouin@accenture.com" title="Email Tobias Drouin">TD<img src="assets/tobias-drouin.jpg" alt="Tobias Drouin" onerror="this.style.display='none'"></a>
-                <div class="expert-name">Tobias Drouin</div>
-              </div>
+      <div class="card-meta">
+        <div>
+          <div class="experts-label">Experts</div>
+          <div class="experts-row">
+            <div class="expert is-author">
+              <a class="expert-av av-jj" href="mailto:janik.jugl@accenture.com" title="Email Janik Jugl">JJ<img src="assets/janik-jugl.jpg" alt="Janik Jugl" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Janik Jugl</div>
+              <div class="expert-badge">Author</div>
+            </div>
+            <div class="expert">
+              <a class="expert-av av-tz" href="mailto:thomas.zijlstra@accenture.com" title="Email Thomas Zijlstra">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Thomas Zijlstra</div>
+            </div>
+            <div class="expert">
+              <a class="expert-av av-om" href="mailto:oliver.moine@accenture.com" title="Email Oliver Moine">OM<img src="assets/oliver-moine.jpg" alt="Oliver Moine" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Oliver Moine</div>
+            </div>
+            <div class="expert">
+              <a class="expert-av av-nj" href="mailto:nicola.jenni@accenture.com" title="Email Nicola Jenni">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Nicola Jenni</div>
             </div>
           </div>
-          <div class="meta-badges-row">
-            <span class="badge-v" style="color:var(--muted);">Preview</span>
-          </div>
+        </div>
+        <div class="meta-badges">
+          <span class="badge-v">v1.0</span>
+          <span class="badge-time">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            <span data-ts="2026-06-15T00:00:00Z"></span>
+          </span>
         </div>
       </div>
       <div class="card-footer">
-        <button class="open-btn disabled" aria-disabled="true" disabled>Coming soon<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></button>
+        <a class="open-btn" href="https://janikjugl.github.io/NFR-Architecture/" target="_blank" rel="noopener"
+           aria-label="Open NFR Architecture (opens in new tab)"
+           style="background:linear-gradient(135deg,#0891B2,#7C3AED);">
+          Open asset<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
     </div>
 
-  </div>
+    <!-- ══════════ NFR DASHBOARD (coming soon) ══════════ -->
+    <div class="card coming-soon">
+      <div class="card-stripe amber"></div>
+      <div class="card-upper" style="min-height:0;">
+        <div class="card-body">
+          <div class="card-icon" style="background:rgba(224,160,0,.09);" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke="#8A6000" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+          </div>
+          <div class="card-tags">
+            <span class="tag preview">Coming soon</span>
+            <span class="tag">Agentic AI</span>
+          </div>
+          <div class="card-title">NFR Dashboard</div>
+          <div class="card-desc">See what continuous, AI-driven NFR management looks like in practice. Orchestrated agents run RCSA, TPRM, IT-risk and BCM autonomously — surfacing board-level insights without manual aggregation.</div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <div>
+          <div class="experts-label">Experts</div>
+          <div class="experts-row">
+            <div class="expert is-author">
+              <a class="expert-av av-mp" href="mailto:marek.polak@accenture.com" title="Email Marek Polak">MP<img src="assets/marek-polak.jpg" alt="Marek Polak" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Marek Polak</div>
+              <div class="expert-badge">Author</div>
+            </div>
+            <div class="expert">
+              <a class="expert-av av-td" href="mailto:tobias.drouin@accenture.com" title="Email Tobias Drouin">TD<img src="assets/tobias-drouin.jpg" alt="Tobias Drouin" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Tobias Drouin</div>
+            </div>
+          </div>
+        </div>
+        <div class="meta-badges">
+          <span class="badge-v" style="color:var(--muted);">In progress</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="open-btn disabled" aria-disabled="true" disabled>
+          Coming soon<svg viewBox="0 0 24 24" aria-hidden="true" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /.cards -->
 </main>
 
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
 <footer>
-  <div class="chev-ic"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true" focusable="false"><path d="M20 12 L60 50 L20 88 L34 88 L74 50 L34 12 Z" fill="var(--purple)"/></svg> Accenture NFR Practice</div><br>
+  <div class="chev-ic">
+    <svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M20 12 L60 50 L20 88 L34 88 L74 50 L34 12 Z" fill="var(--purple)"/></svg>
+    Accenture NFR Practice
+  </div><br>
   NFR AI Assets &middot; <a href="https://github.com/tzijlstra-acn/NFRAIAssets" target="_blank" rel="noopener">github.com/tzijlstra-acn/NFRAIAssets</a><br>
   Internal enablement tool for Accenture use &middot; &copy; 2026 Accenture
 </footer>
@@ -566,8 +710,8 @@ footer a:hover { text-decoration: underline; }
     if (diff <= 0)       el.textContent = 'today';
     else if (diff === 1) el.textContent = 'yesterday';
     else if (diff < 7)   el.textContent = diff + ' days ago';
-    else if (diff < 30)  el.textContent = Math.floor(diff/7) + (Math.floor(diff/7)===1 ? ' week ago' : ' weeks ago');
-    else el.textContent = new Date(el.dataset.ts).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+    else if (diff < 30)  el.textContent = Math.floor(diff / 7) + (Math.floor(diff / 7) === 1 ? ' week ago' : ' weeks ago');
+    else el.textContent = new Date(el.dataset.ts).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
   });
 }());
 </script>
