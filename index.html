@@ -26,71 +26,40 @@
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background: var(--surface);
-  color: var(--ink);
-  -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
-}
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--surface); color: var(--ink); -webkit-font-smoothing: antialiased; min-height: 100vh; }
 h1,h2,h3 { font-family: 'Space Grotesk', Inter, sans-serif; letter-spacing: -.02em; }
 
-/* ── HERO ───────────────────────────────────────────────── */
-.hero {
-  background: radial-gradient(130% 130% at 75% -15%, #5A0C93 0%, var(--violet-black) 58%);
-  padding: 80px 56px 88px;
-  position: relative; overflow: hidden;
-}
+/* ── HERO ── */
+.hero { background: radial-gradient(130% 130% at 75% -15%, #5A0C93 0%, var(--violet-black) 58%); padding: 80px 56px 88px; position: relative; overflow: hidden; }
 .hero-bg-chev { position: absolute; right: -80px; top: 50%; transform: translateY(-50%); opacity: .07; pointer-events: none; }
 .hero-bg-chev svg { width: 680px; height: 680px; }
-.hero-eyebrow {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--pink); margin-bottom: 22px; display: flex; align-items: center; gap: 10px;
-}
+.hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--pink); margin-bottom: 22px; display: flex; align-items: center; gap: 10px; }
 .hero-eyebrow::before { content: ''; width: 18px; height: 2px; background: var(--pink); display: block; flex-shrink: 0; }
 .hero h1 { font-size: clamp(38px, 5vw, 60px); font-weight: 700; line-height: 1.05; color: #fff; max-width: 18ch; margin-bottom: 20px; }
-.hero h1 em {
-  font-style: normal;
-  background: linear-gradient(90deg, #C77BFF, #FF50C8);
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-}
+.hero h1 em { font-style: normal; background: linear-gradient(90deg, #C77BFF, #FF50C8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .hero-sub { font-size: 17px; color: rgba(255,255,255,.62); max-width: 54ch; line-height: 1.6; margin-bottom: 40px; }
 .hero-stats { display: flex; gap: 44px; flex-wrap: wrap; }
 .hero-stat { border-left: 2px solid var(--purple); padding-left: 16px; }
 .hero-stat b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; color: #fff; line-height: 1; }
 .hero-stat span { font-size: 12px; color: var(--muted-2); margin-top: 3px; display: block; }
 
-/* ── MAIN ───────────────────────────────────────────────── */
+/* ── MAIN ── */
 .main { max-width: 1200px; margin: 0 auto; padding: 60px 40px 100px; }
-.grid-eyebrow {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--purple); display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
-}
+.grid-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--purple); display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .grid-eyebrow::before { content: ''; width: 16px; height: 2px; background: var(--purple); display: block; flex-shrink: 0; }
 .grid-title { font-size: 30px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
 .grid-lead { font-size: 15px; color: var(--muted); line-height: 1.6; max-width: 68ch; margin-bottom: 22px; }
 
-/* ── PW BANNER ──────────────────────────────────────────── */
-.pw-banner {
-  display: flex; align-items: center; gap: 13px;
-  background: rgba(161,0,255,.06); border: 1px solid rgba(161,0,255,.18);
-  border-radius: 12px; padding: 14px 20px; margin-bottom: 36px;
-  font-size: 13.5px; color: var(--muted); line-height: 1.5;
-}
+/* ── PW BANNER ── */
+.pw-banner { display: flex; align-items: center; gap: 13px; background: rgba(161,0,255,.06); border: 1px solid rgba(161,0,255,.18); border-radius: 12px; padding: 14px 20px; margin-bottom: 36px; font-size: 13.5px; color: var(--muted); line-height: 1.5; }
 .pw-banner svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--purple-600); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-/* ── CARDS ──────────────────────────────────────────────── */
+/* ── CARDS ── */
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 @media (max-width: 980px) { .cards { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 620px) { .cards { grid-template-columns: 1fr; } }
 
-.card {
-  background: var(--white); border: 1px solid var(--line); border-radius: 20px;
-  box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
-  overflow: hidden; transition: transform .22s ease, box-shadow .22s ease;
-}
+.card { background: var(--white); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; overflow: hidden; transition: transform .22s ease, box-shadow .22s ease; }
 .card:hover:not(.coming-soon) { transform: translateY(-5px); box-shadow: var(--shadow-md); }
 .card.coming-soon { opacity: .7; }
 
@@ -100,7 +69,6 @@ h1,h2,h3 { font-family: 'Space Grotesk', Inter, sans-serif; letter-spacing: -.02
 .card-stripe.amber { background: linear-gradient(90deg, #F5B301, #FF7A3D); }
 
 .card-body { padding: 28px 28px 18px; flex: 1; display: flex; flex-direction: column; }
-
 .card-icon { width: 50px; height: 50px; border-radius: 14px; background: var(--surface-2); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; flex-shrink: 0; }
 .card-icon svg { width: 26px; height: 26px; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
@@ -112,34 +80,32 @@ h1,h2,h3 { font-family: 'Space Grotesk', Inter, sans-serif; letter-spacing: -.02
 .card-title { font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 10px; line-height: 1.2; }
 .card-desc  { font-size: 13.5px; color: var(--muted); line-height: 1.6; flex: 1; }
 
-/* ── EXPERT PANEL ───────────────────────────────────────── */
+/* ── EXPERT PANEL ── */
 .card-meta { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 14px; }
-
 .experts-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 10px; }
 .experts-row { display: flex; gap: 14px; flex-wrap: wrap; }
 
 .expert { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 54px; }
 
+/* avatar — works as both <div> and <a> */
 .expert-av {
   width: 44px; height: 44px; border-radius: 50%;
   overflow: hidden; position: relative; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: #fff;
   border: 2.5px solid transparent;
+  text-decoration: none;
+  transition: transform .18s ease, box-shadow .18s ease;
 }
-/* photo sits on top of initials; onerror hides it revealing initials beneath */
-.expert-av img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: center top;
-  display: block; z-index: 1;
-}
+a.expert-av:hover { transform: scale(1.1); box-shadow: 0 6px 18px rgba(22,0,41,.22); }
+.expert-av img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; z-index: 1; }
 .expert.is-author .expert-av { border-color: var(--purple); box-shadow: 0 0 0 2px rgba(161,0,255,.18); }
 
 .expert-name  { font-size: 9px; font-weight: 600; color: var(--muted); text-align: center; line-height: 1.25; }
 .expert.is-author .expert-name { color: var(--purple-600); }
 .expert-badge { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--purple); }
 
-/* avatar colour tokens (visible when photo absent / fails) */
+/* avatar colour tokens */
 .av-tz { background: linear-gradient(135deg, #3D0066, #A100FF); }
 .av-jj { background: linear-gradient(135deg, #0891B2, #7C3AED); }
 .av-om { background: linear-gradient(135deg, #0F766E, #0EA5E9); }
@@ -154,19 +120,12 @@ h1,h2,h3 { font-family: 'Space Grotesk', Inter, sans-serif; letter-spacing: -.02
 
 /* CTA */
 .card-footer { padding: 0 28px 24px; }
-.open-btn {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; padding: 12px 0; border-radius: 11px;
-  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
-  cursor: pointer; text-decoration: none; border: none;
-  background: linear-gradient(135deg, var(--violet-deep), var(--purple)); color: #fff;
-  transition: filter .15s, transform .15s;
-}
+.open-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px 0; border-radius: 11px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; border: none; background: linear-gradient(135deg, var(--violet-deep), var(--purple)); color: #fff; transition: filter .15s, transform .15s; }
 .open-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
 .open-btn svg { width: 15px; height: 15px; stroke: #fff; fill: none; stroke-width: 2.2; stroke-linecap: round; }
 .open-btn.disabled { background: var(--surface-2); color: var(--muted-2); cursor: default; pointer-events: none; border: 1px solid var(--line); }
 
-/* ── FOOTER ─────────────────────────────────────────────── */
+/* ── FOOTER ── */
 footer { text-align: center; padding: 28px 24px 40px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted-2); line-height: 1.7; }
 footer .chev-ic { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 6px; }
 footer .chev-ic svg { width: 14px; height: 14px; }
@@ -176,7 +135,6 @@ footer a:hover { text-decoration: underline; }
 </head>
 <body>
 
-<!-- HERO -->
 <header class="hero">
   <div class="hero-bg-chev"><svg viewBox="0 0 100 100" fill="none"><path d="M20 12 L60 50 L20 88 M45 12 L85 50 L45 88" stroke="#fff" stroke-width="7"/></svg></div>
   <div class="hero-eyebrow">Accenture &middot; NFR Practice</div>
@@ -189,7 +147,6 @@ footer a:hover { text-decoration: underline; }
   </div>
 </header>
 
-<!-- CARDS -->
 <main class="main">
   <div class="grid-eyebrow">Published assets</div>
   <h2 class="grid-title">Browse the collection</h2>
@@ -221,23 +178,23 @@ footer a:hover { text-decoration: underline; }
             <div class="experts-label">Experts</div>
             <div class="experts-row">
               <div class="expert is-author">
-                <div class="expert-av av-tz">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-tz" href="mailto:thomas.zijlstra@accenture.com" title="Email Thomas Zijlstra">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Thomas Zijlstra</div>
                 <div class="expert-badge">Author</div>
               </div>
               <div class="expert">
-                <div class="expert-av av-om">OM<img src="assets/oliver-moine.jpg" alt="Oliver Moine" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-om" href="mailto:oliver.moine@accenture.com" title="Email Oliver Moine">OM<img src="assets/oliver-moine.jpg" alt="Oliver Moine" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Oliver Moine</div>
               </div>
               <div class="expert">
-                <div class="expert-av av-nj">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-nj" href="mailto:nicola.jenni@accenture.com" title="Email Nicola Jenni">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Nicola Jenni</div>
               </div>
             </div>
           </div>
           <div class="meta-badges-row">
             <span class="badge-v">v1.4</span>
-            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-07-21T16:09:59Z">21 Jul 2026</span></span>
+            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-07-21T16:09:59Z"></span></span>
           </div>
         </div>
       </div>
@@ -265,23 +222,23 @@ footer a:hover { text-decoration: underline; }
             <div class="experts-label">Experts</div>
             <div class="experts-row">
               <div class="expert is-author">
-                <div class="expert-av av-tz">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-tz" href="mailto:thomas.zijlstra@accenture.com" title="Email Thomas Zijlstra">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Thomas Zijlstra</div>
                 <div class="expert-badge">Author</div>
               </div>
               <div class="expert">
-                <div class="expert-av av-om">OM<img src="assets/oliver-moine.jpg" alt="Oliver Moine" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-om" href="mailto:oliver.moine@accenture.com" title="Email Oliver Moine">OM<img src="assets/oliver-moine.jpg" alt="Oliver Moine" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Oliver Moine</div>
               </div>
               <div class="expert">
-                <div class="expert-av av-nj">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-nj" href="mailto:nicola.jenni@accenture.com" title="Email Nicola Jenni">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Nicola Jenni</div>
               </div>
             </div>
           </div>
           <div class="meta-badges-row">
             <span class="badge-v">v1.0</span>
-            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-07-03T07:10:05Z">3 Jul 2026</span></span>
+            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-07-03T07:10:05Z"></span></span>
           </div>
         </div>
       </div>
@@ -308,27 +265,27 @@ footer a:hover { text-decoration: underline; }
             <div class="experts-label">Experts</div>
             <div class="experts-row">
               <div class="expert is-author">
-                <div class="expert-av av-jj">JJ<img src="assets/janik-jugl.jpg" alt="Janik Jugl" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-jj" href="mailto:janik.jugl@accenture.com" title="Email Janik Jugl">JJ<img src="assets/janik-jugl.jpg" alt="Janik Jugl" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Janik Jugl</div>
                 <div class="expert-badge">Author</div>
               </div>
               <div class="expert">
-                <div class="expert-av av-tz">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-tz" href="mailto:thomas.zijlstra@accenture.com" title="Email Thomas Zijlstra">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Thomas Zijlstra</div>
               </div>
               <div class="expert">
-                <div class="expert-av av-om">OM<img src="assets/oliver-moine.jpg" alt="Oliver Moine" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-om" href="mailto:oliver.moine@accenture.com" title="Email Oliver Moine">OM<img src="assets/oliver-moine.jpg" alt="Oliver Moine" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Oliver Moine</div>
               </div>
               <div class="expert">
-                <div class="expert-av av-nj">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-nj" href="mailto:nicola.jenni@accenture.com" title="Email Nicola Jenni">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Nicola Jenni</div>
               </div>
             </div>
           </div>
           <div class="meta-badges-row">
             <span class="badge-v">v1.0</span>
-            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-06-15T00:00:00Z">15 Jun 2026</span></span>
+            <span class="badge-time"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span data-ts="2026-06-15T00:00:00Z"></span></span>
           </div>
         </div>
       </div>
@@ -355,24 +312,24 @@ footer a:hover { text-decoration: underline; }
             <div class="experts-label">Experts</div>
             <div class="experts-row">
               <div class="expert is-author">
-                <div class="expert-av av-mp">MP<img src="assets/marek-polak.jpg" alt="Marek Polak" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-mp" href="mailto:marek.polak@accenture.com" title="Email Marek Polak">MP<img src="assets/marek-polak.jpg" alt="Marek Polak" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Marek Polak</div>
                 <div class="expert-badge">Author</div>
               </div>
               <div class="expert">
-                <div class="expert-av av-tz">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-tz" href="mailto:thomas.zijlstra@accenture.com" title="Email Thomas Zijlstra">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Thomas Zijlstra</div>
               </div>
               <div class="expert">
-                <div class="expert-av av-om">OM<img src="assets/oliver-moine.jpg" alt="Oliver Moine" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-om" href="mailto:oliver.moine@accenture.com" title="Email Oliver Moine">OM<img src="assets/oliver-moine.jpg" alt="Oliver Moine" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Oliver Moine</div>
               </div>
               <div class="expert">
-                <div class="expert-av av-nj">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-nj" href="mailto:nicola.jenni@accenture.com" title="Email Nicola Jenni">NJ<img src="assets/nicola-jenni.jpg" alt="Nicola Jenni" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Nicola Jenni</div>
               </div>
               <div class="expert">
-                <div class="expert-av av-td">TD<img src="assets/tobias-drouin.jpg" alt="Tobias Drouin" onerror="this.style.display='none'"></div>
+                <a class="expert-av av-td" href="mailto:tobias.drouin@accenture.com" title="Email Tobias Drouin">TD<img src="assets/tobias-drouin.jpg" alt="Tobias Drouin" onerror="this.style.display='none'"></a>
                 <div class="expert-name">Tobias Drouin</div>
               </div>
             </div>
