@@ -12,33 +12,30 @@
   --purple:      #A100FF;
   --purple-600:  #8A15E0;
   --violet-deep: #3D0066;
-  --violet-dark: #160029;
-  --ink:         #1A1330;
   --pink:        #FF50C8;
-  --surface:     #F5F2FA;
-  --surface-2:   #EDE8F6;
-  --line:        #E2D9EF;
-  --white:       #FFFFFF;
-  --muted:       #726A85;
-  --muted-2:     #9A93AC;
-  --shadow-sm:   0 1px 4px rgba(22,0,41,.05), 0 4px 18px rgba(22,0,41,.07);
-  --shadow-lg:   0 16px 56px rgba(61,0,102,.20), 0 4px 16px rgba(61,0,102,.10);
+  --page-bg:     #06001A;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { font-family: 'Inter', system-ui, sans-serif; background: var(--surface); color: var(--ink); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--page-bg);
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
 h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
 
-/* ── PEEK ANIMATIONS (triggered when card is hovered) ── */
+/* ── PEEK ANIMATIONS ── */
 @keyframes pkPulse { 0%,100% { opacity: .5 } 50% { opacity: 1 } }
 @keyframes pkFlow  { to { stroke-dashoffset: -8 } }
 .card:hover:not(.coming-soon) .pk-p { animation: pkPulse 2s ease-in-out infinite; }
 .card:hover:not(.coming-soon) .pk-f { animation: pkFlow .9s linear infinite; }
 
 /* ── HERO ANIMATIONS ── */
-@keyframes heroFadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
-@keyframes chevDraw   { from{stroke-dashoffset:800;opacity:0} to{stroke-dashoffset:0;opacity:.06} }
-@keyframes chevPulse  { 0%,100%{opacity:.05} 50%{opacity:.11} }
+@keyframes heroFadeUp  { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
+@keyframes chevDraw    { from{stroke-dashoffset:800;opacity:0} to{stroke-dashoffset:0;opacity:.06} }
+@keyframes chevPulse   { 0%,100%{opacity:.05} 50%{opacity:.11} }
 @keyframes canvasFadeIn { to { opacity:1; } }
 
 /* ── HERO ── */
@@ -87,97 +84,110 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
 .hero-stat b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; color: #fff; line-height: 1; }
 .hero-stat span { font-size: 11px; color: rgba(255,255,255,.5); margin-top: 5px; display: block; letter-spacing: .04em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
 
-/* ── MAIN LAYOUT ── */
-.main { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
-.content-layout { display: grid; grid-template-columns: 220px 1fr; gap: 36px; padding: 52px 0 100px; align-items: start; }
-.section-head { margin-bottom: 20px; }
-.section-head h2 { font-size: 26px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
-.section-head p { font-size: 14px; color: var(--muted); line-height: 1.65; max-width: 60ch; }
-
-/* ── PW BANNER ── */
-.pw-banner {
-  display: flex; align-items: flex-start; gap: 12px;
-  background: rgba(161,0,255,.045); border: 1px solid rgba(161,0,255,.14);
-  border-radius: 12px; padding: 14px 20px; margin-bottom: 36px;
-  font-size: 13px; color: var(--muted); line-height: 1.6;
+/* ── FILTER BAR ── */
+.filter-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(6,0,26,.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,.07);
 }
-.pw-banner svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; stroke: var(--purple-600); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.filter-bar-inner {
+  max-width: 1280px; margin: 0 auto; padding: 0 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; height: 56px;
+}
+.pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.fpill {
+  padding: 7px 18px; border-radius: 20px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+  font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+  color: rgba(255,255,255,.55); cursor: pointer;
+  transition: background .14s, color .14s, border-color .14s;
+  white-space: nowrap;
+}
+.fpill:hover { background: rgba(255,255,255,.11); color: rgba(255,255,255,.75); }
+.fpill.active { background: rgba(161,0,255,.2); color: #CC88FF; border-color: rgba(161,0,255,.4); }
+.asset-count {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
+  letter-spacing: .08em; color: rgba(255,255,255,.3); white-space: nowrap; flex-shrink: 0;
+}
+
+/* ── MAIN ── */
+.main { max-width: 1280px; margin: 0 auto; padding: 0 48px 100px; }
+
+/* ── PW NOTE ── */
+.pw-note {
+  font-size: 12px; color: rgba(255,255,255,.3);
+  padding: 14px 0 0; line-height: 1.5;
+}
 
 /* ── CARD GRID ── */
-.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
-@media (max-width: 1100px) { .cards { grid-template-columns: 1fr; } }
-@media (max-width: 960px) {
-  .content-layout { grid-template-columns: 1fr; gap: 20px; padding-top: 36px; }
-  .filter-panel { position: static; }
-}
-@media (max-width: 680px) {
-  .hero { padding: 56px 22px 60px; }
-  .main { padding: 0 20px; }
-  .hero-stats { gap: 24px; }
-}
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding-top: 20px; align-items: start; }
+
+/* ── CARD FLOAT ANIMATIONS ── */
+@keyframes cardFloatIn  { from { opacity:0; transform:translateY(20px) scale(.95); } to { opacity:1; transform:none; } }
+@keyframes cardFloatOut { from { opacity:1; transform:none; } to { opacity:0; transform:translateY(-14px) scale(.93); } }
+.card.is-entering { animation: cardFloatIn  .32s cubic-bezier(.22,.68,0,1.15) both; }
+.card.is-exiting  { animation: cardFloatOut .2s  cubic-bezier(.4,0,1,1) forwards; pointer-events:none; }
 
 /* ── CARD ── */
 .card {
-  background: var(--white); border: 1px solid var(--line); border-radius: 20px;
-  box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 20px;
+  display: flex; flex-direction: column;
   transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-  overflow: hidden; /* needed for stripe radius clipping only */
+  overflow: hidden;
 }
 .card:hover:not(.coming-soon) {
-  transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: rgba(161,0,255,.18);
+  transform: translateY(-4px);
+  border-color: rgba(161,0,255,.3);
+  box-shadow: 0 0 50px rgba(161,0,255,.12), 0 20px 48px rgba(0,0,0,.5);
 }
-/* coming-soon card */
-.card.coming-soon { border-style: dashed; border-color: rgba(245,179,1,.45); background: #FFFDF5; box-shadow: none; }
-.card.coming-soon .card-title { color: var(--muted); }
+.card.coming-soon {
+  opacity: .75;
+  border: 1.5px dashed rgba(224,160,0,.3);
+}
 
-/* colour stripes */
-.card-stripe        { height: 4px; flex-shrink: 0; background: linear-gradient(90deg, var(--purple), var(--pink)); }
-.card-stripe.green  { background: linear-gradient(90deg, #1A7A52, #2DBF82); }
-.card-stripe.teal   { background: linear-gradient(90deg, #0891B2, #7C3AED); }
-.card-stripe.amber  { background: linear-gradient(90deg, #E0A000, #FF8A3D); }
-
-/*
- * .card-upper  — the hoverable peek zone. overflow:hidden clips the sliding peek panel.
- *                Experts + CTA sit BELOW this, always visible and always interactive.
- */
+/* ── CARD UPPER ── */
 .card-upper {
-  flex: 1; position: relative; overflow: hidden;
-  display: flex; flex-direction: column;
-  min-height: 244px; /* guarantees peek panel has enough room */
+  position: relative; overflow: hidden;
+  min-height: 170px; flex-shrink: 0;
 }
-.card-body {
-  padding: 24px 24px 16px; flex: 1; display: flex; flex-direction: column;
+.card-upper::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.card-upper--blueprint,
+.card-upper--dashboard {
+  background: linear-gradient(160deg, rgba(80,0,140,.35) 0%, rgba(161,0,255,.08) 100%);
+}
+.card-upper--ai-tool {
+  background: linear-gradient(160deg, rgba(10,70,40,.4) 0%, rgba(26,122,82,.08) 100%);
+}
+.card-upper--architecture {
+  background: linear-gradient(160deg, rgba(4,60,80,.4) 0%, rgba(8,145,178,.08) 100%);
+}
+.card-upper--agentic {
+  background: linear-gradient(160deg, rgba(100,70,0,.25) 0%, rgba(224,160,0,.05) 100%);
 }
 
-/* icon */
-.card-icon {
-  width: 46px; height: 46px; border-radius: 12px; background: var(--surface-2);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 16px; flex-shrink: 0;
-  transition: transform .2s ease;
+/* Type badge (corner label) */
+.type-badge {
+  position: absolute; top: 12px; right: 12px; z-index: 5;
+  font-family: 'JetBrains Mono', monospace; font-size: 8px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 20px;
+  background: rgba(0,0,0,.35); color: rgba(255,255,255,.45);
+  border: 1px solid rgba(255,255,255,.1);
 }
-.card:hover:not(.coming-soon) .card-icon { transform: scale(1.06); }
-.card-icon svg { width: 24px; height: 24px; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-/* tags */
-.card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
-.tag {
-  font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
-  letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px;
-  border-radius: 20px; background: var(--surface-2); color: var(--muted); border: 1px solid var(--line);
-}
-.tag.live    { background: rgba(26,122,82,.08);   color: #15724A; border-color: rgba(26,122,82,.2); }
-.tag.locked  { background: rgba(224,160,0,.09);   color: #8A6000; border-color: rgba(224,160,0,.25); }
-.tag.preview { background: rgba(255,80,200,.07);  color: #A01070; border-color: rgba(255,80,200,.2); }
-
-/* title + desc */
-.card-title { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 8px; line-height: 1.25; }
-.card-desc  { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; }
-
-/* ── PEEK OVERLAY ── lives in .card-upper, never covers .card-meta or .card-footer ── */
+/* ── CARD PEEK ── */
 .card-peek {
   position: absolute; inset: 0;
-  display: flex; flex-direction: column; padding: 18px 20px 16px;
+  display: flex; flex-direction: column; padding: 16px 18px 14px;
   transform: translateY(103%);
   transition: transform .3s cubic-bezier(.22,.68,0,1.12);
   z-index: 10; color: #fff;
@@ -185,7 +195,6 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
 .card:hover:not(.coming-soon) .card-peek,
 .card:focus-within:not(.coming-soon) .card-peek { transform: translateY(0); }
 
-/* peek backgrounds — radial spotlight glow at bottom for depth */
 .card-peek.peek-purple {
   background:
     radial-gradient(ellipse 90% 55% at 50% 108%, rgba(161,0,255,.35) 0%, transparent 70%),
@@ -202,37 +211,65 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
     linear-gradient(168deg, #082A3C 0%, #041420 100%);
 }
 
-/* peek thumbnail */
+/* Peek thumbnail */
 .peek-thumb {
   width: 100%; border-radius: 8px; overflow: hidden; flex-shrink: 0;
   border: 1px solid rgba(255,255,255,.1);
-  margin-bottom: 13px;
-  /* thumbnail pops in with a slight scale when peek appears */
+  margin-bottom: 10px;
+  height: 82px;
   transform: scale(.97);
   transition: transform .38s cubic-bezier(.22,.68,0,1.15) .04s;
 }
 .card:hover:not(.coming-soon) .peek-thumb { transform: scale(1); }
-.peek-thumb svg { display: block; width: 100%; }
+.peek-thumb svg { display: block; width: 100%; height: auto; }
 
-/* peek bullets */
-.peek-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+/* Peek bullets */
+.peek-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
 .peek-list li {
   display: flex; gap: 8px; align-items: flex-start;
-  font-size: 12px; color: rgba(255,255,255,.8); line-height: 1.45;
+  font-size: 11px; color: rgba(255,255,255,.8); line-height: 1.4;
 }
-.peek-list li svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 1px; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.peek-list li svg { width: 12px; height: 12px; flex-shrink: 0; margin-top: 1px; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .peek-list li strong { color: #fff; font-weight: 600; }
 
-/* ── EXPERT PANEL — always visible, sits BELOW .card-upper ── */
-.card-meta {
-  padding: 14px 24px 16px; border-top: 1px solid var(--line);
-  display: flex; flex-direction: column; gap: 12px; flex-shrink: 0;
-  background: var(--white); /* explicit bg so it's never obscured */
+/* ── CARD BODY ── */
+.card-body { padding: 20px 22px 12px; display: flex; flex-direction: column; }
+
+/* Icon */
+.card-icon {
+  width: 46px; height: 46px; border-radius: 12px; background: rgba(255,255,255,.08);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px; flex-shrink: 0;
+  transition: transform .2s ease;
 }
-.card.coming-soon .card-meta { background: #FFFDF5; }
+.card:hover:not(.coming-soon) .card-icon { transform: scale(1.06); }
+.card-icon svg { width: 24px; height: 24px; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Tags */
+.card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px;
+  border-radius: 20px; background: rgba(255,255,255,.08); color: rgba(255,255,255,.4); border: 1px solid rgba(255,255,255,.1);
+}
+.tag.live    { background: rgba(26,122,82,.15);  color: #2DBF82; border-color: rgba(26,122,82,.3); }
+.tag.locked  { background: rgba(224,160,0,.1);   color: rgba(224,160,0,.7); border-color: rgba(224,160,0,.25); }
+.tag.preview { background: rgba(224,160,0,.1);   color: rgba(224,160,0,.7); border-color: rgba(224,160,0,.25); }
+
+/* Title + desc */
+.card-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.25; }
+.card-desc  { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.65; }
+.card.coming-soon .card-title { color: rgba(255,255,255,.6); }
+
+/* ── CARD META ── */
+.card-meta {
+  padding: 14px 22px 16px; border-top: 1px solid rgba(255,255,255,.07);
+  display: flex; flex-direction: column; gap: 12px; flex-shrink: 0;
+  background: rgba(0,0,0,.15);
+}
 .experts-label {
   font-family: 'JetBrains Mono', monospace; font-size: 8px; font-weight: 700;
-  letter-spacing: .16em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 8px;
+  letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.25); margin-bottom: 8px;
 }
 .experts-row { display: flex; gap: 10px; flex-wrap: wrap; }
 .expert { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 48px; }
@@ -244,12 +281,12 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
   border: 2px solid transparent; text-decoration: none;
   transition: transform .16s ease, box-shadow .16s ease;
 }
-a.expert-av:hover { transform: scale(1.14); box-shadow: 0 4px 14px rgba(22,0,41,.24); }
+a.expert-av:hover { transform: scale(1.14); box-shadow: 0 4px 14px rgba(0,0,0,.5); }
 .expert-av img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; z-index: 1; border-radius: 50%; }
 .expert.is-author .expert-av { border-color: var(--purple); box-shadow: 0 0 0 2px rgba(161,0,255,.15); }
-.expert-name  { font-size: 8px; font-weight: 600; color: var(--muted); text-align: center; line-height: 1.3; }
-.expert.is-author .expert-name { color: var(--purple-600); }
-.expert-badge { font-family: 'JetBrains Mono', monospace; font-size: 7px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--purple); }
+.expert-name  { font-size: 8px; font-weight: 600; color: rgba(255,255,255,.5); text-align: center; line-height: 1.3; }
+.expert.is-author .expert-name { color: #CC88FF; }
+.expert-badge { font-family: 'JetBrains Mono', monospace; font-size: 7px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #CC88FF; }
 /* avatar gradients */
 .av-tz { background: linear-gradient(135deg, #3D0066, #A100FF); }
 .av-jj { background: linear-gradient(135deg, #0891B2, #7C3AED); }
@@ -263,16 +300,16 @@ a.expert-av:hover { transform: scale(1.14); box-shadow: 0 4px 14px rgba(22,0,41,
 .badge-v {
   font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
   padding: 2px 7px; border-radius: 5px;
-  background: var(--surface-2); color: var(--purple-600); border: 1px solid var(--line);
+  background: rgba(255,255,255,.06); color: rgba(255,255,255,.5); border: 1px solid rgba(255,255,255,.1);
 }
 .badge-time {
   display: flex; align-items: center; gap: 4px;
-  font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted);
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(255,255,255,.35);
 }
-.badge-time svg { width: 9px; height: 9px; stroke: var(--muted); fill: none; flex-shrink: 0; stroke-width: 2; stroke-linecap: round; }
+.badge-time svg { width: 9px; height: 9px; stroke: rgba(255,255,255,.35); fill: none; flex-shrink: 0; stroke-width: 2; stroke-linecap: round; }
 
-/* ── CTA BUTTON ── */
-.card-footer { padding: 0 24px 20px; flex-shrink: 0; }
+/* ── CARD FOOTER ── */
+.card-footer { padding: 0 22px 20px; flex-shrink: 0; }
 .open-btn {
   display: flex; align-items: center; justify-content: center; gap: 8px;
   width: 100%; padding: 11px 0; border-radius: 10px;
@@ -283,122 +320,49 @@ a.expert-av:hover { transform: scale(1.14); box-shadow: 0 4px 14px rgba(22,0,41,
 }
 .open-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
 .open-btn svg { width: 14px; height: 14px; stroke: #fff; fill: none; stroke-width: 2.2; stroke-linecap: round; }
-.open-btn.disabled { background: var(--surface-2); color: var(--muted-2); cursor: default; pointer-events: none; border: 1px solid var(--line); }
-
-/* ── FILTER PANEL (left sidebar) ── */
-.filter-panel {
-  position: sticky; top: 24px;
-  background: var(--white); border: 1px solid var(--line); border-radius: 16px;
-  box-shadow: var(--shadow-sm); overflow: hidden;
-}
-.filter-panel-hd {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 15px 18px 13px; border-bottom: 1px solid var(--line);
-}
-.filter-panel-title {
-  font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: var(--ink);
-}
-.filter-panel-clear {
-  display: none; font-size: 10.5px; color: var(--purple-600);
-  background: rgba(161,0,255,.07); border: 1px solid rgba(161,0,255,.2);
-  border-radius: 20px; cursor: pointer; font-family: 'Inter', sans-serif;
-  padding: 2px 9px; transition: background .14s;
-}
-.filter-panel-clear.visible { display: block; }
-.filter-panel-clear:hover { background: rgba(161,0,255,.14); }
-
-/* accordion sections */
-.filter-section { border-bottom: 1px solid var(--line); }
-.filter-section:last-of-type { border-bottom: none; }
-.filter-section-btn {
-  width: 100%; display: flex; align-items: center; justify-content: space-between;
-  padding: 11px 18px; background: none; border: none; cursor: pointer;
-  font-family: 'JetBrains Mono', monospace; font-size: 8.5px; font-weight: 700;
-  letter-spacing: .13em; text-transform: uppercase; color: var(--muted);
-  transition: color .14s; text-align: left;
-}
-.filter-section-btn:hover { color: var(--ink); }
-.filter-section-btn .chev {
-  width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;
-  stroke-linecap: round; flex-shrink: 0; overflow: visible;
-  transition: transform .28s cubic-bezier(.4,0,.2,1);
-}
-.filter-section.open .filter-section-btn .chev { transform: rotate(180deg); }
-
-.filter-section-body {
-  max-height: 0; overflow: hidden;
-  transition: max-height .32s cubic-bezier(.4,0,.2,1);
-  padding: 0 10px;
-}
-.filter-section.open .filter-section-body { max-height: 300px; padding-bottom: 10px; }
-
-/* radio-style toggle options */
-.ftoggle {
-  display: flex; align-items: center; gap: 10px;
-  width: 100%; padding: 7px 8px 7px 6px; border-radius: 8px; border: none;
-  background: transparent; cursor: pointer; text-align: left;
-  font-family: 'Inter', sans-serif; font-size: 13px; color: var(--muted);
-  transition: background .14s, color .14s; line-height: 1.4;
-}
-.ftoggle:hover { background: var(--surface); color: var(--ink); }
-.ftoggle.active { color: var(--purple-600); font-weight: 600; }
-.ftoggle-ind {
-  width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--line);
-  flex-shrink: 0; position: relative;
-  transition: border-color .2s ease, background .2s ease, transform .25s cubic-bezier(.34,1.56,.64,1);
-}
-.ftoggle-ind::after {
-  content: ''; position: absolute; inset: 3px; border-radius: 50%;
-  background: #fff; transform: scale(0);
-  transition: transform .22s cubic-bezier(.34,1.56,.64,1);
-}
-.ftoggle.active .ftoggle-ind {
-  border-color: var(--purple); background: var(--purple); transform: scale(1.08);
-}
-.ftoggle.active .ftoggle-ind::after { transform: scale(1); }
-
-/* count footer */
-.filter-count {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  color: var(--muted-2); transition: color .2s;
-}
-.filter-count.filtered { color: var(--purple-600); font-weight: 700; }
-.filter-panel-ft {
-  padding: 11px 18px; border-top: 1px solid var(--line); background: var(--surface);
+.open-btn.disabled {
+  background: rgba(255,255,255,.06); color: rgba(255,255,255,.25);
+  cursor: default; pointer-events: none; border: 1px solid rgba(255,255,255,.08);
 }
 
-/* ── CARD FLOAT ANIMATIONS ── */
-@keyframes cardFloatIn  { from { opacity:0; transform:translateY(20px) scale(.95); } to { opacity:1; transform:none; } }
-@keyframes cardFloatOut { from { opacity:1; transform:none; } to { opacity:0; transform:translateY(-14px) scale(.93); } }
-.card.is-entering { animation: cardFloatIn  .32s cubic-bezier(.22,.68,0,1.15) both; }
-.card.is-exiting  { animation: cardFloatOut .2s  cubic-bezier(.4,0,1,1) forwards; pointer-events:none; }
-
-/* ── NO-RESULTS STATE ── */
+/* ── NO-RESULTS ── */
 .no-results {
   display: none; flex-direction: column; align-items: center; justify-content: center;
   padding: 72px 24px; text-align: center;
-  background: var(--white); border: 1px dashed var(--line); border-radius: 20px; gap: 10px;
+  background: rgba(255,255,255,.03); border: 1px dashed rgba(255,255,255,.1); border-radius: 20px; gap: 10px;
 }
 .no-results.visible { display: flex; }
-.no-results svg { width: 44px; height: 44px; stroke: var(--muted-2); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 4px; }
-.no-results h3 { font-size: 17px; font-weight: 700; color: var(--ink); }
-.no-results p { font-size: 13px; color: var(--muted); max-width: 32ch; line-height: 1.6; }
+.no-results svg { width: 44px; height: 44px; stroke: rgba(255,255,255,.2); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 4px; }
+.no-results h3 { font-size: 17px; font-weight: 700; color: rgba(255,255,255,.7); }
+.no-results p { font-size: 13px; color: rgba(255,255,255,.35); max-width: 32ch; line-height: 1.6; }
 .no-results .nr-btn {
   margin-top: 6px; font-size: 12px; font-family: 'Inter', sans-serif; font-weight: 600;
-  color: var(--purple-600); background: none; border: 1px solid rgba(161,0,255,.3);
+  color: #CC88FF; background: none; border: 1px solid rgba(161,0,255,.3);
   padding: 7px 18px; border-radius: 20px; cursor: pointer; transition: background .14s;
 }
-.no-results .nr-btn:hover { background: rgba(161,0,255,.07); }
+.no-results .nr-btn:hover { background: rgba(161,0,255,.1); }
 
 /* ── FOOTER ── */
 footer {
   text-align: center; padding: 24px 24px 40px;
-  border-top: 1px solid var(--line); font-size: 12px; color: var(--muted-2); line-height: 1.8;
+  background: rgba(0,0,0,.3); border-top: 1px solid rgba(255,255,255,.07);
+  font-size: 12px; color: rgba(255,255,255,.35); line-height: 1.8;
 }
 footer .chev-ic { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 4px; }
 footer .chev-ic svg { width: 13px; height: 13px; }
-footer a { color: var(--purple-600); text-decoration: none; }
+footer a { color: rgba(161,0,255,.7); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) { .cards { grid-template-columns: 1fr; } }
+@media (max-width: 680px) {
+  .hero { padding: 56px 22px 60px; }
+  .main { padding: 0 20px 80px; }
+  .filter-bar-inner { padding: 0 20px; }
+  .hero-stats { gap: 24px; }
+  .pills { gap: 4px; }
+  .fpill { padding: 6px 12px; font-size: 11px; }
+}
 </style>
 </head>
 <body>
@@ -411,8 +375,8 @@ footer a:hover { text-decoration: underline; }
     <svg viewBox="0 0 100 100" fill="none"><path d="M18 10 L58 50 L18 90 M40 10 L80 50 L40 90" stroke="#fff" stroke-width="7"/></svg>
   </div>
   <div class="hero-eyebrow">Accenture &middot; NFR Practice</div>
-  <h1>NFR <em>AI Assets</em></h1>
-  <p class="hero-sub">AI-powered tools and blueprints for Non-Financial Risk management — built by the Accenture NFR practice to accelerate client engagements.</p>
+  <h1>NFR AI <em>Asset Library</em></h1>
+  <p class="hero-sub">Five production-grade tools and blueprints for Non-Financial Risk &mdash; built by the Accenture NFR practice for the EU regulatory moment.</p>
   <div class="hero-stats">
     <div class="hero-stat"><b>4</b><span>live assets</span></div>
     <div class="hero-stat"><b>6</b><span>practice experts</span></div>
@@ -420,98 +384,33 @@ footer a:hover { text-decoration: underline; }
   </div>
 </header>
 
+<!-- ═══════════════════════════ FILTER BAR ═══════════════════════════ -->
+<div class="filter-bar">
+  <div class="filter-bar-inner">
+    <div class="pills" role="group" aria-label="Filter by asset type">
+      <button class="fpill active" data-type="all">All</button>
+      <button class="fpill" data-type="blueprint">Blueprint</button>
+      <button class="fpill" data-type="ai-tool">AI Tool</button>
+      <button class="fpill" data-type="architecture">Architecture</button>
+      <button class="fpill" data-type="dashboard">Dashboard</button>
+      <button class="fpill" data-type="agentic">Agentic AI</button>
+    </div>
+    <span class="asset-count" id="assetCount">5 assets</span>
+  </div>
+</div>
+
 <!-- ═══════════════════════════ MAIN ═══════════════════════════ -->
 <main class="main">
-  <div class="content-layout">
-
-    <!-- ── FILTER PANEL ── -->
-    <aside class="filter-panel" aria-label="Filter assets">
-      <div class="filter-panel-hd">
-        <span class="filter-panel-title">Filter</span>
-        <button class="filter-panel-clear" id="filterClear" aria-label="Clear all filters">Clear ×</button>
-      </div>
-
-      <div class="filter-section open">
-        <button class="filter-section-btn" aria-expanded="true">
-          <span>Asset type</span>
-          <svg class="chev" viewBox="0 0 16 16"><polyline points="3,6 8,11 13,6"/></svg>
-        </button>
-        <div class="filter-section-body">
-          <button class="ftoggle active" data-filter="type" data-value="all"><span class="ftoggle-ind"></span>All</button>
-          <button class="ftoggle" data-filter="type" data-value="blueprint"><span class="ftoggle-ind"></span>Blueprint</button>
-          <button class="ftoggle" data-filter="type" data-value="ai-tool"><span class="ftoggle-ind"></span>AI Tool</button>
-          <button class="ftoggle" data-filter="type" data-value="architecture"><span class="ftoggle-ind"></span>Architecture</button>
-          <button class="ftoggle" data-filter="type" data-value="dashboard"><span class="ftoggle-ind"></span>Dashboard</button>
-          <button class="ftoggle" data-filter="type" data-value="agentic"><span class="ftoggle-ind"></span>Agentic AI</button>
-        </div>
-      </div>
-
-      <div class="filter-section open">
-        <button class="filter-section-btn" aria-expanded="true">
-          <span>Industry</span>
-          <svg class="chev" viewBox="0 0 16 16"><polyline points="3,6 8,11 13,6"/></svg>
-        </button>
-        <div class="filter-section-body">
-          <button class="ftoggle active" data-filter="industry" data-value="all"><span class="ftoggle-ind"></span>All</button>
-          <button class="ftoggle" data-filter="industry" data-value="banking"><span class="ftoggle-ind"></span>Banking &amp; FSI</button>
-          <button class="ftoggle" data-filter="industry" data-value="multi"><span class="ftoggle-ind"></span>Multi-industry</button>
-        </div>
-      </div>
-
-      <div class="filter-section open">
-        <button class="filter-section-btn" aria-expanded="true">
-          <span>Status</span>
-          <svg class="chev" viewBox="0 0 16 16"><polyline points="3,6 8,11 13,6"/></svg>
-        </button>
-        <div class="filter-section-body">
-          <button class="ftoggle active" data-filter="status" data-value="all"><span class="ftoggle-ind"></span>All</button>
-          <button class="ftoggle" data-filter="status" data-value="live"><span class="ftoggle-ind"></span>Live</button>
-          <button class="ftoggle" data-filter="status" data-value="coming-soon"><span class="ftoggle-ind"></span>Coming soon</button>
-        </div>
-      </div>
-
-      <div class="filter-panel-ft">
-        <span class="filter-count" id="filterCount">5 assets</span>
-      </div>
-    </aside>
-
-    <!-- ── CONTENT ── -->
-    <div class="content-area">
-
-      <div class="section-head">
-        <h2>Browse the collection</h2>
-        <p>Hover a card to preview what&rsquo;s inside. Click to open &mdash; every asset follows the Accenture NFR design language.</p>
-      </div>
-
-  <div class="pw-banner">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-    Every asset is access-code protected. To request access, email the author listed on the card — contact details are always one click away on their avatar.
-  </div>
+  <p class="pw-note">🔒 All assets are access-code protected — click an expert avatar to request access.</p>
 
   <div class="cards">
 
     <!-- ══════════ ICS IMPLEMENTATION BLUEPRINT ══════════ -->
     <div class="card" data-type="blueprint" data-industry="banking" data-status="live">
-      <div class="card-stripe"></div>
 
-      <!-- upper zone: peek lives here, never covers experts -->
-      <div class="card-upper">
-        <div class="card-body">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" stroke="var(--purple-600)" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/></svg>
-          </div>
-          <div class="card-tags">
-            <span class="tag live">&#9679;&nbsp;Live</span>
-            <span class="tag">GRC &amp; ICS</span>
-            <span class="tag locked">&#128274;&nbsp;Protected</span>
-          </div>
-          <div class="card-title">ICS Implementation Blueprint</div>
-          <div class="card-desc">Understand the full journey from manual control monitoring to AI-driven ICS — with a business case, phased roadmap, and team blueprint calibrated to your maturity level.</div>
-        </div>
-
-        <!-- ── PEEK PANEL ── -->
+      <div class="card-upper card-upper--blueprint">
+        <span class="type-badge">Blueprint</span>
         <div class="card-peek peek-purple" aria-hidden="true">
-          <!-- SVG thumbnail: maturity bar · KPI tiles · data-flow pipeline -->
           <div class="peek-thumb">
             <svg viewBox="0 0 280 148" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="280" height="148" fill="#160029"/>
@@ -567,14 +466,26 @@ footer a:hover { text-decoration: underline; }
             </svg>
           </div>
           <ul class="peek-list">
-            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Select</strong> maturity L1–L5 — scope, team &amp; cost reconfigure live</span></li>
+            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Select</strong> maturity L1&ndash;L5 &mdash; scope, team &amp; cost reconfigure live</span></li>
             <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Build</strong> a validated business case with a live ROI and avoided-finding model</span></li>
             <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Leave</strong> with a 28-week delivery plan, team blueprint, and data-flow architecture</span></li>
           </ul>
         </div>
       </div><!-- /.card-upper -->
 
-      <!-- experts — always visible, never obscured by the peek -->
+      <div class="card-body">
+        <div class="card-icon" style="background:rgba(161,0,255,.1);" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke="var(--purple-600)" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/></svg>
+        </div>
+        <div class="card-tags">
+          <span class="tag live">&#9679;&nbsp;Live</span>
+          <span class="tag">GRC &amp; ICS</span>
+          <span class="tag locked">&#128274;&nbsp;Protected</span>
+        </div>
+        <div class="card-title">ICS Implementation Blueprint</div>
+        <div class="card-desc">Understand the full journey from manual control monitoring to AI-driven ICS &mdash; with a business case, phased roadmap, and team blueprint calibrated to your maturity level.</div>
+      </div>
+
       <div class="card-meta">
         <div>
           <div class="experts-label">Experts</div>
@@ -615,25 +526,10 @@ footer a:hover { text-decoration: underline; }
 
     <!-- ══════════ AI COST SIMULATOR ══════════ -->
     <div class="card" data-type="ai-tool" data-industry="multi" data-status="live">
-      <div class="card-stripe green"></div>
 
-      <div class="card-upper">
-        <div class="card-body">
-          <div class="card-icon" style="background:rgba(26,122,82,.1);" aria-hidden="true">
-            <svg viewBox="0 0 24 24" stroke="#1A7A52" stroke-width="1.7"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
-          </div>
-          <div class="card-tags">
-            <span class="tag live">&#9679;&nbsp;Live</span>
-            <span class="tag">Cost Modelling</span>
-            <span class="tag locked">&#128274;&nbsp;Protected</span>
-          </div>
-          <div class="card-title">AI Cost Simulator</div>
-          <div class="card-desc">Build a credible AI business case in minutes. Model deployment costs, compare scenarios, and walk into a client conversation with a defensible TCO across model selection and workload mix.</div>
-        </div>
-
-        <!-- ── PEEK PANEL ── -->
+      <div class="card-upper card-upper--ai-tool">
+        <span class="type-badge">AI Tool</span>
         <div class="card-peek peek-green" aria-hidden="true">
-          <!-- SVG thumbnail: industry tabs · model cost rows · total bar -->
           <div class="peek-thumb">
             <svg viewBox="0 0 280 148" fill="none">
               <rect width="280" height="148" fill="#051910"/>
@@ -646,7 +542,7 @@ footer a:hover { text-decoration: underline; }
               <rect x="79" y="15" width="34" height="5" rx="2" fill="rgba(255,255,255,.25)"/>
               <rect x="141" y="15" width="34" height="5" rx="2" fill="rgba(255,255,255,.25)"/>
               <rect x="203" y="15" width="34" height="5" rx="2" fill="rgba(255,255,255,.25)"/>
-              <!-- model row 1 (active — highlighted) -->
+              <!-- model row 1 (active) -->
               <rect x="10" y="34" width="260" height="24" rx="5" fill="rgba(26,122,82,.15)"/>
               <rect x="16" y="41" width="52" height="5"  rx="2" fill="rgba(255,255,255,.55)"/>
               <rect x="90" y="39" width="132" height="9" rx="4" fill="rgba(26,122,82,.6)" class="pk-p"/>
@@ -668,12 +564,25 @@ footer a:hover { text-decoration: underline; }
             </svg>
           </div>
           <ul class="peek-list">
-            <li><svg viewBox="0 0 14 14" stroke="#2DBF82"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Model</strong> total AI cost across any LLM provider — Banking, Insurance, Health, Telecom</span></li>
+            <li><svg viewBox="0 0 14 14" stroke="#2DBF82"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Model</strong> total AI cost across any LLM provider &mdash; Banking, Insurance, Health, Telecom</span></li>
             <li><svg viewBox="0 0 14 14" stroke="#2DBF82"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Compare</strong> scenarios and generate a defensible annual and monthly TCO</span></li>
             <li><svg viewBox="0 0 14 14" stroke="#2DBF82"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Include</strong> risk-reduction value and avoided supervisory findings in the ROI</span></li>
           </ul>
         </div>
       </div><!-- /.card-upper -->
+
+      <div class="card-body">
+        <div class="card-icon" style="background:rgba(26,122,82,.12);" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke="#1A7A52" stroke-width="1.7"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+        </div>
+        <div class="card-tags">
+          <span class="tag live">&#9679;&nbsp;Live</span>
+          <span class="tag">Cost Modelling</span>
+          <span class="tag locked">&#128274;&nbsp;Protected</span>
+        </div>
+        <div class="card-title">AI Cost Simulator</div>
+        <div class="card-desc">Build a credible AI business case in minutes. Model deployment costs, compare scenarios, and walk into a client conversation with a defensible TCO across model selection and workload mix.</div>
+      </div>
 
       <div class="card-meta">
         <div>
@@ -717,25 +626,10 @@ footer a:hover { text-decoration: underline; }
 
     <!-- ══════════ NFR ARCHITECTURE ══════════ -->
     <div class="card" data-type="architecture" data-industry="banking" data-status="live">
-      <div class="card-stripe teal"></div>
 
-      <div class="card-upper">
-        <div class="card-body">
-          <div class="card-icon" style="background:rgba(8,145,178,.09);" aria-hidden="true">
-            <svg viewBox="0 0 24 24" stroke="#0891B2" stroke-width="1.7"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M6 9v3a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/></svg>
-          </div>
-          <div class="card-tags">
-            <span class="tag live">&#9679;&nbsp;Live</span>
-            <span class="tag">AI Infrastructure</span>
-            <span class="tag locked">&#128274;&nbsp;Protected</span>
-          </div>
-          <div class="card-title">NFR AI Infrastructure</div>
-          <div class="card-desc">A structured reference architecture for NFR modernisation — risk taxonomy, technology stack, regulatory mapping and vendor selection in one accelerator asset.</div>
-        </div>
-
-        <!-- ── PEEK PANEL ── -->
+      <div class="card-upper card-upper--architecture">
+        <span class="type-badge">Architecture</span>
         <div class="card-peek peek-teal" aria-hidden="true">
-          <!-- SVG thumbnail: domain boxes · platform node · tech layers -->
           <div class="peek-thumb">
             <svg viewBox="0 0 280 148" fill="none">
               <rect width="280" height="148" fill="#041420"/>
@@ -783,12 +677,25 @@ footer a:hover { text-decoration: underline; }
             </svg>
           </div>
           <ul class="peek-list">
-            <li><svg viewBox="0 0 14 14" stroke="#38BCD4"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Navigate</strong> DORA Art.&nbsp;17–30, Basel IV and EU AI Act with article-level mapping</span></li>
+            <li><svg viewBox="0 0 14 14" stroke="#38BCD4"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Navigate</strong> DORA Art.&nbsp;17&ndash;30, Basel IV and EU AI Act with article-level mapping</span></li>
             <li><svg viewBox="0 0 14 14" stroke="#38BCD4"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Evaluate</strong> vendors across data, integration and AI platform layers</span></li>
             <li><svg viewBox="0 0 14 14" stroke="#38BCD4"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Accelerate</strong> proposals with a ready-made enterprise NFR reference architecture</span></li>
           </ul>
         </div>
       </div><!-- /.card-upper -->
+
+      <div class="card-body">
+        <div class="card-icon" style="background:rgba(8,145,178,.12);" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke="#0891B2" stroke-width="1.7"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M6 9v3a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/></svg>
+        </div>
+        <div class="card-tags">
+          <span class="tag live">&#9679;&nbsp;Live</span>
+          <span class="tag">AI Infrastructure</span>
+          <span class="tag locked">&#128274;&nbsp;Protected</span>
+        </div>
+        <div class="card-title">NFR AI Infrastructure</div>
+        <div class="card-desc">A structured reference architecture for NFR modernisation &mdash; risk taxonomy, technology stack, regulatory mapping and vendor selection in one accelerator asset.</div>
+      </div>
 
       <div class="card-meta">
         <div>
@@ -832,23 +739,9 @@ footer a:hover { text-decoration: underline; }
 
     <!-- ══════════ AI RISK DASHBOARD ══════════ -->
     <div class="card" data-type="dashboard" data-industry="banking" data-status="live">
-      <div class="card-stripe"></div>
 
-      <div class="card-upper">
-        <div class="card-body">
-          <div class="card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" stroke="var(--purple-600)" stroke-width="1.7"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-          </div>
-          <div class="card-tags">
-            <span class="tag live">&#9679;&nbsp;Live</span>
-            <span class="tag">AI Risk Management</span>
-            <span class="tag locked">&#128274;&nbsp;Protected</span>
-          </div>
-          <div class="card-title">AI Risk Dashboard</div>
-          <div class="card-desc">A complete AI governance cockpit for large European banks — model inventory, shadow AI detection, regulatory exposure heat-map, vendor risk, validation coverage and a full audit trail across DORA, SR&nbsp;11-7, GDPR and EU&nbsp;AI&nbsp;Act.</div>
-        </div>
-
-        <!-- ── PEEK PANEL ── -->
+      <div class="card-upper card-upper--dashboard">
+        <span class="type-badge">Dashboard</span>
         <div class="card-peek peek-purple" aria-hidden="true">
           <div class="peek-thumb">
             <svg viewBox="0 0 280 148" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -966,6 +859,19 @@ footer a:hover { text-decoration: underline; }
         </div>
       </div><!-- /.card-upper -->
 
+      <div class="card-body">
+        <div class="card-icon" style="background:rgba(161,0,255,.1);" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke="var(--purple-600)" stroke-width="1.7"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <div class="card-tags">
+          <span class="tag live">&#9679;&nbsp;Live</span>
+          <span class="tag">AI Risk Management</span>
+          <span class="tag locked">&#128274;&nbsp;Protected</span>
+        </div>
+        <div class="card-title">AI Risk Dashboard</div>
+        <div class="card-desc">A complete AI governance cockpit for large European banks &mdash; model inventory, shadow AI detection, regulatory exposure heat-map, vendor risk, validation coverage and a full audit trail across DORA, SR&nbsp;11-7, GDPR and EU&nbsp;AI&nbsp;Act.</div>
+      </div>
+
       <div class="card-meta">
         <div>
           <div class="experts-label">Experts</div>
@@ -998,20 +904,23 @@ footer a:hover { text-decoration: underline; }
 
     <!-- ══════════ NFR DASHBOARD (coming soon) ══════════ -->
     <div class="card coming-soon" data-type="agentic" data-industry="banking" data-status="coming-soon">
-      <div class="card-stripe amber"></div>
-      <div class="card-upper" style="min-height:0;">
-        <div class="card-body">
-          <div class="card-icon" style="background:rgba(224,160,0,.09);" aria-hidden="true">
-            <svg viewBox="0 0 24 24" stroke="#8A6000" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
-          </div>
-          <div class="card-tags">
-            <span class="tag preview">Coming soon</span>
-            <span class="tag">Agentic AI</span>
-          </div>
-          <div class="card-title">NFR Dashboard</div>
-          <div class="card-desc">See what continuous, AI-driven NFR management looks like in practice. Orchestrated agents run RCSA, TPRM, IT-risk and BCM autonomously — surfacing board-level insights without manual aggregation.</div>
-        </div>
+
+      <div class="card-upper card-upper--agentic">
+        <span class="type-badge">Agentic AI</span>
       </div>
+
+      <div class="card-body">
+        <div class="card-icon" style="background:rgba(224,160,0,.12);" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke="#8A6000" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        </div>
+        <div class="card-tags">
+          <span class="tag preview">Coming soon</span>
+          <span class="tag">Agentic AI</span>
+        </div>
+        <div class="card-title">NFR Dashboard</div>
+        <div class="card-desc">See what continuous, AI-driven NFR management looks like in practice. Orchestrated agents run RCSA, TPRM, IT-risk and BCM autonomously &mdash; surfacing board-level insights without manual aggregation.</div>
+      </div>
+
       <div class="card-meta">
         <div>
           <div class="experts-label">Experts</div>
@@ -1028,7 +937,7 @@ footer a:hover { text-decoration: underline; }
           </div>
         </div>
         <div class="meta-badges">
-          <span class="badge-v" style="color:var(--muted);">In progress</span>
+          <span class="badge-v" style="color:rgba(255,255,255,.35);">In progress</span>
         </div>
       </div>
       <div class="card-footer">
@@ -1043,12 +952,10 @@ footer a:hover { text-decoration: underline; }
   <div class="no-results" id="noResults" aria-live="polite">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M8 11h6M11 8v6"/></svg>
     <h3>No assets match</h3>
-    <p>Try adjusting or clearing the filter criteria above.</p>
-    <button class="nr-btn" onclick="document.getElementById('filterClear').click()">Clear all filters</button>
+    <p>Try a different filter or view all assets.</p>
+    <button class="nr-btn" onclick="document.querySelector('.fpill[data-type=\'all\']').click()">Show all assets</button>
   </div>
 
-    </div><!-- /.content-area -->
-  </div><!-- /.content-layout -->
 </main>
 
 <!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
@@ -1244,30 +1151,19 @@ footer a:hover { text-decoration: underline; }
   });
 }());
 </script>
+
 <script>
-/* ── Asset filter + accordion ── */
+/* ── Asset filter (pill bar) ── */
 (function () {
   'use strict';
-  var filters  = { type: 'all', industry: 'all', status: 'all' };
-  var cards    = Array.from(document.querySelectorAll('.card[data-type]'));
-  var countEl  = document.getElementById('filterCount');
-  var clearBtn = document.getElementById('filterClear');
-  var noRes    = document.getElementById('noResults');
-  var timer    = null;
+  var cards     = Array.from(document.querySelectorAll('.card[data-type]'));
+  var countEl   = document.getElementById('assetCount');
+  var noRes     = document.getElementById('noResults');
+  var timer     = null;
 
-  function isFiltered() {
-    return Object.keys(filters).some(function (k) { return filters[k] !== 'all'; });
-  }
-
-  function matchCard(card) {
-    return (filters.type     === 'all' || card.dataset.type     === filters.type)
-        && (filters.industry === 'all' || card.dataset.industry === filters.industry)
-        && (filters.status   === 'all' || card.dataset.status   === filters.status);
-  }
-
-  function applyFilters() {
-    var toShow = cards.filter(matchCard);
-    var toHide = cards.filter(function (c) { return !matchCard(c); });
+  function applyFilter(type) {
+    var toShow = (type === 'all') ? cards : cards.filter(function (c) { return c.dataset.type === type; });
+    var toHide = cards.filter(function (c) { return toShow.indexOf(c) === -1; });
     clearTimeout(timer);
 
     toHide.forEach(function (c) { c.classList.remove('is-entering'); c.classList.add('is-exiting'); });
@@ -1281,50 +1177,17 @@ footer a:hover { text-decoration: underline; }
         if (was) { void c.offsetWidth; c.style.animationDelay = (i * 55) + 'ms'; c.classList.add('is-entering'); }
       });
       var n = toShow.length;
-      countEl.textContent = n + (n === 1 ? ' asset' : ' assets');
-      countEl.classList.toggle('filtered', isFiltered());
-      clearBtn.classList.toggle('visible', isFiltered());
-      noRes.classList.toggle('visible', n === 0);
+      if (countEl) countEl.textContent = n + (n === 1 ? ' asset' : ' assets');
+      if (noRes)   noRes.classList.toggle('visible', n === 0);
     }, 225);
   }
 
-  /* Toggle option clicks */
-  document.querySelectorAll('.ftoggle').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      filters[btn.dataset.filter] = btn.dataset.value;
-      btn.closest('.filter-section-body').querySelectorAll('.ftoggle').forEach(function (b) {
-        b.classList.toggle('active', b === btn);
-      });
-      applyFilters();
+  document.querySelectorAll('.fpill').forEach(function (pill) {
+    pill.addEventListener('click', function () {
+      document.querySelectorAll('.fpill').forEach(function (p) { p.classList.remove('active'); });
+      pill.classList.add('active');
+      applyFilter(pill.dataset.type);
     });
-  });
-
-  /* Accordion section open / close */
-  document.querySelectorAll('.filter-section-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var section = btn.closest('.filter-section');
-      var opening = !section.classList.contains('open');
-      section.classList.toggle('open', opening);
-      btn.setAttribute('aria-expanded', String(opening));
-    });
-  });
-
-  /* Clear all */
-  clearBtn.addEventListener('click', function () {
-    filters = { type: 'all', industry: 'all', status: 'all' };
-    document.querySelectorAll('.ftoggle[data-value="all"]').forEach(function (b) { b.classList.add('active'); });
-    document.querySelectorAll('.ftoggle:not([data-value="all"])').forEach(function (b) { b.classList.remove('active'); });
-    clearBtn.classList.remove('visible');
-    countEl.classList.remove('filtered');
-    noRes.classList.remove('visible');
-    cards.forEach(function (c, i) {
-      c.style.display = '';
-      c.classList.remove('is-exiting', 'is-entering');
-      void c.offsetWidth;
-      c.style.animationDelay = (i * 45) + 'ms';
-      c.classList.add('is-entering');
-    });
-    countEl.textContent = cards.length + ' assets';
   });
 }());
 </script>
