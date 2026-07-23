@@ -36,59 +36,36 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
 .card:hover:not(.coming-soon) .pk-f { animation: pkFlow .9s linear infinite; }
 
 /* ── HERO ANIMATIONS ── */
-@keyframes heroFadeUp  { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
-@keyframes orb1Drift   { 0%{transform:translate(0,0) scale(1)} 33%{transform:translate(-28px,22px) scale(1.1)} 66%{transform:translate(14px,-20px) scale(.93)} 100%{transform:translate(0,0) scale(1)} }
-@keyframes orb2Drift   { 0%{transform:translate(0,0) scale(1)} 40%{transform:translate(20px,-18px) scale(1.14)} 80%{transform:translate(-10px,22px) scale(.9)} 100%{transform:translate(0,0) scale(1)} }
-@keyframes orb3Drift   { 0%{transform:translate(0,0)} 50%{transform:translate(12px,16px)} 100%{transform:translate(0,0)} }
-@keyframes chevDraw    { from{stroke-dashoffset:800;opacity:0} to{stroke-dashoffset:0;opacity:.08} }
-@keyframes chevPulse   { 0%,100%{opacity:.07} 50%{opacity:.15} }
-@keyframes gridShimmer { 0%,100%{opacity:.55} 50%{opacity:.9} }
+@keyframes heroFadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
+@keyframes chevDraw   { from{stroke-dashoffset:800;opacity:0} to{stroke-dashoffset:0;opacity:.06} }
+@keyframes chevPulse  { 0%,100%{opacity:.05} 50%{opacity:.11} }
+@keyframes canvasFadeIn { to { opacity:1; } }
 
 /* ── HERO ── */
 .hero {
-  background: #07001a;
+  background: #06001a;
   padding: 88px 64px 96px; position: relative; overflow: hidden;
 }
 .hero-bg {
-  position: absolute; inset: 0; pointer-events: none;
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
   background:
-    radial-gradient(ellipse 72% 85% at 75% -5%, rgba(92,15,154,.95) 0%, transparent 52%),
-    radial-gradient(ellipse 52% 65% at -5% 95%, rgba(61,0,102,.75) 0%, transparent 52%),
-    radial-gradient(ellipse 40% 55% at 50% 50%, rgba(22,0,41,.8) 0%, transparent 100%);
+    radial-gradient(ellipse 65% 90% at 78% -8%, rgba(80,10,140,.98) 0%, transparent 50%),
+    radial-gradient(ellipse 55% 60% at -5% 100%, rgba(55,0,95,.8) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 80% at 50% 50%, rgba(18,0,36,.9) 0%, transparent 100%);
 }
-.hero::before {
-  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
-  background-image: radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
-  background-size: 28px 28px;
-  animation: gridShimmer 9s ease-in-out infinite;
+#heroCanvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  z-index: 1; opacity: 0; pointer-events: none;
+  animation: canvasFadeIn 2s .6s ease forwards;
 }
-.hero-orb { position: absolute; border-radius: 50%; filter: blur(72px); pointer-events: none; z-index: 0; }
-.hero-orb-1 {
-  width: 520px; height: 520px;
-  background: radial-gradient(circle, rgba(161,0,255,.5) 0%, transparent 68%);
-  top: -160px; right: -70px;
-  animation: orb1Drift 11s ease-in-out infinite;
-}
-.hero-orb-2 {
-  width: 340px; height: 340px;
-  background: radial-gradient(circle, rgba(255,80,200,.32) 0%, transparent 68%);
-  bottom: -90px; left: 30%;
-  animation: orb2Drift 15s ease-in-out infinite;
-}
-.hero-orb-3 {
-  width: 240px; height: 240px;
-  background: radial-gradient(circle, rgba(90,10,200,.28) 0%, transparent 68%);
-  top: 30%; left: -55px;
-  animation: orb3Drift 12s ease-in-out infinite;
-}
-.hero > *:not(.hero-bg):not(.hero-orb):not(.hero-chev) { position: relative; z-index: 2; }
-.hero-chev { position: absolute; right: -80px; top: 50%; transform: translateY(-50%); pointer-events: none; z-index: 1; }
+.hero > *:not(.hero-bg):not(#heroCanvas):not(.hero-chev) { position: relative; z-index: 3; }
+.hero-chev { position: absolute; right: -80px; top: 50%; transform: translateY(-50%); pointer-events: none; z-index: 2; }
 .hero-chev svg { width: 720px; height: 720px; }
-.hero-chev path { stroke-dasharray: 800; stroke-dashoffset: 800; animation: chevDraw 2.6s .4s cubic-bezier(.4,0,.2,1) forwards, chevPulse 5s 3.2s ease-in-out infinite; }
-.hero-eyebrow { animation: heroFadeUp .8s .1s both; }
-.hero h1      { animation: heroFadeUp .8s .28s both; }
-.hero-sub     { animation: heroFadeUp .8s .46s both; }
-.hero-stats   { animation: heroFadeUp .8s .62s both; }
+.hero-chev path { stroke-dasharray: 800; stroke-dashoffset: 800; animation: chevDraw 3s .5s cubic-bezier(.4,0,.2,1) forwards, chevPulse 6s 3.8s ease-in-out infinite; }
+.hero-eyebrow { animation: heroFadeUp .8s .2s both; }
+.hero h1      { animation: heroFadeUp .8s .38s both; }
+.hero-sub     { animation: heroFadeUp .8s .54s both; }
+.hero-stats   { animation: heroFadeUp .8s .70s both; }
 .hero-eyebrow {
   font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
   letter-spacing: .24em; text-transform: uppercase; color: var(--pink);
@@ -320,9 +297,7 @@ footer a:hover { text-decoration: underline; }
 <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
 <header class="hero">
   <div class="hero-bg" aria-hidden="true"></div>
-  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
-  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
-  <div class="hero-orb hero-orb-3" aria-hidden="true"></div>
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
   <div class="hero-chev" aria-hidden="true">
     <svg viewBox="0 0 100 100" fill="none"><path d="M18 10 L58 50 L18 90 M40 10 L80 50 L40 90" stroke="#fff" stroke-width="7"/></svg>
   </div>
@@ -745,6 +720,175 @@ footer a:hover { text-decoration: underline; }
   NFR AI Assets &middot; <a href="https://github.com/tzijlstra-acn/NFRAIAssets" target="_blank" rel="noopener">github.com/tzijlstra-acn/NFRAIAssets</a><br>
   Internal enablement tool for Accenture use &middot; &copy; 2026 Accenture
 </footer>
+
+<script>
+/* ── Neural-network background animation ── */
+(function () {
+  var canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var ctx = canvas.getContext('2d');
+  var W, H, nodes, sparks, rings, scanY, animId;
+  var mx = -9999, my = -9999;
+  var LINK = 140, REPEL = 90, SPARK_V = 0.007;
+
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+
+  function build() {
+    var n = Math.min(Math.max(Math.floor(W * H / 8500), 32), 70);
+    nodes = Array.from({length: n}, function () {
+      var hub = Math.random() < 0.09;
+      return {
+        x: rnd(0, W), y: rnd(0, H),
+        vx: rnd(-0.13, 0.13), vy: rnd(-0.09, 0.09),
+        r: hub ? rnd(3.5, 5.2) : rnd(1, 2.4),
+        hub: hub,
+        hue: Math.random() < 0.62 ? 274 : (Math.random() < 0.55 ? 316 : 248),
+        phase: rnd(0, Math.PI * 2)
+      };
+    });
+    sparks = []; rings = []; scanY = 0;
+  }
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+    build();
+  }
+
+  /* Periodic spark spawner — a signal packet travels along a random edge */
+  setInterval(function () {
+    if (!sparks || sparks.length > 14) return;
+    var a = Math.floor(Math.random() * nodes.length);
+    var b = Math.floor(Math.random() * nodes.length);
+    if (a === b) return;
+    var dx = nodes[a].x - nodes[b].x, dy = nodes[a].y - nodes[b].y;
+    if (Math.sqrt(dx*dx + dy*dy) < LINK) sparks.push({a:a, b:b, t:0});
+  }, 320);
+
+  /* Periodic ring broadcast from hub nodes — radar-ping feel */
+  setInterval(function () {
+    if (!rings || rings.length > 4) return;
+    var hubs = nodes.filter(function(n) { return n.hub; });
+    if (!hubs.length) return;
+    var h = hubs[Math.floor(Math.random() * hubs.length)];
+    rings.push({x: h.x, y: h.y, r: h.r + 2, alpha: 0.6, hue: h.hue});
+  }, 2600);
+
+  function draw(ts) {
+    ctx.clearRect(0, 0, W, H);
+
+    /* Slow monitoring scan line */
+    scanY = (scanY || 0) + 0.22;
+    if (scanY > H + 16) scanY = -16;
+    var sg = ctx.createLinearGradient(0, scanY - 12, 0, scanY + 12);
+    sg.addColorStop(0,   'rgba(161,0,255,0)');
+    sg.addColorStop(0.5, 'rgba(161,0,255,0.055)');
+    sg.addColorStop(1,   'rgba(161,0,255,0)');
+    ctx.fillStyle = sg;
+    ctx.fillRect(0, scanY - 12, W, 24);
+
+    /* Move nodes + mouse repulsion */
+    nodes.forEach(function (n) {
+      var dx = n.x - mx, dy = n.y - my;
+      var d  = Math.sqrt(dx*dx + dy*dy);
+      if (d < REPEL && d > 0) {
+        var f = ((REPEL - d) / REPEL) * 0.55;
+        n.x += (dx / d) * f;
+        n.y += (dy / d) * f;
+      }
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < -32) n.x = W + 32;
+      if (n.x > W+32) n.x = -32;
+      if (n.y < -32) n.y = H + 32;
+      if (n.y > H+32) n.y = -32;
+    });
+
+    /* Connection edges */
+    for (var i = 0; i < nodes.length; i++) {
+      for (var j = i + 1; j < nodes.length; j++) {
+        var dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
+        var dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < LINK) {
+          var a = Math.pow(1 - dist / LINK, 2) * 0.42;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = 'rgba(161,0,255,' + a + ')';
+          ctx.lineWidth = 0.75;
+          ctx.stroke();
+        }
+      }
+    }
+
+    /* Hub broadcast rings */
+    rings = rings.filter(function (r) {
+      r.r += 0.72; r.alpha -= 0.0065;
+      if (r.alpha <= 0) return false;
+      ctx.beginPath();
+      ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
+      ctx.strokeStyle = 'hsla(' + r.hue + ',100%,68%,' + r.alpha + ')';
+      ctx.lineWidth = 1.3;
+      ctx.stroke();
+      return true;
+    });
+
+    /* Signal sparks */
+    sparks = sparks.filter(function (s) {
+      s.t += SPARK_V;
+      if (s.t >= 1) return false;
+      var na = nodes[s.a], nb = nodes[s.b];
+      if (!na || !nb) return false;
+      var edx = nb.x - na.x, edy = nb.y - na.y;
+      if (Math.sqrt(edx*edx + edy*edy) > LINK * 1.4) return false;
+      var sx = na.x + edx * s.t, sy = na.y + edy * s.t;
+      var g  = ctx.createRadialGradient(sx, sy, 0, sx, sy, 8);
+      g.addColorStop(0,   'rgba(255,80,200,1)');
+      g.addColorStop(0.4, 'rgba(255,80,200,0.3)');
+      g.addColorStop(1,   'rgba(255,80,200,0)');
+      ctx.beginPath();
+      ctx.arc(sx, sy, 8, 0, Math.PI * 2);
+      ctx.fillStyle = g;
+      ctx.fill();
+      return true;
+    });
+
+    /* Nodes */
+    var t = ts * 0.001;
+    nodes.forEach(function (n) {
+      var pulse = Math.sin(t + n.phase) * 0.5 + 0.5;
+      if (n.hub) {
+        var g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 10);
+        g.addColorStop(0, 'hsla(' + n.hue + ',100%,68%,' + (0.3 + pulse * 0.2) + ')');
+        g.addColorStop(1, 'hsla(' + n.hue + ',100%,68%,0)');
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r * 10, 0, Math.PI * 2);
+        ctx.fillStyle = g; ctx.fill();
+      }
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = n.hub
+        ? 'hsla(' + n.hue + ',100%,80%,' + (0.85 + pulse * 0.15) + ')'
+        : 'rgba(210,175,255,' + (0.2 + pulse * 0.14) + ')';
+      ctx.fill();
+    });
+
+    animId = requestAnimationFrame(draw);
+  }
+
+  var hero = canvas.parentElement;
+  hero.addEventListener('mousemove', function (e) {
+    var r = canvas.getBoundingClientRect();
+    mx = e.clientX - r.left; my = e.clientY - r.top;
+  });
+  hero.addEventListener('mouseleave', function () { mx = -9999; my = -9999; });
+
+  window.addEventListener('resize', resize);
+  resize();
+  animId = requestAnimationFrame(draw);
+}());
+</script>
 
 <script>
 (function () {
