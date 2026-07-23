@@ -87,10 +87,11 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
 .hero-stat b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; color: #fff; line-height: 1; }
 .hero-stat span { font-size: 11px; color: rgba(255,255,255,.5); margin-top: 5px; display: block; letter-spacing: .04em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
 
-/* ── MAIN ── */
-.main { max-width: 1240px; margin: 0 auto; padding: 60px 48px 100px; }
-.section-head { margin-bottom: 14px; }
-.section-head h2 { font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+/* ── MAIN LAYOUT ── */
+.main { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+.content-layout { display: grid; grid-template-columns: 220px 1fr; gap: 36px; padding: 52px 0 100px; align-items: start; }
+.section-head { margin-bottom: 20px; }
+.section-head h2 { font-size: 26px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
 .section-head p { font-size: 14px; color: var(--muted); line-height: 1.65; max-width: 60ch; }
 
 /* ── PW BANNER ── */
@@ -103,12 +104,15 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
 .pw-banner svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; stroke: var(--purple-600); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ── CARD GRID ── */
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: start; }
-@media (max-width: 1040px) { .cards { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 640px)  { .cards { grid-template-columns: 1fr; } }
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 1100px) { .cards { grid-template-columns: 1fr; } }
+@media (max-width: 960px) {
+  .content-layout { grid-template-columns: 1fr; gap: 20px; padding-top: 36px; }
+  .filter-panel { position: static; }
+}
 @media (max-width: 680px) {
   .hero { padding: 56px 22px 60px; }
-  .main { padding: 40px 20px 80px; }
+  .main { padding: 0 20px; }
   .hero-stats { gap: 24px; }
 }
 
@@ -281,61 +285,86 @@ a.expert-av:hover { transform: scale(1.14); box-shadow: 0 4px 14px rgba(22,0,41,
 .open-btn svg { width: 14px; height: 14px; stroke: #fff; fill: none; stroke-width: 2.2; stroke-linecap: round; }
 .open-btn.disabled { background: var(--surface-2); color: var(--muted-2); cursor: default; pointer-events: none; border: 1px solid var(--line); }
 
-/* ── FILTER BAR ── */
-.filter-bar {
-  display: flex; align-items: center; flex-wrap: wrap;
-  background: var(--white); border: 1px solid var(--line); border-radius: 14px;
-  padding: 13px 18px; margin-bottom: 20px; gap: 0; row-gap: 10px;
+/* ── FILTER PANEL (left sidebar) ── */
+.filter-panel {
+  position: sticky; top: 24px;
+  background: var(--white); border: 1px solid var(--line); border-radius: 16px;
+  box-shadow: var(--shadow-sm); overflow: hidden;
 }
-.filter-group {
-  display: flex; align-items: center; gap: 8px;
-  padding-right: 18px; margin-right: 18px;
-  border-right: 1px solid var(--line); flex-wrap: wrap;
+.filter-panel-hd {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 15px 18px 13px; border-bottom: 1px solid var(--line);
 }
-.filter-group:last-of-type { border-right: none; margin-right: 0; padding-right: 0; }
-.filter-label {
-  font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
-  letter-spacing: .14em; text-transform: uppercase; color: var(--muted-2);
-  white-space: nowrap; flex-shrink: 0;
+.filter-panel-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: var(--ink);
 }
-.filter-chips { display: flex; gap: 4px; flex-wrap: wrap; }
-.fchip {
-  font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 500;
-  padding: 4px 12px; border-radius: 20px; border: 1px solid var(--line);
-  background: transparent; color: var(--muted); cursor: pointer; white-space: nowrap;
-  transition: color .14s, background .14s, border-color .14s, transform .1s, box-shadow .14s;
-  line-height: 1.6;
+.filter-panel-clear {
+  display: none; font-size: 10.5px; color: var(--purple-600);
+  background: rgba(161,0,255,.07); border: 1px solid rgba(161,0,255,.2);
+  border-radius: 20px; cursor: pointer; font-family: 'Inter', sans-serif;
+  padding: 2px 9px; transition: background .14s;
 }
-.fchip:hover:not(.active) {
-  border-color: rgba(161,0,255,.3); color: var(--purple-600);
-  background: rgba(161,0,255,.05); transform: translateY(-1px);
+.filter-panel-clear.visible { display: block; }
+.filter-panel-clear:hover { background: rgba(161,0,255,.14); }
+
+/* accordion sections */
+.filter-section { border-bottom: 1px solid var(--line); }
+.filter-section:last-of-type { border-bottom: none; }
+.filter-section-btn {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 18px; background: none; border: none; cursor: pointer;
+  font-family: 'JetBrains Mono', monospace; font-size: 8.5px; font-weight: 700;
+  letter-spacing: .13em; text-transform: uppercase; color: var(--muted);
+  transition: color .14s; text-align: left;
 }
-.fchip.active {
-  background: var(--purple); border-color: var(--purple);
-  color: #fff; font-weight: 600;
-  box-shadow: 0 2px 8px rgba(161,0,255,.35);
+.filter-section-btn:hover { color: var(--ink); }
+.filter-section-btn .chev {
+  width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2;
+  stroke-linecap: round; flex-shrink: 0; overflow: visible;
+  transition: transform .28s cubic-bezier(.4,0,.2,1);
 }
-.filter-meta {
+.filter-section.open .filter-section-btn .chev { transform: rotate(180deg); }
+
+.filter-section-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height .32s cubic-bezier(.4,0,.2,1);
+  padding: 0 10px;
+}
+.filter-section.open .filter-section-body { max-height: 300px; padding-bottom: 10px; }
+
+/* radio-style toggle options */
+.ftoggle {
   display: flex; align-items: center; gap: 10px;
-  margin-left: auto; padding-left: 16px; flex-shrink: 0;
+  width: 100%; padding: 7px 8px 7px 6px; border-radius: 8px; border: none;
+  background: transparent; cursor: pointer; text-align: left;
+  font-family: 'Inter', sans-serif; font-size: 13px; color: var(--muted);
+  transition: background .14s, color .14s; line-height: 1.4;
 }
+.ftoggle:hover { background: var(--surface); color: var(--ink); }
+.ftoggle.active { color: var(--purple-600); font-weight: 600; }
+.ftoggle-ind {
+  width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--line);
+  flex-shrink: 0; position: relative;
+  transition: border-color .2s ease, background .2s ease, transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.ftoggle-ind::after {
+  content: ''; position: absolute; inset: 3px; border-radius: 50%;
+  background: #fff; transform: scale(0);
+  transition: transform .22s cubic-bezier(.34,1.56,.64,1);
+}
+.ftoggle.active .ftoggle-ind {
+  border-color: var(--purple); background: var(--purple); transform: scale(1.08);
+}
+.ftoggle.active .ftoggle-ind::after { transform: scale(1); }
+
+/* count footer */
 .filter-count {
   font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  color: var(--muted-2); transition: color .2s; white-space: nowrap;
+  color: var(--muted-2); transition: color .2s;
 }
 .filter-count.filtered { color: var(--purple-600); font-weight: 700; }
-.filter-clear {
-  display: none; align-items: center; gap: 4px; font-size: 11px;
-  color: var(--purple-600); background: rgba(161,0,255,.07);
-  border: 1px solid rgba(161,0,255,.2); border-radius: 20px;
-  cursor: pointer; font-family: 'Inter', sans-serif; padding: 3px 10px;
-  transition: background .14s; white-space: nowrap;
-}
-.filter-clear.visible { display: flex; }
-.filter-clear:hover { background: rgba(161,0,255,.14); }
-@media (max-width: 900px) {
-  .filter-group { border-right: none; margin-right: 0; padding-right: 0; }
-  .filter-bar { gap: 12px; }
+.filter-panel-ft {
+  padding: 11px 18px; border-top: 1px solid var(--line); background: var(--surface);
 }
 
 /* ── CARD FLOAT ANIMATIONS ── */
@@ -393,45 +422,66 @@ footer a:hover { text-decoration: underline; }
 
 <!-- ═══════════════════════════ MAIN ═══════════════════════════ -->
 <main class="main">
+  <div class="content-layout">
 
-  <div class="section-head">
-    <h2>Browse the collection</h2>
-    <p>Hover a card to preview what&rsquo;s inside. Click to open &mdash; every asset follows the Accenture NFR design language.</p>
-  </div>
+    <!-- ── FILTER PANEL ── -->
+    <aside class="filter-panel" aria-label="Filter assets">
+      <div class="filter-panel-hd">
+        <span class="filter-panel-title">Filter</span>
+        <button class="filter-panel-clear" id="filterClear" aria-label="Clear all filters">Clear ×</button>
+      </div>
 
-  <div class="filter-bar" role="search" aria-label="Filter assets">
-    <div class="filter-group">
-      <span class="filter-label">Asset type</span>
-      <div class="filter-chips" role="group" aria-label="Filter by asset type">
-        <button class="fchip active" data-filter="type" data-value="all">All</button>
-        <button class="fchip" data-filter="type" data-value="blueprint">Blueprint</button>
-        <button class="fchip" data-filter="type" data-value="ai-tool">AI Tool</button>
-        <button class="fchip" data-filter="type" data-value="architecture">Architecture</button>
-        <button class="fchip" data-filter="type" data-value="dashboard">Dashboard</button>
-        <button class="fchip" data-filter="type" data-value="agentic">Agentic AI</button>
+      <div class="filter-section open">
+        <button class="filter-section-btn" aria-expanded="true">
+          <span>Asset type</span>
+          <svg class="chev" viewBox="0 0 16 16"><polyline points="3,6 8,11 13,6"/></svg>
+        </button>
+        <div class="filter-section-body">
+          <button class="ftoggle active" data-filter="type" data-value="all"><span class="ftoggle-ind"></span>All</button>
+          <button class="ftoggle" data-filter="type" data-value="blueprint"><span class="ftoggle-ind"></span>Blueprint</button>
+          <button class="ftoggle" data-filter="type" data-value="ai-tool"><span class="ftoggle-ind"></span>AI Tool</button>
+          <button class="ftoggle" data-filter="type" data-value="architecture"><span class="ftoggle-ind"></span>Architecture</button>
+          <button class="ftoggle" data-filter="type" data-value="dashboard"><span class="ftoggle-ind"></span>Dashboard</button>
+          <button class="ftoggle" data-filter="type" data-value="agentic"><span class="ftoggle-ind"></span>Agentic AI</button>
+        </div>
       </div>
-    </div>
-    <div class="filter-group">
-      <span class="filter-label">Industry</span>
-      <div class="filter-chips" role="group" aria-label="Filter by industry">
-        <button class="fchip active" data-filter="industry" data-value="all">All</button>
-        <button class="fchip" data-filter="industry" data-value="banking">Banking &amp; FSI</button>
-        <button class="fchip" data-filter="industry" data-value="multi">Multi-industry</button>
+
+      <div class="filter-section open">
+        <button class="filter-section-btn" aria-expanded="true">
+          <span>Industry</span>
+          <svg class="chev" viewBox="0 0 16 16"><polyline points="3,6 8,11 13,6"/></svg>
+        </button>
+        <div class="filter-section-body">
+          <button class="ftoggle active" data-filter="industry" data-value="all"><span class="ftoggle-ind"></span>All</button>
+          <button class="ftoggle" data-filter="industry" data-value="banking"><span class="ftoggle-ind"></span>Banking &amp; FSI</button>
+          <button class="ftoggle" data-filter="industry" data-value="multi"><span class="ftoggle-ind"></span>Multi-industry</button>
+        </div>
       </div>
-    </div>
-    <div class="filter-group">
-      <span class="filter-label">Audience</span>
-      <div class="filter-chips" role="group" aria-label="Filter by audience">
-        <button class="fchip active" data-filter="audience" data-value="all">All</button>
-        <button class="fchip" data-filter="audience" data-value="external">Client-facing</button>
-        <button class="fchip" data-filter="audience" data-value="internal">Internal</button>
+
+      <div class="filter-section open">
+        <button class="filter-section-btn" aria-expanded="true">
+          <span>Status</span>
+          <svg class="chev" viewBox="0 0 16 16"><polyline points="3,6 8,11 13,6"/></svg>
+        </button>
+        <div class="filter-section-body">
+          <button class="ftoggle active" data-filter="status" data-value="all"><span class="ftoggle-ind"></span>All</button>
+          <button class="ftoggle" data-filter="status" data-value="live"><span class="ftoggle-ind"></span>Live</button>
+          <button class="ftoggle" data-filter="status" data-value="coming-soon"><span class="ftoggle-ind"></span>Coming soon</button>
+        </div>
       </div>
-    </div>
-    <div class="filter-meta">
-      <span class="filter-count" id="filterCount">5 assets</span>
-      <button class="filter-clear" id="filterClear" aria-label="Clear all filters">Clear ×</button>
-    </div>
-  </div>
+
+      <div class="filter-panel-ft">
+        <span class="filter-count" id="filterCount">5 assets</span>
+      </div>
+    </aside>
+
+    <!-- ── CONTENT ── -->
+    <div class="content-area">
+
+      <div class="section-head">
+        <h2>Browse the collection</h2>
+        <p>Hover a card to preview what&rsquo;s inside. Click to open &mdash; every asset follows the Accenture NFR design language.</p>
+      </div>
 
   <div class="pw-banner">
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -441,7 +491,7 @@ footer a:hover { text-decoration: underline; }
   <div class="cards">
 
     <!-- ══════════ ICS IMPLEMENTATION BLUEPRINT ══════════ -->
-    <div class="card" data-type="blueprint" data-industry="banking" data-audience="external">
+    <div class="card" data-type="blueprint" data-industry="banking" data-status="live">
       <div class="card-stripe"></div>
 
       <!-- upper zone: peek lives here, never covers experts -->
@@ -564,7 +614,7 @@ footer a:hover { text-decoration: underline; }
     </div>
 
     <!-- ══════════ AI COST SIMULATOR ══════════ -->
-    <div class="card" data-type="ai-tool" data-industry="multi" data-audience="external">
+    <div class="card" data-type="ai-tool" data-industry="multi" data-status="live">
       <div class="card-stripe green"></div>
 
       <div class="card-upper">
@@ -666,7 +716,7 @@ footer a:hover { text-decoration: underline; }
     </div>
 
     <!-- ══════════ NFR ARCHITECTURE ══════════ -->
-    <div class="card" data-type="architecture" data-industry="banking" data-audience="internal">
+    <div class="card" data-type="architecture" data-industry="banking" data-status="live">
       <div class="card-stripe teal"></div>
 
       <div class="card-upper">
@@ -781,7 +831,7 @@ footer a:hover { text-decoration: underline; }
     </div>
 
     <!-- ══════════ AI RISK DASHBOARD ══════════ -->
-    <div class="card" data-type="dashboard" data-industry="banking" data-audience="external">
+    <div class="card" data-type="dashboard" data-industry="banking" data-status="live">
       <div class="card-stripe"></div>
 
       <div class="card-upper">
@@ -947,7 +997,7 @@ footer a:hover { text-decoration: underline; }
     </div>
 
     <!-- ══════════ NFR DASHBOARD (coming soon) ══════════ -->
-    <div class="card coming-soon" data-type="agentic" data-industry="banking" data-audience="external">
+    <div class="card coming-soon" data-type="agentic" data-industry="banking" data-status="coming-soon">
       <div class="card-stripe amber"></div>
       <div class="card-upper" style="min-height:0;">
         <div class="card-body">
@@ -997,6 +1047,8 @@ footer a:hover { text-decoration: underline; }
     <button class="nr-btn" onclick="document.getElementById('filterClear').click()">Clear all filters</button>
   </div>
 
+    </div><!-- /.content-area -->
+  </div><!-- /.content-layout -->
 </main>
 
 <!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
@@ -1193,10 +1245,10 @@ footer a:hover { text-decoration: underline; }
 }());
 </script>
 <script>
-/* ── Asset filter ── */
+/* ── Asset filter + accordion ── */
 (function () {
   'use strict';
-  var filters = { type: 'all', industry: 'all', audience: 'all' };
+  var filters  = { type: 'all', industry: 'all', status: 'all' };
   var cards    = Array.from(document.querySelectorAll('.card[data-type]'));
   var countEl  = document.getElementById('filterCount');
   var clearBtn = document.getElementById('filterClear');
@@ -1210,39 +1262,24 @@ footer a:hover { text-decoration: underline; }
   function matchCard(card) {
     return (filters.type     === 'all' || card.dataset.type     === filters.type)
         && (filters.industry === 'all' || card.dataset.industry === filters.industry)
-        && (filters.audience === 'all' || card.dataset.audience === filters.audience);
+        && (filters.status   === 'all' || card.dataset.status   === filters.status);
   }
 
   function applyFilters() {
     var toShow = cards.filter(matchCard);
     var toHide = cards.filter(function (c) { return !matchCard(c); });
-
     clearTimeout(timer);
 
-    /* 1 – animate non-matching cards out */
-    toHide.forEach(function (c) {
-      c.classList.remove('is-entering');
-      c.classList.add('is-exiting');
-    });
+    toHide.forEach(function (c) { c.classList.remove('is-entering'); c.classList.add('is-exiting'); });
 
     timer = setTimeout(function () {
-      /* 2 – collapse hidden cards, reveal and animate matching cards */
-      toHide.forEach(function (c) {
-        c.style.display = 'none';
-        c.classList.remove('is-exiting');
-      });
-
+      toHide.forEach(function (c) { c.style.display = 'none'; c.classList.remove('is-exiting'); });
       toShow.forEach(function (c, i) {
-        var wasHidden = c.style.display === 'none';
+        var was = c.style.display === 'none';
         c.style.display = '';
         c.classList.remove('is-exiting', 'is-entering');
-        if (wasHidden) {
-          void c.offsetWidth; /* force reflow so animation restarts */
-          c.style.animationDelay = (i * 55) + 'ms';
-          c.classList.add('is-entering');
-        }
+        if (was) { void c.offsetWidth; c.style.animationDelay = (i * 55) + 'ms'; c.classList.add('is-entering'); }
       });
-
       var n = toShow.length;
       countEl.textContent = n + (n === 1 ? ' asset' : ' assets');
       countEl.classList.toggle('filtered', isFiltered());
@@ -1251,22 +1288,32 @@ footer a:hover { text-decoration: underline; }
     }, 225);
   }
 
-  /* Chip clicks */
-  document.querySelectorAll('.fchip').forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      filters[chip.dataset.filter] = chip.dataset.value;
-      chip.closest('.filter-chips').querySelectorAll('.fchip').forEach(function (c) {
-        c.classList.toggle('active', c === chip);
+  /* Toggle option clicks */
+  document.querySelectorAll('.ftoggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      filters[btn.dataset.filter] = btn.dataset.value;
+      btn.closest('.filter-section-body').querySelectorAll('.ftoggle').forEach(function (b) {
+        b.classList.toggle('active', b === btn);
       });
       applyFilters();
     });
   });
 
+  /* Accordion section open / close */
+  document.querySelectorAll('.filter-section-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var section = btn.closest('.filter-section');
+      var opening = !section.classList.contains('open');
+      section.classList.toggle('open', opening);
+      btn.setAttribute('aria-expanded', String(opening));
+    });
+  });
+
   /* Clear all */
   clearBtn.addEventListener('click', function () {
-    filters = { type: 'all', industry: 'all', audience: 'all' };
-    document.querySelectorAll('.fchip[data-value="all"]').forEach(function (c) { c.classList.add('active'); });
-    document.querySelectorAll('.fchip:not([data-value="all"])').forEach(function (c) { c.classList.remove('active'); });
+    filters = { type: 'all', industry: 'all', status: 'all' };
+    document.querySelectorAll('.ftoggle[data-value="all"]').forEach(function (b) { b.classList.add('active'); });
+    document.querySelectorAll('.ftoggle:not([data-value="all"])').forEach(function (b) { b.classList.remove('active'); });
     clearBtn.classList.remove('visible');
     countEl.classList.remove('filtered');
     noRes.classList.remove('visible');
