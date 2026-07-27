@@ -410,8 +410,50 @@ footer .chev-ic svg { width: 13px; height: 13px; }
 footer a { color: rgba(161,0,255,.7); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 
+/* ── FEATURED SECTION ── */
+.featured-section { padding-top: 20px; }
+.feat-label { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+.feat-label-tag {
+  font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase; padding:4px 12px; border-radius:20px;
+  background:linear-gradient(90deg,rgba(161,0,255,.22),rgba(255,80,200,.12));
+  border:1px solid rgba(199,123,255,.35); color:#CC88FF; white-space:nowrap;
+}
+.feat-label-line { flex:1; height:1px; background:rgba(255,255,255,.07); }
+.card.featured {
+  flex-direction:row; min-height:280px;
+  background:linear-gradient(135deg,rgba(80,0,140,.28) 0%,rgba(161,0,255,.09) 100%);
+  border:1px solid rgba(199,123,255,.28);
+}
+.card.featured:hover {
+  border-color:rgba(199,123,255,.52) !important;
+  box-shadow:0 0 80px rgba(161,0,255,.18),0 24px 56px rgba(0,0,0,.5) !important;
+}
+.feat-preview {
+  width:42%; flex-shrink:0; position:relative; overflow:hidden;
+  background:radial-gradient(130% 140% at 65% -10%,rgba(82,8,143,.85) 0%,rgba(8,8,26,.95) 60%);
+  border-right:1px solid rgba(255,255,255,.07);
+}
+.feat-preview svg { display:block; width:100%; height:100%; }
+.feat-content { flex:1; display:flex; flex-direction:column; padding:26px 26px 18px; }
+.feat-content .card-body { padding:0; flex:1; }
+.feat-content .card-meta { padding:14px 0 12px; background:transparent; border-top:1px solid rgba(255,255,255,.07); }
+.feat-content .card-footer { padding:0; }
+
+/* ── SUPPORT SEPARATOR ── */
+.support-sep {
+  display:flex; align-items:center; gap:16px;
+  padding:28px 0 8px;
+  font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.22);
+}
+.support-sep::before,.support-sep::after { content:''; flex:1; height:1px; background:rgba(255,255,255,.07); }
+
 /* ── RESPONSIVE ── */
-@media (max-width: 1100px) { .cards { grid-template-columns: 1fr; } }
+@media (max-width: 1100px) { .cards { grid-template-columns: 1fr; }
+  .card.featured { flex-direction:column; }
+  .feat-preview { width:100%; min-height:200px; border-right:none; border-bottom:1px solid rgba(255,255,255,.07); }
+}
 @media (max-width: 680px) {
   .hero { padding: 56px 22px 60px; }
   .main { padding: 0 20px 80px; }
@@ -442,9 +484,9 @@ footer a:hover { text-decoration: underline; }
   </div>
   <div class="hero-eyebrow">Accenture &middot; NFR Practice</div>
   <h1>NFR AI <em>Asset Library</em></h1>
-  <p class="hero-sub">Five production-grade tools and blueprints for Non-Financial Risk &mdash; built by the Accenture NFR practice for the EU regulatory moment.</p>
+  <p class="hero-sub">Six production-grade tools and a 30-minute client pitch &mdash; built by the Accenture NFR practice for the EU regulatory moment.</p>
   <div class="hero-stats">
-    <div class="hero-stat"><b>5</b><span>live assets</span></div>
+    <div class="hero-stat"><b>6</b><span>live assets</span></div>
     <div class="hero-stat"><b>7</b><span>practice experts</span></div>
     <div class="hero-stat"><b>L1&ndash;L5</b><span>maturity coverage</span></div>
   </div>
@@ -468,6 +510,171 @@ footer a:hover { text-decoration: underline; }
 <!-- ═══════════════════════════ MAIN ═══════════════════════════ -->
 <main class="main">
   <p class="pw-note">🔒 All assets are access-code protected — click an expert avatar to request access.</p>
+
+  <!-- ══════════ FEATURED: CLIENT PITCH ══════════ -->
+  <div class="featured-section">
+    <div class="feat-label">
+      <span class="feat-label-tag">★ Featured · Client Pitch · Access: Studio2026</span>
+      <div class="feat-label-line"></div>
+    </div>
+    <div class="card featured" data-type="pitch" data-status="live">
+
+      <div class="feat-preview" aria-hidden="true">
+        <svg viewBox="0 0 360 280" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <!-- Background -->
+          <rect width="360" height="280" fill="#08081A"/>
+          <!-- Neural network connections -->
+          <line x1="55" y1="55" x2="180" y2="35" stroke="rgba(161,0,255,.22)" stroke-width=".75"/>
+          <line x1="180" y1="35" x2="305" y2="65" stroke="rgba(161,0,255,.22)" stroke-width=".75"/>
+          <line x1="55" y1="55" x2="115" y2="130" stroke="rgba(161,0,255,.18)" stroke-width=".75"/>
+          <line x1="180" y1="35" x2="115" y2="130" stroke="rgba(161,0,255,.18)" stroke-width=".75"/>
+          <line x1="305" y1="65" x2="248" y2="140" stroke="rgba(161,0,255,.18)" stroke-width=".75"/>
+          <line x1="115" y1="130" x2="248" y2="140" stroke="rgba(161,0,255,.15)" stroke-width=".75"/>
+          <line x1="30" y1="105" x2="55" y2="55" stroke="rgba(161,0,255,.12)" stroke-width=".75"/>
+          <line x1="155" y1="88" x2="180" y2="35" stroke="rgba(161,0,255,.12)" stroke-width=".75"/>
+          <line x1="330" y1="45" x2="305" y2="65" stroke="rgba(161,0,255,.12)" stroke-width=".75"/>
+          <!-- Hub nodes -->
+          <circle cx="55" cy="55" r="4" fill="rgba(199,123,255,.65)"/>
+          <circle cx="180" cy="35" r="5.5" fill="rgba(199,123,255,.75)"/>
+          <circle cx="305" cy="65" r="3.5" fill="rgba(199,123,255,.55)"/>
+          <circle cx="115" cy="130" r="3" fill="rgba(199,123,255,.5)"/>
+          <circle cx="248" cy="140" r="4" fill="rgba(255,80,200,.55)"/>
+          <!-- Small nodes -->
+          <circle cx="30" cy="105" r="1.5" fill="rgba(210,175,255,.3)"/>
+          <circle cx="80" cy="170" r="1.5" fill="rgba(210,175,255,.28)"/>
+          <circle cx="155" cy="88" r="2" fill="rgba(210,175,255,.38)"/>
+          <circle cx="220" cy="55" r="1.5" fill="rgba(210,175,255,.28)"/>
+          <circle cx="330" cy="45" r="1.5" fill="rgba(210,175,255,.28)"/>
+          <circle cx="340" cy="155" r="2" fill="rgba(210,175,255,.25)"/>
+          <!-- Pulse ring on main hub -->
+          <circle cx="180" cy="35" r="5.5" fill="none" stroke="rgba(199,123,255,.5)" stroke-width="1">
+            <animate attributeName="r" values="5.5;16;5.5" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".5;0;.5" dur="3s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Spark travelling along main connection -->
+          <circle cx="0" cy="0" r="5" fill="rgba(255,80,200,0)">
+            <animateMotion dur="2.8s" repeatCount="indefinite" begin="0.6s">
+              <mpath href="#sparkPath1"/>
+            </animateMotion>
+            <animate attributeName="r" values="5;5;0" keyTimes="0;.8;1" dur="2.8s" repeatCount="indefinite"/>
+            <animate attributeName="fill" values="rgba(255,80,200,0);rgba(255,80,200,.9);rgba(255,80,200,0)" keyTimes="0;.5;1" dur="2.8s" repeatCount="indefinite"/>
+          </circle>
+          <defs>
+            <path id="sparkPath1" d="M55 55 L305 65"/>
+            <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C77BFF"/>
+              <stop offset="100%" stop-color="#FF50C8"/>
+            </linearGradient>
+          </defs>
+          <!-- Eyebrow mono label -->
+          <rect x="70" y="54" width="115" height="5" rx="2" fill="rgba(255,80,200,.55)" class="pk-p"/>
+          <!-- Headline: "AI is changing" -->
+          <rect x="70" y="66" width="84" height="12" rx="4" fill="rgba(255,255,255,.8)"/>
+          <!-- Headline: "Non-Financial Risk." gradient -->
+          <rect x="70" y="84" width="140" height="15" rx="4" fill="url(#titleGrad)" opacity=".9" class="pk-p"/>
+          <!-- Subtext line -->
+          <rect x="70" y="106" width="170" height="5" rx="2" fill="rgba(255,255,255,.28)"/>
+          <!-- DORA pill -->
+          <rect x="70" y="120" width="56" height="16" rx="8" fill="rgba(37,99,235,.45)" stroke="rgba(96,165,250,.4)" stroke-width=".75"/>
+          <rect x="77" y="126" width="38" height="4" rx="2" fill="rgba(255,255,255,.75)"/>
+          <!-- EU AI Act pill -->
+          <rect x="133" y="120" width="66" height="16" rx="8" fill="rgba(124,58,237,.4)" stroke="rgba(167,139,250,.4)" stroke-width=".75"/>
+          <rect x="140" y="126" width="48" height="4" rx="2" fill="rgba(255,255,255,.75)"/>
+          <!-- Basel IV pill -->
+          <rect x="206" y="120" width="64" height="16" rx="8" fill="rgba(8,145,178,.4)" stroke="rgba(34,211,238,.4)" stroke-width=".75"/>
+          <rect x="213" y="126" width="44" height="4" rx="2" fill="rgba(255,255,255,.75)"/>
+          <!-- Nav bar (fixed top) -->
+          <rect x="0" y="0" width="360" height="18" fill="rgba(8,0,20,.9)"/>
+          <rect x="8" y="5" width="8" height="8" rx="1" fill="rgba(199,123,255,.5)"/>
+          <rect x="20" y="7" width="40" height="4" rx="2" fill="rgba(255,255,255,.2)"/>
+          <!-- Nav dots -->
+          <circle cx="156" cy="9" r="3" fill="rgba(199,123,255,.85)" class="pk-p"/>
+          <circle cx="166" cy="9" r="2.2" fill="rgba(255,255,255,.2)"/>
+          <circle cx="175" cy="9" r="2.2" fill="rgba(255,255,255,.2)"/>
+          <circle cx="184" cy="9" r="2.2" fill="rgba(255,255,255,.2)"/>
+          <circle cx="193" cy="9" r="2.2" fill="rgba(255,255,255,.2)"/>
+          <circle cx="202" cy="9" r="2.2" fill="rgba(255,255,255,.2)"/>
+          <circle cx="211" cy="9" r="2.2" fill="rgba(255,255,255,.2)"/>
+          <circle cx="220" cy="9" r="2.2" fill="rgba(255,255,255,.2)"/>
+          <rect x="312" y="5" width="40" height="8" rx="4" fill="rgba(255,255,255,.07)"/>
+          <rect x="316" y="7" width="28" height="4" rx="2" fill="rgba(255,255,255,.2)"/>
+          <!-- Bottom: architecture layer preview (slide 3) -->
+          <rect x="0" y="188" width="360" height="92" fill="rgba(15,15,34,.95)"/>
+          <rect x="0" y="188" width="360" height="1" fill="rgba(255,255,255,.08)"/>
+          <rect x="8" y="196" width="60" height="4" rx="2" fill="rgba(255,80,200,.4)"/>
+          <!-- Arch layers preview -->
+          <rect x="8" y="208" width="42" height="10" rx="5" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+          <rect x="12" y="211" width="28" height="4" rx="2" fill="rgba(255,255,255,.35)"/>
+          <rect x="56" y="208" width="42" height="10" rx="5" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+          <rect x="60" y="211" width="28" height="4" rx="2" fill="rgba(255,255,255,.35)"/>
+          <rect x="104" y="208" width="42" height="10" rx="5" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+          <rect x="108" y="211" width="28" height="4" rx="2" fill="rgba(255,255,255,.35)"/>
+          <rect x="152" y="208" width="42" height="10" rx="5" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.1)" stroke-width=".5"/>
+          <rect x="156" y="211" width="28" height="4" rx="2" fill="rgba(255,255,255,.35)"/>
+          <!-- AI engine card -->
+          <rect x="8" y="228" width="344" height="24" rx="6" fill="linear-gradient(135deg,rgba(161,0,255,.14),rgba(255,80,200,.08))" stroke="rgba(199,123,255,.4)" stroke-width=".75"/>
+          <rect x="8" y="228" width="344" height="24" rx="6" fill="rgba(161,0,255,.12)"/>
+          <rect x="14" y="234" width="48" height="4" rx="2" fill="rgba(199,123,255,.7)" class="pk-p"/>
+          <rect x="74" y="234" width="48" height="4" rx="2" fill="rgba(199,123,255,.5)"/>
+          <rect x="134" y="234" width="52" height="4" rx="2" fill="rgba(199,123,255,.5)"/>
+          <!-- Output tiles -->
+          <rect x="8" y="260" width="60" height="14" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.08)" stroke-width=".5"/>
+          <rect x="12" y="264" width="40" height="4" rx="2" fill="rgba(199,123,255,.45)"/>
+          <rect x="74" y="260" width="60" height="14" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.08)" stroke-width=".5"/>
+          <rect x="78" y="264" width="40" height="4" rx="2" fill="rgba(199,123,255,.45)"/>
+          <rect x="140" y="260" width="60" height="14" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.08)" stroke-width=".5"/>
+          <rect x="144" y="264" width="40" height="4" rx="2" fill="rgba(199,123,255,.45)"/>
+          <rect x="206" y="260" width="60" height="14" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.08)" stroke-width=".5"/>
+          <rect x="210" y="264" width="40" height="4" rx="2" fill="rgba(199,123,255,.45)"/>
+          <rect x="272" y="260" width="80" height="14" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.08)" stroke-width=".5"/>
+          <rect x="276" y="264" width="52" height="4" rx="2" fill="rgba(199,123,255,.45)"/>
+        </svg>
+      </div><!-- /.feat-preview -->
+
+      <div class="feat-content">
+        <div class="card-body">
+          <div class="card-icon" style="background:rgba(161,0,255,.12);" aria-hidden="true">
+            <svg viewBox="0 0 24 24" stroke="var(--purple)" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <div class="card-tags">
+            <span class="tag live">&#9679;&nbsp;Live</span>
+            <span class="tag" style="background:rgba(161,0,255,.12);color:#CC88FF;border-color:rgba(161,0,255,.3)">Client Pitch</span>
+            <span class="tag">8 Slides · 30 mins</span>
+            <span class="tag locked">&#128274;&nbsp;Protected</span>
+          </div>
+          <div class="card-title" style="font-size:20px;">NFR AI Client Pitch</div>
+          <div class="card-desc" style="-webkit-line-clamp:4">An animated 30-minute pitch experience showing how AI is transforming Non-Financial Risk — live infrastructure diagrams, dashboard mockups, investment breakdown and a configurable engagement journey. Built to be opened in the room with a client.</div>
+        </div>
+
+        <div class="card-meta">
+          <div>
+            <div class="experts-label">Practice Team</div>
+            <div class="experts-row" id="featExperts"></div>
+          </div>
+          <div class="meta-badges">
+            <span class="badge-v">v3.0</span>
+            <span class="badge-time">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+              <span data-ts="2026-07-27T10:00:00Z"></span>
+            </span>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <a class="open-btn" href="https://tzijlstra-acn.github.io/30minsAIChat/" target="_blank" rel="noopener"
+             aria-label="Open NFR AI Client Pitch (opens in new tab)"
+             style="background:linear-gradient(135deg,#3D0066,#A100FF);">
+            Open pitch deck
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div><!-- /.feat-content -->
+
+    </div><!-- /.card.featured -->
+  </div><!-- /.featured-section -->
+
+  <!-- ══════════ SUPPORT SEPARATOR ══════════ -->
+  <div class="support-sep">Supporting Assets</div>
 
   <div class="cards">
 
@@ -1396,6 +1603,35 @@ footer a:hover { text-decoration: underline; }
     else if (diff < 7)   el.textContent = diff + ' days ago';
     else if (diff < 30)  el.textContent = Math.floor(diff / 7) + (Math.floor(diff / 7) === 1 ? ' week ago' : ' weeks ago');
     else el.textContent = new Date(el.dataset.ts).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  });
+}());
+</script>
+
+<script>
+/* ── Featured pitch: populate expert avatars ── */
+(function () {
+  var container = document.getElementById('featExperts');
+  if (!container) return;
+  var base = 'https://tzijlstra-acn.github.io/NFRAIAssets/assets/';
+  var team = [
+    {f:'thomas-zijlstra', n:'Thomas Zijlstra',  i:'TZ', c:'av-tz', m:'thomas.zijlstra'},
+    {f:'marcel-frater',   n:'Marcel Frater',    i:'MF', c:'av-mf', m:'marcel.frater'},
+    {f:'tobias-drouin',   n:'Tobias Drouin',    i:'TD', c:'av-td', m:'tobias.drouin'},
+    {f:'oliver-moine',    n:'Oliver Moine',     i:'OM', c:'av-om', m:'oliver.moine'},
+    {f:'janik-jugl',      n:'Janik Jugl',       i:'JJ', c:'av-jj', m:'janik.jugl'},
+    {f:'nicola-jenni',    n:'Nicola Jenni',     i:'NJ', c:'av-nj', m:'nicola.jenni'},
+    {f:'marek-polak',     n:'Marek Polak',      i:'MP', c:'av-mp', m:'marek.polak'}
+  ];
+  team.forEach(function (e) {
+    var first = e.n.split(' ')[0];
+    container.insertAdjacentHTML('beforeend',
+      '<div class="expert">' +
+        '<a class="expert-av ' + e.c + '" href="mailto:' + e.m + '@accenture.com" title="Email ' + e.n + '">' +
+          e.i + '<img src="' + base + e.f + '.jpg" alt="' + e.n + '" onerror="this.style.display=\'none\'">' +
+        '</a>' +
+        '<div class="expert-name">' + first + '</div>' +
+      '</div>'
+    );
   });
 }());
 </script>
