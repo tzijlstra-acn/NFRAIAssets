@@ -763,8 +763,8 @@ footer a:hover { text-decoration: underline; }
           <span class="tag">ICS Implementation</span>
           <span class="tag locked">&#128274;&nbsp;Protected</span>
         </div>
-        <div class="card-title">ICS Implementation Blueprint</div>
-        <div class="card-desc">Understand the full journey from manual control monitoring to AI-driven ICS &mdash; with a business case, phased roadmap, and team blueprint calibrated to your maturity level.</div>
+        <div class="card-title">ICS AI-Steered Implementation Blueprint</div>
+        <div class="card-desc">Understand the full journey from manual control monitoring to AI-steered ICS &mdash; with a business case, phased roadmap, and team blueprint calibrated to your maturity level.</div>
       </div>
 
       <div class="card-meta">
@@ -799,7 +799,7 @@ footer a:hover { text-decoration: underline; }
         </div>
       </div>
       <div class="card-footer">
-        <a class="open-btn" href="https://tzijlstra-acn.github.io/AIDataProcessing/" target="_blank" rel="noopener" aria-label="Open ICS Implementation Blueprint (opens in new tab)">
+        <a class="open-btn" href="https://tzijlstra-acn.github.io/AIDataProcessing/" target="_blank" rel="noopener" aria-label="Open ICS AI-Steered Implementation Blueprint (opens in new tab)">
           Open asset<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
@@ -1315,11 +1315,11 @@ footer a:hover { text-decoration: underline; }
         </div>
         <div class="card-tags">
           <span class="tag live">&#9679;&nbsp;Live</span>
-          <span class="tag">Process Intelligence</span>
+          <span class="tag">Process Map</span>
           <span class="tag locked">&#128274;&nbsp;Protected</span>
         </div>
-        <div class="card-title">NFR Process Intelligence</div>
-        <div class="card-desc">A consulting-grade interactive map of all eight Non-Financial Risk processes &mdash; TPRM, BCM, RCSA, PKS, ORM, Compliance, MRM and IS Risk &mdash; with detailed swimlane diagrams, five toggleable data layers and 25+ BaFin, DORA and FINMA regulatory anchors. Base case: a DACH bank.</div>
+        <div class="card-title">NFR Process Map</div>
+        <div class="card-desc">An interactive map of all eight NFR disciplines &mdash; TPRM, BCM, RCSA, PKS, ORM, Compliance, MRM and IS Risk &mdash; with traditional optimised swimlane views per function and a dedicated AI opportunities layer that surfaces where AI can create value across the entire NFR value chain. Base case: a DACH bank.</div>
       </div>
 
       <div class="card-meta">
@@ -1351,13 +1351,13 @@ footer a:hover { text-decoration: underline; }
       </div>
       <div class="card-footer">
         <a class="open-btn" href="https://tzijlstra-acn.github.io/NFRProcesses/" target="_blank" rel="noopener"
-           aria-label="Open NFR Process Intelligence (opens in new tab)">
+           aria-label="Open NFR Process Map (opens in new tab)">
           Open asset<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
     </div>
 
-    <!-- ══════════ ICS COCKPIT DASHBOARD ══════════ -->
+    <!-- ══════════ ICS AI-STEERED DASHBOARD ══════════ -->
     <div class="card" data-type="dashboard" data-industry="banking" data-status="live">
 
       <div class="card-upper card-upper--dashboard">
@@ -1365,77 +1365,186 @@ footer a:hover { text-decoration: underline; }
         <div class="card-peek peek-purple" aria-hidden="true">
           <div class="peek-thumb">
             <svg viewBox="0 0 280 148" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="icsTopGrad" x1="0" y1="0" x2="280" y2="0" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#160029"/><stop offset="100%" stop-color="#A100FF"/>
+                </linearGradient>
+                <linearGradient id="icsAgentHdr" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#1E3A6E"/><stop offset="100%" stop-color="#2A5298"/>
+                </linearGradient>
+                <linearGradient id="icsUserMsg" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#1A237E"/><stop offset="100%" stop-color="#283593"/>
+                </linearGradient>
+              </defs>
+              <!-- Canvas & pane backgrounds -->
               <rect width="280" height="148" fill="#F2F3F5"/>
-              <!-- Topbar purple gradient -->
-              <rect x="0" y="0" width="280" height="18" fill="url(#tbGrad)"/>
-              <defs><linearGradient id="tbGrad" x1="0" y1="0" x2="280" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#160029"/><stop offset="100%" stop-color="#A100FF"/></linearGradient></defs>
-              <rect x="6" y="6" width="6" height="6" rx="1" fill="rgba(255,255,255,.8)"/>
-              <path d="M6 6 L10 9 L6 12 L7.5 12 L11.5 9 L7.5 6 Z" fill="rgba(255,255,255,.9)"/>
-              <rect x="14" y="7" width="38" height="4" rx="2" fill="rgba(255,255,255,.75)"/>
-              <!-- Nav tabs bar -->
-              <rect x="0" y="18" width="280" height="12" fill="#FFFFFF" stroke="#E5E7EB" stroke-width=".5"/>
-              <rect x="6" y="21" width="32" height="6" rx="3" fill="#2A5298"/>
-              <rect x="42" y="22" width="28" height="4" rx="2" fill="#9CA3AF"/>
-              <rect x="74" y="22" width="28" height="4" rx="2" fill="#9CA3AF"/>
-              <rect x="106" y="22" width="28" height="4" rx="2" fill="#9CA3AF"/>
-              <!-- Metric cards row -->
-              <rect x="6" y="34" width="48" height="22" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width=".5"/>
-              <rect x="10" y="38" width="20" height="3" rx="1.5" fill="#9CA3AF"/>
-              <rect x="10" y="43" width="14" height="6" rx="2" fill="#1E3A6E"/>
-              <rect x="58" y="34" width="48" height="22" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width=".5"/>
-              <rect x="62" y="38" width="20" height="3" rx="1.5" fill="#9CA3AF"/>
-              <rect x="62" y="43" width="14" height="6" rx="2" fill="#B4322A"/>
-              <rect x="110" y="34" width="48" height="22" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width=".5"/>
-              <rect x="114" y="38" width="20" height="3" rx="1.5" fill="#9CA3AF"/>
-              <rect x="114" y="43" width="14" height="6" rx="2" fill="#9A6500"/>
-              <rect x="162" y="34" width="48" height="22" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width=".5"/>
-              <rect x="166" y="38" width="20" height="3" rx="1.5" fill="#9CA3AF"/>
-              <rect x="166" y="43" width="14" height="6" rx="2" fill="#1A7A52"/>
-              <rect x="214" y="34" width="60" height="22" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width=".5"/>
-              <rect x="218" y="38" width="24" height="3" rx="1.5" fill="#9CA3AF"/>
-              <rect x="218" y="43" width="18" height="6" rx="2" fill="#1E3A6E"/>
-              <!-- Area cards (3-col grid) -->
-              <rect x="6" y="60" width="84" height="42" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width=".5"/>
-              <rect x="10" y="64" width="30" height="3" rx="1.5" fill="#374151"/>
-              <rect x="10" y="76" width="72" height="4" rx="2" fill="rgba(180,50,42,.15)"/>
-              <rect x="10" y="76" width="38" height="4" rx="2" fill="#B4322A" class="pk-p"/>
-              <rect x="10" y="83" width="72" height="4" rx="2" fill="#F0F1F3"/>
-              <rect x="10" y="83" width="52" height="4" rx="2" fill="#9A6500" opacity=".6"/>
-              <rect x="94" y="60" width="84" height="42" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width=".5"/>
-              <rect x="98" y="64" width="30" height="3" rx="1.5" fill="#374151"/>
-              <rect x="98" y="76" width="72" height="4" rx="2" fill="rgba(26,122,82,.15)"/>
-              <rect x="98" y="76" width="60" height="4" rx="2" fill="#1A7A52" class="pk-p"/>
-              <rect x="98" y="83" width="72" height="4" rx="2" fill="#F0F1F3"/>
-              <rect x="98" y="83" width="44" height="4" rx="2" fill="#1A7A52" opacity=".5"/>
-              <rect x="182" y="60" width="92" height="42" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width=".5"/>
-              <rect x="186" y="64" width="30" height="3" rx="1.5" fill="#374151"/>
-              <rect x="186" y="76" width="80" height="4" rx="2" fill="rgba(154,101,0,.15)"/>
-              <rect x="186" y="76" width="50" height="4" rx="2" fill="#9A6500" class="pk-p"/>
-              <!-- Risk heatmap + agent chat -->
-              <rect x="6" y="106" width="120" height="36" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width=".5"/>
-              <rect x="10" y="110" width="28" height="3" rx="1.5" fill="#9CA3AF"/>
-              <rect x="10" y="116" width="10" height="8" rx="2" fill="rgba(239,68,68,.5)"/>
-              <rect x="22" y="116" width="10" height="8" rx="2" fill="rgba(249,115,22,.4)"/>
-              <rect x="34" y="116" width="10" height="8" rx="2" fill="rgba(234,179,8,.3)"/>
-              <rect x="46" y="116" width="10" height="8" rx="2" fill="rgba(34,197,94,.3)"/>
-              <rect x="10" y="126" width="10" height="8" rx="2" fill="rgba(249,115,22,.3)"/>
-              <rect x="22" y="126" width="10" height="8" rx="2" fill="rgba(239,68,68,.4)"/>
-              <rect x="34" y="126" width="10" height="8" rx="2" fill="rgba(249,115,22,.2)"/>
-              <rect x="46" y="126" width="10" height="8" rx="2" fill="rgba(34,197,94,.2)"/>
-              <rect x="130" y="106" width="144" height="36" rx="4" fill="#FFFFFF" stroke="#E5E7EB" stroke-width=".5"/>
-              <rect x="134" y="110" width="24" height="3" rx="1.5" fill="#9CA3AF"/>
-              <rect x="178" y="122" width="90" height="8" rx="4" fill="url(#tbGrad)" class="pk-p"/>
-              <rect x="180" y="124" width="60" height="4" rx="2" fill="rgba(255,255,255,.7)"/>
-              <circle cx="270" cy="111" r="3" fill="#22C55E">
-                <animate attributeName="r" values="3;4.5;3" dur="2s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="1;.3;1" dur="2s" repeatCount="indefinite"/>
-              </circle>
+              <rect x="190" y="0" width="90" height="148" fill="#0F172A"/>
+              <!-- Topbar (full width) -->
+              <rect x="0" y="0" width="280" height="16" fill="url(#icsTopGrad)"/>
+              <path d="M4.5 4 L9 8 L4.5 12 L6 12 L10.5 8 L6 4 Z" fill="rgba(255,255,255,.88)"/>
+              <rect x="13" y="5.5" width="38" height="2.5" rx="1.25" fill="rgba(255,255,255,.72)"/>
+              <rect x="13" y="10" width="26" height="2" rx="1" fill="rgba(255,255,255,.38)"/>
+              <rect x="55" y="4" width=".5" height="8" fill="rgba(255,255,255,.2)"/>
+              <rect x="59" y="5.5" width="28" height="2.5" rx="1.25" fill="rgba(255,255,255,.55)"/>
+              <rect x="155" y="4.5" width="18" height="7" rx="3.5" fill="rgba(255,255,255,.14)"/>
+              <rect x="157" y="6.5" width="12" height="2.5" rx="1" fill="rgba(255,255,255,.6)"/>
+              <rect x="175" y="4.5" width="12" height="7" rx="3.5" fill="rgba(255,255,255,.1)"/>
+              <rect x="177" y="6.5" width="7" height="2.5" rx="1" fill="rgba(255,255,255,.45)"/>
+              <!-- Nav tabs (main area) -->
+              <rect x="0" y="16" width="190" height="11" fill="#FFFFFF" stroke="#E5E7EB" stroke-width=".4"/>
+              <rect x="4" y="18.5" width="30" height="6" rx="3" fill="#2A5298"/>
+              <rect x="6" y="20.5" width="20" height="2.5" rx="1" fill="rgba(255,255,255,.9)"/>
+              <rect x="38" y="19.5" width="22" height="4" rx="2" fill="#E5E7EB"/>
+              <rect x="40" y="20.5" width="15" height="2" rx="1" fill="#9CA3AF"/>
+              <rect x="64" y="19.5" width="22" height="4" rx="2" fill="#E5E7EB"/>
+              <rect x="66" y="20.5" width="14" height="2" rx="1" fill="#9CA3AF"/>
+              <rect x="90" y="19.5" width="22" height="4" rx="2" fill="#E5E7EB"/>
+              <rect x="92" y="20.5" width="15" height="2" rx="1" fill="#9CA3AF"/>
+              <rect x="116" y="19.5" width="22" height="4" rx="2" fill="#E5E7EB"/>
+              <rect x="118" y="20.5" width="14" height="2" rx="1" fill="#9CA3AF"/>
+              <!-- 5 Metric cards with accent bars -->
+              <rect x="2" y="29" width="35" height="18" rx="3" fill="#FFFFFF" stroke="#E8EAED" stroke-width=".5"/>
+              <rect x="2" y="29" width="2.5" height="18" rx="1.25" fill="#1E3A6E"/>
+              <rect x="7" y="32" width="20" height="2" rx="1" fill="#CBD5E1"/>
+              <rect x="7" y="36" width="13" height="5" rx="1.5" fill="#1E3A6E"/>
+              <rect x="7" y="43" width="16" height="1.5" rx=".75" fill="#E2E8F0"/>
+              <rect x="40" y="29" width="35" height="18" rx="3" fill="#FFFFFF" stroke="#E8EAED" stroke-width=".5"/>
+              <rect x="40" y="29" width="2.5" height="18" rx="1.25" fill="#B4322A"/>
+              <rect x="45" y="32" width="20" height="2" rx="1" fill="#CBD5E1"/>
+              <rect x="45" y="36" width="10" height="5" rx="1.5" fill="#B4322A"/>
+              <rect x="45" y="43" width="14" height="1.5" rx=".75" fill="#FECACA"/>
+              <rect x="78" y="29" width="35" height="18" rx="3" fill="#FFFFFF" stroke="#E8EAED" stroke-width=".5"/>
+              <rect x="78" y="29" width="2.5" height="18" rx="1.25" fill="#9A6500"/>
+              <rect x="83" y="32" width="20" height="2" rx="1" fill="#CBD5E1"/>
+              <rect x="83" y="36" width="11" height="5" rx="1.5" fill="#9A6500"/>
+              <rect x="83" y="43" width="14" height="1.5" rx=".75" fill="#FEF3C7"/>
+              <rect x="116" y="29" width="35" height="18" rx="3" fill="#FFFFFF" stroke="#E8EAED" stroke-width=".5"/>
+              <rect x="116" y="29" width="2.5" height="18" rx="1.25" fill="#1A7A52"/>
+              <rect x="121" y="32" width="20" height="2" rx="1" fill="#CBD5E1"/>
+              <rect x="121" y="36" width="16" height="5" rx="1.5" fill="#1A7A52"/>
+              <rect x="121" y="43" width="18" height="1.5" rx=".75" fill="#D1FAE5"/>
+              <rect x="154" y="29" width="35" height="18" rx="3" fill="#FFFFFF" stroke="#E8EAED" stroke-width=".5"/>
+              <rect x="154" y="29" width="2.5" height="18" rx="1.25" fill="#2A5298"/>
+              <rect x="159" y="32" width="22" height="2" rx="1" fill="#CBD5E1"/>
+              <rect x="159" y="36" width="16" height="5" rx="1.5" fill="#2A5298"/>
+              <rect x="159" y="43" width="14" height="1.5" rx=".75" fill="#DBEAFE"/>
+              <!-- 3 Area cards -->
+              <rect x="2" y="51" width="59" height="37" rx="3.5" fill="#FFFFFF" stroke="#E8EAED" stroke-width=".5"/>
+              <rect x="5" y="54" width="12" height="12" rx="2.5" fill="rgba(180,50,42,.1)"/>
+              <rect x="7.5" y="57" width="7" height="5" rx="1" fill="#B4322A" opacity=".85"/>
+              <rect x="20" y="55.5" width="35" height="2.5" rx="1.25" fill="#374151"/>
+              <rect x="20" y="60" width="24" height="2" rx="1" fill="#9CA3AF"/>
+              <rect x="5" y="70" width="53" height="4" rx="2" fill="#F0F1F3"/>
+              <rect x="5" y="70" width="30" height="4" rx="2" fill="#B4322A"/>
+              <rect x="5" y="77" width="53" height="3" rx="1.5" fill="#F0F1F3"/>
+              <rect x="5" y="77" width="38" height="3" rx="1.5" fill="#9A6500" opacity=".75"/>
+              <rect x="5" y="83" width="24" height="4" rx="2" fill="rgba(180,50,42,.12)"/>
+              <rect x="7" y="84.5" width="16" height="1.5" rx=".75" fill="#B4322A"/>
+              <rect x="64" y="51" width="59" height="37" rx="3.5" fill="#FFFFFF" stroke="#E8EAED" stroke-width=".5"/>
+              <rect x="67" y="54" width="12" height="12" rx="2.5" fill="rgba(26,122,82,.1)"/>
+              <rect x="69.5" y="57" width="7" height="5" rx="1" fill="#1A7A52" opacity=".85"/>
+              <rect x="82" y="55.5" width="35" height="2.5" rx="1.25" fill="#374151"/>
+              <rect x="82" y="60" width="24" height="2" rx="1" fill="#9CA3AF"/>
+              <rect x="67" y="70" width="53" height="4" rx="2" fill="#F0F1F3"/>
+              <rect x="67" y="70" width="44" height="4" rx="2" fill="#1A7A52"/>
+              <rect x="67" y="77" width="53" height="3" rx="1.5" fill="#F0F1F3"/>
+              <rect x="67" y="77" width="46" height="3" rx="1.5" fill="#1A7A52" opacity=".55"/>
+              <rect x="67" y="83" width="22" height="4" rx="2" fill="rgba(26,122,82,.12)"/>
+              <rect x="69" y="84.5" width="14" height="1.5" rx=".75" fill="#1A7A52"/>
+              <rect x="126" y="51" width="62" height="37" rx="3.5" fill="#FFFFFF" stroke="#E8EAED" stroke-width=".5"/>
+              <rect x="129" y="54" width="12" height="12" rx="2.5" fill="rgba(154,101,0,.1)"/>
+              <rect x="131.5" y="57" width="7" height="5" rx="1" fill="#9A6500" opacity=".85"/>
+              <rect x="144" y="55.5" width="37" height="2.5" rx="1.25" fill="#374151"/>
+              <rect x="144" y="60" width="26" height="2" rx="1" fill="#9CA3AF"/>
+              <rect x="129" y="70" width="56" height="4" rx="2" fill="#F0F1F3"/>
+              <rect x="129" y="70" width="34" height="4" rx="2" fill="#9A6500"/>
+              <rect x="129" y="77" width="56" height="3" rx="1.5" fill="#F0F1F3"/>
+              <rect x="129" y="77" width="26" height="3" rx="1.5" fill="#B4322A" opacity=".6"/>
+              <rect x="129" y="83" width="26" height="4" rx="2" fill="rgba(154,101,0,.12)"/>
+              <rect x="131" y="84.5" width="18" height="1.5" rx=".75" fill="#9A6500"/>
+              <!-- Heatmap (bottom-left) -->
+              <rect x="2" y="92" width="92" height="50" rx="4" fill="#FFFFFF" stroke="#E8EAED" stroke-width=".5"/>
+              <rect x="6" y="96" width="32" height="2.5" rx="1.25" fill="#CBD5E1"/>
+              <rect x="6" y="103" width="16" height="8" rx="1.5" fill="#FECACA" stroke="#FCA5A5" stroke-width=".4"/>
+              <rect x="8" y="105.5" width="9" height="3" rx="1.5" fill="#B4322A"/>
+              <rect x="24" y="103" width="16" height="8" rx="1.5" fill="#FECACA" stroke="#FCA5A5" stroke-width=".4"/>
+              <rect x="42" y="103" width="16" height="8" rx="1.5" fill="#FEF3C7" stroke="#FDE68A" stroke-width=".4"/>
+              <rect x="60" y="103" width="16" height="8" rx="1.5" fill="#FEF3C7" stroke="#FDE68A" stroke-width=".4"/>
+              <rect x="78" y="103" width="14" height="8" rx="1.5" fill="#D1FAE5" stroke="#A7F3D0" stroke-width=".4"/>
+              <rect x="6" y="113" width="16" height="8" rx="1.5" fill="#FEF3C7" stroke="#FDE68A" stroke-width=".4"/>
+              <rect x="24" y="113" width="16" height="8" rx="1.5" fill="#FECACA" stroke="#FCA5A5" stroke-width=".4"/>
+              <rect x="26" y="115.5" width="9" height="3" rx="1.5" fill="#B4322A"/>
+              <rect x="42" y="113" width="16" height="8" rx="1.5" fill="#FEF3C7" stroke="#FDE68A" stroke-width=".4"/>
+              <rect x="60" y="113" width="16" height="8" rx="1.5" fill="#D1FAE5" stroke="#A7F3D0" stroke-width=".4"/>
+              <rect x="78" y="113" width="14" height="8" rx="1.5" fill="#D1FAE5" stroke="#A7F3D0" stroke-width=".4"/>
+              <rect x="6" y="123" width="16" height="8" rx="1.5" fill="#D1FAE5" stroke="#A7F3D0" stroke-width=".4"/>
+              <rect x="24" y="123" width="16" height="8" rx="1.5" fill="#D1FAE5" stroke="#A7F3D0" stroke-width=".4"/>
+              <rect x="42" y="123" width="16" height="8" rx="1.5" fill="#D1FAE5" stroke="#A7F3D0" stroke-width=".4"/>
+              <rect x="60" y="123" width="16" height="8" rx="1.5" fill="#D1FAE5" stroke="#A7F3D0" stroke-width=".4"/>
+              <rect x="78" y="123" width="14" height="8" rx="1.5" fill="#D1FAE5" stroke="#A7F3D0" stroke-width=".4"/>
+              <rect x="6" y="134" width="12" height="2" rx="1" fill="#CBD5E1"/>
+              <rect x="24" y="134" width="12" height="2" rx="1" fill="#CBD5E1"/>
+              <rect x="42" y="134" width="12" height="2" rx="1" fill="#CBD5E1"/>
+              <rect x="60" y="134" width="12" height="2" rx="1" fill="#CBD5E1"/>
+              <rect x="78" y="134" width="12" height="2" rx="1" fill="#CBD5E1"/>
+              <!-- RCSA timeline (bottom-right) -->
+              <rect x="97" y="92" width="91" height="50" rx="4" fill="#FFFFFF" stroke="#E8EAED" stroke-width=".5"/>
+              <rect x="101" y="96" width="36" height="2.5" rx="1.25" fill="#CBD5E1"/>
+              <rect x="101" y="103" width="83" height="5" rx="2.5" fill="#F1F5F9"/>
+              <rect x="101" y="103" width="26" height="5" rx="2.5" fill="#1A7A52"/>
+              <rect x="130" y="103" width="10" height="5" rx="2.5" fill="#B4322A"/>
+              <rect x="101" y="111" width="83" height="5" rx="2.5" fill="#F1F5F9"/>
+              <rect x="101" y="111" width="56" height="5" rx="2.5" fill="#9A6500"/>
+              <rect x="101" y="119" width="83" height="5" rx="2.5" fill="#F1F5F9"/>
+              <rect x="101" y="119" width="10" height="5" rx="2.5" fill="#B4322A"/>
+              <rect x="101" y="127" width="83" height="5" rx="2.5" fill="#F1F5F9"/>
+              <rect x="101" y="127" width="72" height="5" rx="2.5" fill="#2A5298"/>
+              <rect x="101" y="138" width="18" height="2" rx="1" fill="#CBD5E1"/>
+              <rect x="122" y="138" width="16" height="2" rx="1" fill="#CBD5E1"/>
+              <rect x="141" y="138" width="18" height="2" rx="1" fill="#CBD5E1"/>
+              <rect x="162" y="138" width="16" height="2" rx="1" fill="#CBD5E1"/>
+              <!-- Agent pane header -->
+              <rect x="190" y="16" width="90" height="22" fill="#1E293B"/>
+              <rect x="194" y="19" width="14" height="14" rx="7" fill="url(#icsAgentHdr)"/>
+              <path d="M201 22.5 L201.8 25 L204.5 25.5 L201.8 26 L201 28.5 L200.2 26 L197.5 25.5 L200.2 25 Z" fill="rgba(255,255,255,.88)"/>
+              <rect x="212" y="21" width="30" height="2.5" rx="1.25" fill="rgba(255,255,255,.72)"/>
+              <rect x="212" y="25.5" width="20" height="2" rx="1" fill="rgba(255,255,255,.35)"/>
+              <circle cx="274" cy="25" r="3.5" fill="#22C55E"/>
+              <circle cx="274" cy="25" r="2" fill="#4ADE80"/>
+              <!-- Agent message 1 -->
+              <rect x="192" y="40" width="78" height="18" rx="3" fill="#1E293B" stroke="rgba(255,255,255,.09)" stroke-width=".5"/>
+              <rect x="196" y="44" width="54" height="2.5" rx="1.25" fill="rgba(255,255,255,.52)"/>
+              <rect x="196" y="48.5" width="46" height="2" rx="1" fill="rgba(255,255,255,.3)"/>
+              <rect x="196" y="53" width="38" height="2" rx="1" fill="rgba(255,255,255,.22)"/>
+              <!-- User message -->
+              <rect x="206" y="62" width="64" height="14" rx="3" fill="url(#icsUserMsg)"/>
+              <rect x="210" y="65.5" width="50" height="2.5" rx="1.25" fill="rgba(255,255,255,.75)"/>
+              <rect x="210" y="70" width="36" height="2" rx="1" fill="rgba(255,255,255,.5)"/>
+              <!-- Agent message 2 with AI badge -->
+              <rect x="192" y="80" width="78" height="20" rx="3" fill="#1E293B" stroke="rgba(255,255,255,.09)" stroke-width=".5"/>
+              <rect x="254" y="77" width="16" height="7" rx="3.5" fill="rgba(161,0,255,.85)"/>
+              <rect x="256" y="79.5" width="10" height="2" rx="1" fill="rgba(255,255,255,.88)"/>
+              <rect x="196" y="84" width="50" height="2.5" rx="1.25" fill="rgba(255,255,255,.52)"/>
+              <rect x="196" y="88.5" width="62" height="2" rx="1" fill="rgba(255,255,255,.3)"/>
+              <rect x="196" y="93" width="44" height="2" rx="1" fill="rgba(255,255,255,.22)"/>
+              <rect x="196" y="97.5" width="54" height="2" rx="1" fill="rgba(255,255,255,.18)"/>
+              <!-- Suggestion chip -->
+              <rect x="192" y="104" width="78" height="10" rx="5" fill="rgba(42,82,152,.2)" stroke="rgba(42,82,152,.45)" stroke-width=".5"/>
+              <rect x="196" y="107.5" width="58" height="2" rx="1" fill="rgba(255,255,255,.4)"/>
+              <!-- Chat input + send -->
+              <rect x="192" y="117" width="62" height="12" rx="3" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.12)" stroke-width=".5"/>
+              <rect x="195" y="120.5" width="38" height="2.5" rx="1.25" fill="rgba(255,255,255,.22)"/>
+              <rect x="257" y="117" width="23" height="12" rx="3" fill="url(#icsTopGrad)"/>
+              <path d="M263 123 L274 123" stroke="rgba(255,255,255,.85)" stroke-width="1.3" stroke-linecap="round"/>
+              <path d="M270 120 L274.5 123 L270 126" stroke="rgba(255,255,255,.85)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <!-- Divider line -->
+              <rect x="190" y="0" width=".5" height="148" fill="rgba(0,0,0,.08)"/>
             </svg>
           </div>
           <ul class="peek-list">
-            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Monitor</strong> ICS status across 6 control areas with real-time risk and control effectiveness tracking</span></li>
-            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Navigate</strong> from portfolio level to individual process risks and controls in three clicks</span></li>
-            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Orchestrate</strong> RCSA cycles with an AI agent that drafts reminders, escalations and assessments</span></li>
+            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Monitor</strong> ICS health across 6 control areas with AI-augmented risk scoring and live heatmap drill-down</span></li>
+            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Navigate</strong> from portfolio to individual process risks in three clicks with RCSA status and control gap flags</span></li>
+            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Steer</strong> assessments with an embedded AI agent that drafts escalations, orchestrates RCSA cycles and surfaces emerging risks</span></li>
           </ul>
         </div>
       </div><!-- /.card-upper -->
@@ -1447,10 +1556,10 @@ footer a:hover { text-decoration: underline; }
         <div class="card-tags">
           <span class="tag live">&#9679;&nbsp;Live</span>
           <span class="tag">ICS · GRC</span>
-          <span class="tag">6 Control Areas</span>
+          <span class="tag">AI-Steered</span>
         </div>
-        <div class="card-title">ICS Cockpit</div>
-        <div class="card-desc">Live GRC cockpit for the Internal Control System &mdash; risk heatmap, RCSA timeline, control effectiveness tracking and an AI agent across Operations, Payments, Data &amp; Privacy, Finance, IT Security and Treasury.</div>
+        <div class="card-title">ICS AI-Steered Dashboard</div>
+        <div class="card-desc">An AI-steered GRC cockpit for the Internal Control System &mdash; live risk heatmap, RCSA timeline, control gap detection and an AI agent that orchestrates assessments, drafts escalations and flags emerging risks across six control areas.</div>
       </div>
 
       <div class="card-meta">
@@ -1466,6 +1575,10 @@ footer a:hover { text-decoration: underline; }
               <a class="expert-av av-td" href="mailto:tobias.drouin@accenture.com" title="Email Tobias Drouin">TD<img src="assets/tobias-drouin.jpg" alt="Tobias Drouin" onerror="this.style.display='none'"></a>
               <div class="expert-name">Tobias Drouin</div>
             </div>
+            <div class="expert">
+              <a class="expert-av av-tz" href="mailto:thomas.zijlstra@accenture.com" title="Email Thomas Zijlstra">TZ<img src="assets/thomas-zijlstra.jpg" alt="Thomas Zijlstra" onerror="this.style.display='none'"></a>
+              <div class="expert-name">Thomas Zijlstra</div>
+            </div>
           </div>
         </div>
         <div class="meta-badges">
@@ -1478,7 +1591,7 @@ footer a:hover { text-decoration: underline; }
       </div>
       <div class="card-footer">
         <a class="open-btn" href="https://tzijlstra-acn.github.io/NFRDashboard/" target="_blank" rel="noopener"
-           aria-label="Open ICS Cockpit (opens in new tab)">
+           aria-label="Open ICS AI-Steered Dashboard (opens in new tab)">
           Open asset<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
