@@ -1876,14 +1876,15 @@ footer a:hover { text-decoration: underline; }
     {f:'nicola-jenni',    n:'Nicola Jenni',     i:'NJ', c:'av-nj', m:'nicola.jenni'},
     {f:'marek-polak',     n:'Marek Polak',      i:'MP', c:'av-mp', m:'marek.polak'}
   ];
-  team.forEach(function (e) {
-    var first = e.n.split(' ')[0];
+  team.forEach(function (e, idx) {
+    var isAuthor = idx === 0;
     container.insertAdjacentHTML('beforeend',
-      '<div class="expert">' +
+      '<div class="expert' + (isAuthor ? ' is-author' : '') + '">' +
         '<a class="expert-av ' + e.c + '" href="mailto:' + e.m + '@accenture.com" title="Email ' + e.n + '">' +
           e.i + '<img src="' + base + e.f + '.jpg" alt="' + e.n + '" onerror="this.style.display=\'none\'">' +
         '</a>' +
-        '<div class="expert-name">' + first + '</div>' +
+        '<div class="expert-name">' + e.n + '</div>' +
+        (isAuthor ? '<div class="expert-badge">Author</div>' : '') +
       '</div>'
     );
   });
