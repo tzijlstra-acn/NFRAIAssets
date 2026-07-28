@@ -503,7 +503,7 @@ footer a:hover { text-decoration: underline; }
       <button class="fpill" data-type="dashboard">Dashboard</button>
       <button class="fpill" data-type="agentic">Agentic AI</button>
     </div>
-    <span class="asset-count" id="assetCount">5 assets</span>
+    <span class="asset-count" id="assetCount">7 assets</span>
   </div>
 </div>
 
@@ -639,7 +639,7 @@ footer a:hover { text-decoration: underline; }
           <div class="card-tags">
             <span class="tag live">&#9679;&nbsp;Live</span>
             <span class="tag" style="background:rgba(161,0,255,.12);color:#CC88FF;border-color:rgba(161,0,255,.3)">Client Pitch</span>
-            <span class="tag">8 Slides · 30 mins</span>
+            <span class="tag">10 Slides · 30 mins</span>
             <span class="tag locked">&#128274;&nbsp;Protected</span>
           </div>
           <div class="card-title" style="font-size:20px;">NFR AI Client Pitch</div>
@@ -1206,7 +1206,7 @@ footer a:hover { text-decoration: underline; }
     <div class="card" data-type="dashboard" data-industry="banking" data-status="live">
 
       <div class="card-upper card-upper--dashboard">
-        <span class="type-badge">Dashboard</span>
+        <span class="type-badge">Process Map</span>
         <div class="card-peek peek-purple" aria-hidden="true">
           <div class="peek-thumb">
             <svg viewBox="0 0 280 148" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1303,7 +1303,7 @@ footer a:hover { text-decoration: underline; }
           </div>
           <ul class="peek-list">
             <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Navigate</strong> 8 NFR processes end-to-end in detailed swimlane diagrams with 74 process steps across DACH bank actors</span></li>
-            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Toggle</strong> five data layers per process — Roles &amp; Ownership, Data &amp; Systems, AI Opportunities, Regulatory Touch Points</span></li>
+            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Toggle</strong> four data layers per process — Roles &amp; Ownership, Data &amp; Systems, AI Opportunities, Regulatory Touch Points</span></li>
             <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Map</strong> AI opportunities across TPRM, BCM, RCSA, PKS, ORM, Compliance, MRM and IS Risk with BaFin/DORA/FINMA anchors</span></li>
           </ul>
         </div>
@@ -1358,7 +1358,7 @@ footer a:hover { text-decoration: underline; }
     </div>
 
     <!-- ══════════ ICS AI-STEERED DASHBOARD ══════════ -->
-    <div class="card" data-type="dashboard" data-industry="banking" data-status="live">
+    <div class="card" data-type="dashboard agentic" data-industry="banking" data-status="live">
 
       <div class="card-upper card-upper--dashboard">
         <span class="type-badge">Dashboard</span>
@@ -1543,7 +1543,7 @@ footer a:hover { text-decoration: underline; }
           </div>
           <ul class="peek-list">
             <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Monitor</strong> ICS health across 6 control areas with AI-augmented risk scoring and live heatmap drill-down</span></li>
-            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Navigate</strong> from portfolio to individual process risks in three clicks with RCSA status and control gap flags</span></li>
+            <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Toggle</strong> an AI Layer overlay that classifies every element as AI-Powered, Data Pipeline, Rule-Based or Human Input — plus a Technical View exposing the SQL and refresh cadence behind each tile</span></li>
             <li><svg viewBox="0 0 14 14" stroke="#C77BFF"><polyline points="2,7 5,10 12,3"/></svg><span><strong>Steer</strong> assessments with an embedded AI agent that drafts escalations, orchestrates RCSA cycles and surfaces emerging risks</span></li>
           </ul>
         </div>
@@ -1841,7 +1841,7 @@ footer a:hover { text-decoration: underline; }
   var timer     = null;
 
   function applyFilter(type) {
-    var toShow = (type === 'all') ? cards : cards.filter(function (c) { return c.dataset.type === type; });
+    var toShow = (type === 'all') ? cards : cards.filter(function (c) { return c.dataset.type.split(' ').indexOf(type) !== -1; });
     var toHide = cards.filter(function (c) { return toShow.indexOf(c) === -1; });
     clearTimeout(timer);
 
