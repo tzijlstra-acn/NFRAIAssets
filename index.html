@@ -26,6 +26,17 @@ body {
 }
 h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
 
+/* ── ACCESSIBILITY: keyboard focus + selection ── */
+::selection { background: rgba(161,0,255,.35); color: #fff; }
+:focus:not(:focus-visible) { outline: none; }
+a:focus-visible, button:focus-visible, .fpill:focus-visible,
+.open-btn:focus-visible, .nr-btn:focus-visible, .expert-av:focus-visible {
+  outline: 2px solid #C77BFF;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+.expert-av:focus-visible { outline-offset: 2px; border-radius: 50%; }
+
 /* ── PEEK ANIMATIONS (always on — not just hover) ── */
 @keyframes pkPulse { 0%,100% { opacity: .45 } 50% { opacity: 1 } }
 @keyframes pkFlow  { to { stroke-dashoffset: -8 } }
@@ -99,28 +110,42 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
 }
 .pills { display: flex; gap: 6px; flex-wrap: wrap; }
 .fpill {
-  padding: 7px 18px; border-radius: 20px;
-  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+  padding: 7px 16px; border-radius: 20px; flex-shrink: 0;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
   font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
-  color: rgba(255,255,255,.55); cursor: pointer;
-  transition: background .14s, color .14s, border-color .14s;
+  color: rgba(255,255,255,.6); cursor: pointer;
+  transition: background .16s ease, color .16s ease, border-color .16s ease, box-shadow .16s ease, transform .1s ease;
   white-space: nowrap;
 }
-.fpill:hover { background: rgba(255,255,255,.11); color: rgba(255,255,255,.75); }
-.fpill.active { background: rgba(161,0,255,.2); color: #CC88FF; border-color: rgba(161,0,255,.4); }
+.fpill:hover { background: rgba(255,255,255,.11); color: rgba(255,255,255,.85); border-color: rgba(255,255,255,.16); }
+.fpill:active { transform: scale(.96); }
+.fpill.active {
+  background: rgba(161,0,255,.22); color: #E4C4FF; border-color: rgba(161,0,255,.5);
+  box-shadow: 0 0 0 1px rgba(161,0,255,.25), 0 4px 14px rgba(161,0,255,.22);
+}
+.fpill-count {
+  margin-left: 7px; font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 700; opacity: .5; letter-spacing: 0;
+}
+.fpill:hover .fpill-count { opacity: .7; }
+.fpill.active .fpill-count { opacity: .9; }
 .asset-count {
   font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
-  letter-spacing: .08em; color: rgba(255,255,255,.3); white-space: nowrap; flex-shrink: 0;
+  letter-spacing: .08em; color: rgba(255,255,255,.42); white-space: nowrap; flex-shrink: 0;
 }
 
 /* ── MAIN ── */
 .main { max-width: 1280px; margin: 0 auto; padding: 0 48px 100px; }
 
-/* ── PW NOTE ── */
+/* ── PW NOTE (access banner) ── */
 .pw-note {
-  font-size: 12px; color: rgba(255,255,255,.3);
-  padding: 14px 0 0; line-height: 1.5;
+  display: inline-flex; align-items: center; gap: 9px;
+  margin: 22px 0 0; padding: 9px 16px 9px 13px; border-radius: 10px;
+  background: rgba(224,160,0,.07); border: 1px solid rgba(224,160,0,.22);
+  font-size: 12.5px; color: rgba(255,255,255,.6); line-height: 1.45;
 }
+.pw-note svg { width: 15px; height: 15px; flex-shrink: 0; stroke: rgba(232,168,0,.85); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.pw-note strong { color: rgba(255,255,255,.82); font-weight: 600; }
 
 /* ── CARD GRID ── */
 .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding-top: 20px; align-items: stretch; }
@@ -268,7 +293,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
 
 /* Title + desc */
 .card-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.25; }
-.card-desc  { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.65; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+.card-desc  { font-size: 13px; color: rgba(255,255,255,.62); line-height: 1.65; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
 .card.coming-soon .card-title { color: rgba(255,255,255,.6); }
 
 /* ── CARD META ── */
@@ -294,7 +319,7 @@ h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
 a.expert-av:hover { transform: scale(1.14); box-shadow: 0 4px 14px rgba(0,0,0,.5); }
 .expert-av img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; z-index: 1; border-radius: 50%; }
 .expert.is-author .expert-av { border-color: var(--purple); box-shadow: 0 0 0 2px rgba(161,0,255,.15); }
-.expert-name  { font-size: 8px; font-weight: 600; color: rgba(255,255,255,.5); text-align: center; line-height: 1.3; }
+.expert-name  { font-size: 8.5px; font-weight: 600; color: rgba(255,255,255,.62); text-align: center; line-height: 1.3; }
 .expert.is-author .expert-name { color: #CC88FF; }
 .expert-badge { font-family: 'JetBrains Mono', monospace; font-size: 7px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #CC88FF; }
 /* avatar gradients */
@@ -323,14 +348,16 @@ a.expert-av:hover { transform: scale(1.14); box-shadow: 0 4px 14px rgba(0,0,0,.5
 .card-footer { padding: 0 22px 20px; flex-shrink: 0; }
 .open-btn {
   display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; padding: 11px 0; border-radius: 10px;
+  width: 100%; padding: 13px 0; border-radius: 11px;
   font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+  letter-spacing: .01em;
   cursor: pointer; text-decoration: none; border: none;
   background: linear-gradient(135deg, var(--violet-deep), var(--purple));
-  color: #fff; transition: filter .14s, transform .14s;
+  color: #fff; transition: filter .14s, transform .14s, box-shadow .14s;
 }
-.open-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
-.open-btn svg { width: 14px; height: 14px; stroke: #fff; fill: none; stroke-width: 2.2; stroke-linecap: round; }
+.open-btn:hover { filter: brightness(1.12); transform: translateY(-1px); box-shadow: 0 8px 22px rgba(161,0,255,.32); }
+.open-btn svg { width: 15px; height: 15px; stroke: #fff; fill: none; stroke-width: 2.2; stroke-linecap: round; transition: transform .18s ease; }
+.open-btn:hover svg { transform: translateX(3px); }
 .open-btn.disabled {
   background: rgba(255,255,255,.06); color: rgba(255,255,255,.25);
   cursor: default; pointer-events: none; border: 1px solid rgba(255,255,255,.08);
@@ -396,8 +423,10 @@ a.expert-av:hover { transform: scale(1.14); box-shadow: 0 4px 14px rgba(0,0,0,.5
   bottom: 18%; right: 22%;
   animation: orbFloat 16s ease-in-out infinite 7s;
 }
-/* Page content floats above orb layer */
-.hero, .filter-bar, main, footer { position: relative; z-index: 1; }
+/* Page content floats above orb layer.
+   NB: .filter-bar is intentionally excluded — it must keep position:sticky
+   (declared above). It already sits at z-index:100, well above the orbs. */
+.hero, main, footer { position: relative; z-index: 1; }
 
 /* ── FOOTER ── */
 footer {
@@ -454,13 +483,39 @@ footer a:hover { text-decoration: underline; }
   .card.featured { flex-direction:column; }
   .feat-preview { width:100%; min-height:200px; border-right:none; border-bottom:1px solid rgba(255,255,255,.07); }
 }
+/* Narrow: pills become a single horizontally-scrollable strip so the sticky
+   filter bar never wraps and overflows its fixed 56px height. */
+@media (max-width: 900px) {
+  .filter-bar-inner { gap: 12px; }
+  .pills {
+    flex-wrap: nowrap; overflow-x: auto; flex: 1 1 auto; min-width: 0;
+    scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+  }
+  .pills::-webkit-scrollbar { display: none; }
+}
 @media (max-width: 680px) {
   .hero { padding: 56px 22px 60px; }
+  .hero-sub { margin-bottom: 36px; }
   .main { padding: 0 20px 80px; }
   .filter-bar-inner { padding: 0 20px; }
-  .hero-stats { gap: 24px; }
-  .pills { gap: 4px; }
-  .fpill { padding: 6px 12px; font-size: 11px; }
+  .hero-stats { gap: 22px; }
+  .pills { gap: 5px; }
+  .fpill { padding: 7px 13px; font-size: 11px; }
+  .card-upper { min-height: 180px; }
+  .feat-content { padding: 22px 22px 16px; }
+}
+
+/* ── REDUCED MOTION ── honour the user's OS-level preference ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .bg-orbs, #heroCanvas, .hero-chev { display: none !important; }
 }
 </style>
 </head>
@@ -496,12 +551,12 @@ footer a:hover { text-decoration: underline; }
 <div class="filter-bar">
   <div class="filter-bar-inner">
     <div class="pills" role="group" aria-label="Filter by asset type">
-      <button class="fpill active" data-type="all">All</button>
-      <button class="fpill" data-type="blueprint">Blueprint</button>
-      <button class="fpill" data-type="ai-tool">AI Tool</button>
-      <button class="fpill" data-type="architecture">Architecture</button>
-      <button class="fpill" data-type="dashboard">Dashboard</button>
-      <button class="fpill" data-type="agentic">Agentic AI</button>
+      <button class="fpill active" data-type="all" aria-pressed="true">All</button>
+      <button class="fpill" data-type="blueprint" aria-pressed="false">Blueprint</button>
+      <button class="fpill" data-type="ai-tool" aria-pressed="false">AI Tool</button>
+      <button class="fpill" data-type="architecture" aria-pressed="false">Architecture</button>
+      <button class="fpill" data-type="dashboard" aria-pressed="false">Dashboard</button>
+      <button class="fpill" data-type="agentic" aria-pressed="false">Agentic AI</button>
     </div>
     <span class="asset-count" id="assetCount">7 assets</span>
   </div>
@@ -509,7 +564,10 @@ footer a:hover { text-decoration: underline; }
 
 <!-- ═══════════════════════════ MAIN ═══════════════════════════ -->
 <main class="main">
-  <p class="pw-note">🔒 All assets are access-code protected — click an expert avatar to request access.</p>
+  <p class="pw-note">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+    <span><strong>Access-code protected.</strong> Click an expert avatar to email the team and request access.</span>
+  </p>
 
   <!-- ══════════ FEATURED: CLIENT PITCH ══════════ -->
   <div class="featured-section">
@@ -1557,6 +1615,7 @@ footer a:hover { text-decoration: underline; }
           <span class="tag live">&#9679;&nbsp;Live</span>
           <span class="tag">ICS · GRC</span>
           <span class="tag">AI-Steered</span>
+          <span class="tag locked">&#128274;&nbsp;Protected</span>
         </div>
         <div class="card-title">ICS AI-Steered Dashboard</div>
         <div class="card-desc">An AI-steered GRC cockpit for the Internal Control System &mdash; live risk heatmap, RCSA timeline, control gap detection and an AI agent that orchestrates assessments, drafts escalations and flags emerging risks across six control areas.</div>
@@ -1835,13 +1894,29 @@ footer a:hover { text-decoration: underline; }
 /* ── Asset filter (pill bar) ── */
 (function () {
   'use strict';
-  var cards     = Array.from(document.querySelectorAll('.card[data-type]'));
-  var countEl   = document.getElementById('assetCount');
-  var noRes     = document.getElementById('noResults');
-  var timer     = null;
+  var cards      = Array.from(document.querySelectorAll('.card[data-type]'));
+  var pills      = Array.from(document.querySelectorAll('.fpill'));
+  var countEl    = document.getElementById('assetCount');
+  var noRes      = document.getElementById('noResults');
+  var featSection = document.querySelector('.featured-section');
+  var supportSep  = document.querySelector('.support-sep');
+  var timer      = null;
+
+  function matches(card, type) {
+    return type === 'all' || card.dataset.type.split(' ').indexOf(type) !== -1;
+  }
+
+  /* Populate a live count on every pill so users see how many assets each
+     filter yields before clicking. */
+  pills.forEach(function (pill) {
+    var t = pill.dataset.type;
+    var n = cards.filter(function (c) { return matches(c, t); }).length;
+    pill.insertAdjacentHTML('beforeend', ' <span class="fpill-count">' + n + '</span>');
+  });
 
   function applyFilter(type) {
-    var toShow = (type === 'all') ? cards : cards.filter(function (c) { return c.dataset.type.split(' ').indexOf(type) !== -1; });
+    var isAll  = (type === 'all');
+    var toShow = cards.filter(function (c) { return matches(c, type); });
     var toHide = cards.filter(function (c) { return toShow.indexOf(c) === -1; });
     clearTimeout(timer);
 
@@ -1855,16 +1930,22 @@ footer a:hover { text-decoration: underline; }
         c.classList.remove('is-exiting', 'is-entering');
         if (was) { void c.offsetWidth; c.style.animationDelay = (i * 55) + 'ms'; c.classList.add('is-entering'); }
       });
+      /* Hide the "Featured"/"Supporting Assets" section chrome when a specific
+         filter is active — otherwise the labels are left orphaned. */
+      if (featSection) featSection.style.display = isAll ? '' : 'none';
+      if (supportSep)  supportSep.style.display  = isAll ? '' : 'none';
+
       var n = toShow.length;
       if (countEl) countEl.textContent = n + (n === 1 ? ' asset' : ' assets');
       if (noRes)   noRes.classList.toggle('visible', n === 0);
     }, 225);
   }
 
-  document.querySelectorAll('.fpill').forEach(function (pill) {
+  pills.forEach(function (pill) {
     pill.addEventListener('click', function () {
-      document.querySelectorAll('.fpill').forEach(function (p) { p.classList.remove('active'); });
+      pills.forEach(function (p) { p.classList.remove('active'); p.setAttribute('aria-pressed', 'false'); });
       pill.classList.add('active');
+      pill.setAttribute('aria-pressed', 'true');
       applyFilter(pill.dataset.type);
     });
   });
