@@ -517,6 +517,111 @@ footer a:hover { text-decoration: underline; }
   }
   .bg-orbs, #heroCanvas, .hero-chev { display: none !important; }
 }
+
+/* ====================================================
+   NFR ASSET CHATBOT
+   ==================================================== */
+.chat-fab {
+  position: fixed; bottom: 28px; right: 28px; z-index: 9000;
+  width: 56px; height: 56px; border-radius: 50%; border: none; cursor: pointer;
+  background: linear-gradient(135deg, #A100FF, #C77BFF);
+  box-shadow: 0 4px 24px rgba(161,0,255,.5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; color: #fff; transition: transform .2s, box-shadow .2s;
+}
+.chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 32px rgba(161,0,255,.7); }
+.chat-fab svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.chat-panel {
+  position: fixed; bottom: 96px; right: 28px; z-index: 8999;
+  width: 368px; max-height: 540px;
+  background: #0F0F22; border: 1px solid rgba(161,0,255,.3); border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.7), 0 0 0 1px rgba(161,0,255,.1);
+  display: flex; flex-direction: column; overflow: hidden;
+  opacity: 0; transform: translateY(14px) scale(.97); pointer-events: none;
+  transition: opacity .22s, transform .22s;
+}
+.chat-panel.open { opacity: 1; transform: none; pointer-events: all; }
+
+.chat-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 15px; background: rgba(161,0,255,.1);
+  border-bottom: 1px solid rgba(161,0,255,.18); flex-shrink: 0;
+}
+.chat-header-left { display: flex; align-items: center; gap: 10px; }
+.chat-ai-dot {
+  width: 34px; height: 34px; border-radius: 9px; flex-shrink: 0;
+  background: linear-gradient(135deg, #A100FF, #C77BFF);
+  display: flex; align-items: center; justify-content: center;
+}
+.chat-ai-dot svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.chat-title { font-family: 'Space Grotesk', sans-serif; font-size: 13.5px; font-weight: 700; color: #fff; }
+.chat-subtitle { font-size: 10.5px; color: rgba(255,255,255,.45); margin-top: 1px; }
+.chat-close-btn {
+  background: none; border: none; color: rgba(255,255,255,.45);
+  cursor: pointer; font-size: 18px; line-height: 1; padding: 4px; transition: color .15s;
+}
+.chat-close-btn:hover { color: #fff; }
+
+.chat-messages {
+  flex: 1; overflow-y: auto; padding: 14px 13px 6px; display: flex; flex-direction: column; gap: 10px;
+  scrollbar-width: thin; scrollbar-color: rgba(161,0,255,.3) transparent;
+}
+.chat-msg { display: flex; flex-direction: column; }
+.chat-msg.user { align-items: flex-end; }
+.chat-bubble {
+  max-width: 90%; font-size: 13px; line-height: 1.58; padding: 9px 13px; border-radius: 12px;
+}
+.chat-msg.bot .chat-bubble {
+  background: rgba(161,0,255,.1); border: 1px solid rgba(161,0,255,.2);
+  color: rgba(255,255,255,.86); border-radius: 4px 12px 12px 12px;
+}
+.chat-msg.user .chat-bubble {
+  background: linear-gradient(135deg, rgba(161,0,255,.45), rgba(199,123,255,.25));
+  color: #fff; border-radius: 12px 4px 12px 12px;
+}
+.chat-bubble a { color: #C77BFF; word-break: break-all; }
+
+.chat-thinking-row { display: flex; gap: 5px; align-items: center; padding: 3px 0; }
+.chat-thinking-row span {
+  width: 6px; height: 6px; border-radius: 50%; background: #C77BFF;
+  animation: chatDot 1.2s ease-in-out infinite;
+}
+.chat-thinking-row span:nth-child(2) { animation-delay: .18s; }
+.chat-thinking-row span:nth-child(3) { animation-delay: .36s; }
+@keyframes chatDot { 0%,80%,100%{opacity:.25;transform:scale(.8);}40%{opacity:1;transform:scale(1);} }
+
+.chat-suggestions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.chat-suggest {
+  font-size: 11.5px; color: rgba(199,123,255,.9); background: rgba(161,0,255,.1);
+  border: 1px solid rgba(161,0,255,.3); border-radius: 20px; padding: 5px 12px;
+  cursor: pointer; transition: background .15s, border-color .15s; font-family: inherit;
+}
+.chat-suggest:hover { background: rgba(161,0,255,.22); border-color: rgba(199,123,255,.6); }
+
+.chat-footer {
+  display: flex; gap: 8px; padding: 10px 11px; border-top: 1px solid rgba(161,0,255,.13); flex-shrink: 0;
+}
+.chat-input {
+  flex: 1; background: rgba(255,255,255,.05); border: 1px solid rgba(161,0,255,.25);
+  border-radius: 9px; color: #fff; font-size: 13px; padding: 8px 12px; outline: none;
+  font-family: inherit; transition: border-color .15s; resize: none;
+}
+.chat-input:focus { border-color: rgba(161,0,255,.6); }
+.chat-input::placeholder { color: rgba(255,255,255,.28); }
+.chat-send {
+  width: 38px; height: 38px; border-radius: 9px; border: none; cursor: pointer;
+  background: linear-gradient(135deg, #A100FF, #C77BFF); color: #fff;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: opacity .15s; align-self: flex-end;
+}
+.chat-send:disabled { opacity: .35; cursor: not-allowed; }
+.chat-send svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+@media (max-width: 440px) {
+  .chat-panel { width: calc(100vw - 20px); right: 10px; bottom: 84px; }
+  .chat-fab { right: 14px; bottom: 14px; }
+}
 </style>
 </head>
 <body>
@@ -1950,6 +2055,161 @@ footer a:hover { text-decoration: underline; }
       applyFilter(pill.dataset.type);
     });
   });
+}());
+</script>
+
+<!-- ====================================================
+     NFR ASSET CHATBOT WIDGET
+     ==================================================== -->
+<button class="chat-fab" id="chatFab" aria-label="Ask the NFR Asset Assistant" title="Ask the NFR Asset Assistant">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+
+<div class="chat-panel" id="chatPanel" aria-hidden="true" role="dialog" aria-label="NFR Asset Assistant">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <div class="chat-ai-dot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <div>
+        <div class="chat-title">NFR Asset Assistant</div>
+        <div class="chat-subtitle">Ask me which asset fits your situation</div>
+      </div>
+    </div>
+    <button class="chat-close-btn" id="chatCloseBtn" aria-label="Close chat">&times;</button>
+  </div>
+
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-msg bot">
+      <div class="chat-bubble">
+        Hi! I know all 7 NFR AI assets in detail &mdash; what are you trying to accomplish?
+      </div>
+    </div>
+    <div class="chat-suggestions" id="chatSuggestions">
+      <button class="chat-suggest">Which asset works best with a client?</button>
+      <button class="chat-suggest">What does the NFR Process Map cover?</button>
+      <button class="chat-suggest">How do I model AI implementation costs?</button>
+      <button class="chat-suggest">Show me the agentic AI demo</button>
+    </div>
+  </div>
+
+  <div class="chat-footer">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Ask about any asset&hellip;" maxlength="500" autocomplete="off" />
+    <button class="chat-send" id="chatSend" aria-label="Send message">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   NFR ASSET CHATBOT
+   ============================================================ */
+(function () {
+  'use strict';
+
+  // ── Replace this with your Cloudflare Worker URL after deploying ──
+  var WORKER_URL = 'YOUR_CLOUDFLARE_WORKER_URL';
+
+  var history  = [];
+  var fab      = document.getElementById('chatFab');
+  var panel    = document.getElementById('chatPanel');
+  var closeBtn = document.getElementById('chatCloseBtn');
+  var input    = document.getElementById('chatInput');
+  var sendBtn  = document.getElementById('chatSend');
+  var msgWrap  = document.getElementById('chatMessages');
+
+  function openChat()  { panel.classList.add('open'); panel.setAttribute('aria-hidden','false'); input.focus(); }
+  function closeChat() { panel.classList.remove('open'); panel.setAttribute('aria-hidden','true'); }
+
+  fab.addEventListener('click', function () { panel.classList.contains('open') ? closeChat() : openChat(); });
+  closeBtn.addEventListener('click', closeChat);
+
+  document.querySelectorAll('.chat-suggest').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var q = btn.textContent.trim();
+      var sug = document.getElementById('chatSuggestions');
+      if (sug) sug.remove();
+      sendMessage(q);
+    });
+  });
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(input.value.trim()); }
+  });
+  sendBtn.addEventListener('click', function () { sendMessage(input.value.trim()); });
+
+  function linkify(raw) {
+    return raw
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/(https?:\/\/[^\s]+)/g,'<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>')
+      .replace(/\n/g,'<br>');
+  }
+
+  function addMessage(role, text) {
+    var wrap   = document.createElement('div');
+    wrap.className = 'chat-msg ' + (role === 'user' ? 'user' : 'bot');
+    var bubble = document.createElement('div');
+    bubble.className = 'chat-bubble';
+    bubble.innerHTML = linkify(text);
+    wrap.appendChild(bubble);
+    msgWrap.appendChild(wrap);
+    msgWrap.scrollTop = msgWrap.scrollHeight;
+  }
+
+  function addThinking() {
+    var wrap   = document.createElement('div');
+    wrap.className = 'chat-msg bot';
+    wrap.id = 'chatThinking';
+    var bubble = document.createElement('div');
+    bubble.className = 'chat-bubble';
+    bubble.innerHTML = '<div class="chat-thinking-row"><span></span><span></span><span></span></div>';
+    wrap.appendChild(bubble);
+    msgWrap.appendChild(wrap);
+    msgWrap.scrollTop = msgWrap.scrollHeight;
+    return wrap;
+  }
+
+  function sendMessage(text) {
+    if (!text || sendBtn.disabled) return;
+    input.value = '';
+    sendBtn.disabled = true;
+    var sug = document.getElementById('chatSuggestions');
+    if (sug) sug.remove();
+
+    addMessage('user', text);
+    history.push({ role: 'user', content: text });
+    var thinking = addThinking();
+
+    if (WORKER_URL === 'YOUR_CLOUDFLARE_WORKER_URL') {
+      thinking.remove();
+      addMessage('bot', 'The chatbot is not yet connected. Follow the steps in chat-worker/SETUP.md to deploy the Cloudflare Worker, then replace WORKER_URL in this file.');
+      sendBtn.disabled = false;
+      return;
+    }
+
+    fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history })
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      thinking.remove();
+      var reply = (data.content && data.content[0] && data.content[0].text) ||
+                  'Sorry, I could not get a response. Please try again.';
+      history.push({ role: 'assistant', content: reply });
+      addMessage('bot', reply);
+    })
+    .catch(function () {
+      thinking.remove();
+      addMessage('bot', 'Something went wrong. Please check your connection and try again.');
+    })
+    .finally(function () {
+      sendBtn.disabled = false;
+      input.focus();
+    });
+  }
 }());
 </script>
 </body>
