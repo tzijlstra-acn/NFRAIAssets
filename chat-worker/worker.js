@@ -90,18 +90,16 @@ export default {
 
     let apiResp;
     try {
-      apiResp = await fetch('https://api.anthropic.com/v1/messages', {
+      apiResp = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': env.ANTHROPIC_API_KEY,
-          'anthropic-version': '2023-06-01',
+          'Authorization': 'Bearer ' + env.OPENAI_API_KEY,
         },
         body: JSON.stringify({
-          model: 'claude-haiku-4-5-20251001',
+          model: 'gpt-4o-mini',
           max_tokens: 512,
-          system: SYSTEM_PROMPT,
-          messages,
+          messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
         }),
       });
     } catch (err) {

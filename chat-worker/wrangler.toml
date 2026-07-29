@@ -2,6 +2,6 @@ name = "nfr-asset-chat"
 main = "worker.js"
 compatibility_date = "2024-09-23"
 
-# To add your Anthropic API key as an encrypted secret, run:
-#   wrangler secret put ANTHROPIC_API_KEY
+# To add your OpenAI API key as an encrypted secret, run:
+#   wrangler secret put OPENAI_API_KEY
 # Then paste the key when prompted. It will never appear in plain text.

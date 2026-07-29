@@ -2196,7 +2196,7 @@ footer a:hover { text-decoration: underline; }
     .then(function (r) { return r.json(); })
     .then(function (data) {
       thinking.remove();
-      var reply = (data.content && data.content[0] && data.content[0].text) ||
+      var reply = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) ||
                   'Sorry, I could not get a response. Please try again.';
       history.push({ role: 'assistant', content: reply });
       addMessage('bot', reply);
